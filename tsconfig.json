@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": [
+            "dom",
+            "es2015"
+        ],
+        "module": "es2020",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "experimentalDecorators": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "removeComments": true,
+        //"suppressImplicitAnyIndexErrors": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "jsx": "react",
+        "allowJs": true
+    },
+    "include": [
+        "resources/js/**/*.tsx"
+    ],
+    "compileOnSave": false
+}
