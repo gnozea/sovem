@@ -1,5 +1,9 @@
 import React, {FC, useContext, useEffect} from "react";
 import axios from "axios";
+import Public from "./Public";
+import Login from "./Login";
+import AccountContext from "../context/AccountContext";
+import Admin from "./Admin";
 
 interface IProps {
     account: any

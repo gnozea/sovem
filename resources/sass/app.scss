@@ -13,14 +13,38 @@
 
 @import "popup";
 
+body {
+    .scheme_default .sc_layouts_menu_nav>li.current-menu-parent>a, .scheme_default .sc_layouts_menu_nav>li.current-menu-ancestor>a{
+        color: #07203c!important;
+    }
+}
+
 @media all and (max-width: 768px){
     body{
+        div.menu_mobile.menu_mobile_fullscreen.scheme_dark.opened{
+            height: 100%;
+        }
+        div.menu_mobile_overlay{
+            display: block!important;
+        }
+        .sl-parallax-wrap.scheme_default{
+            top: 50px;
+        }
+        .page_content_wrap .content_wrap, .page_content_wrap .content_wrap_fullscreen{
+            width: 100%!important;
+        }
         .content_wrap{
             width: 100%;
         }
+        .vighor-container.vighor-column-gap-extended{
+            min-width: 100%!important;
+        }
+        .vighor-container.vighor-column-gap-no{
+            min-width: 90%!important;
+        }
         .vighor-section.vighor-section-stretched{
-            width: 100%;
-            left: initial;
+            width: 100%!important;
+            left: 0!important;
         }
     }
 }

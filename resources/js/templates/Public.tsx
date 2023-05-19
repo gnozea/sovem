@@ -34,6 +34,12 @@ const Public:FC<IProps> = (props: IProps) => {
         document.querySelector("body").className += bodyClasses
     }, [])
 
+    const menuItems = [
+        {title: "Akèy", href: "/"},
+        {title: "Swiv dosyew", href: "/service/track"},
+        {title: "Kiyès nou ye", href: ""},
+    ]
+
     const ServiceTrack = lazy(() => import("../components/public/ServiceTrack"))
 
     return <div className="body_wrap">
@@ -50,7 +56,7 @@ const Public:FC<IProps> = (props: IProps) => {
             theme="light"
         />
         <div className="page_wrap">
-            <Nav/>
+            <Nav menuItems={menuItems}/>
             <div className="page_content_wrap">
                 <div className="content_wrap">
                     <div className="content">

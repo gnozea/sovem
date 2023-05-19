@@ -1,13 +1,14 @@
 import React, {FC, useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import MobileNav from "./MobileNav";
 
 interface IProps {
-
+    menuItems: { title: string, href: string, children?: {title: string, href: string}[] }[]
 }
 const Nav: FC<IProps> = (props: IProps) => {
     const [position, setPosition] = useState<number>(0),
-        [showTrack, setShowTrack] = useState<boolean>(false)
+        [showTrack, setShowTrack] = useState<boolean>(false),
+        [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false)
     useEffect(() => {
         const updatePosition = () => setPosition(window.pageYOffset);
         window.addEventListener("scroll", updatePosition);
@@ -17,6 +18,7 @@ const Nav: FC<IProps> = (props: IProps) => {
 
 
     return <>
+        {mobileNavOpen && <MobileNav menuItems={props.menuItems} onCloseMenu={() => setMobileNavOpen(false)}/>}
         <header className="top_panel top_panel_custom top_panel_custom_2768 top_panel_custom_helpline-header without_bg_image">
             <div data-vighor-type="cpt_layouts" className="vighor vighor-2768">
                 <div className="vighor-inner">
@@ -39,7 +41,7 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                             className="logo_image"
                                                             src="/images/PHOTO-2023-04-30-00-07-25.jpg"
                                                             srcSet="/images/PHOTO-2023-04-30-00-07-25.jpg 2x"
-                                                            alt="Impacto Patronus" width="212" height="80"/>
+                                                            alt="Logo" width="212" height="80"/>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -64,32 +66,31 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                             <ul id="menu_main"
                                                                 className="sc_layouts_menu_nav menu_main_nav inited sf-js-enabled sf-arrows"
                                                                 style={{ touchAction: "pan-y" }}>
-                                                                <li id="menu-item-3786" className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-3786">
-                                                                    <Link to="/" className="sf-with-ul">
-                                                                        <span>Akèy</span>
-                                                                    </Link>
-                                                                    {/*<ul className="sub-menu slideOutDown animated fast" style={{ display: "none" }}>*/}
-                                                                    {/*    <li id="menu-item-3829"*/}
-                                                                    {/*        className="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-594 current_page_item menu-item-3829">*/}
-                                                                    {/*        <a href="index.html"*/}
-                                                                    {/*           aria-current="page"><span>Helpline</span></a>*/}
-                                                                    {/*    </li>*/}
-                                                                    {/*</ul>*/}
-                                                                </li>
-                                                                <li id="menu-item-3827"
-                                                                    className="menu-item menu-item-type-post_type menu-item-object-page menu-item-3827"
-                                                                    data-width="105.758">
-                                                                    <Link to="/service/track" rel="nofollow">
-                                                                        <span>Swiv dosyew</span>
-                                                                    </Link>
-                                                                </li>
-                                                                <li id="menu-item-3827"
-                                                                    className="menu-item menu-item-type-post_type menu-item-object-page menu-item-3827"
-                                                                    data-width="105.758">
-                                                                    <Link to="" target="_blank" rel="nofollow">
-                                                                        <span>Kiyès nou ye</span>
-                                                                    </Link>
-                                                                </li>
+                                                                {props.menuItems.map((item: any, key: number) =>
+                                                                    <li key={key} className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-3786">
+                                                                        <NavLink to={item.href} className={(isActive) => {
+                                                                            console.log(isActive);
+                                                                            return isActive ? "sf-with-ul-" : ""
+                                                                        }}>
+                                                                            <span>{item.title}</span>
+                                                                        </NavLink>
+                                                                    </li>
+                                                                )}
+
+                                                                {/*<li id="menu-item-3827"*/}
+                                                                {/*    className="menu-item menu-item-type-post_type menu-item-object-page menu-item-3827"*/}
+                                                                {/*    data-width="105.758">*/}
+                                                                {/*    <Link to="/service/track" rel="nofollow">*/}
+                                                                {/*        <span>Swiv dosyew</span>*/}
+                                                                {/*    </Link>*/}
+                                                                {/*</li>*/}
+                                                                {/*<li id="menu-item-3827"*/}
+                                                                {/*    className="menu-item menu-item-type-post_type menu-item-object-page menu-item-3827"*/}
+                                                                {/*    data-width="105.758">*/}
+                                                                {/*    <Link to="" target="_blank" rel="nofollow">*/}
+                                                                {/*        <span>Kiyès nou ye</span>*/}
+                                                                {/*    </Link>*/}
+                                                                {/*</li>*/}
                                                             </ul>
                                                         </nav>
                                                     </div>
@@ -115,8 +116,7 @@ const Nav: FC<IProps> = (props: IProps) => {
                             </div>
                         </section>
                         <div className="sc_layouts_row_fixed_placeholder" style={{ backgroundColor: "rgba(0, 0, 0, 0)", height: "0px" }}></div>
-                        <section
-                            className="vighor-section vighor-top-section vighor-element vighor-element-5e85655 vighor-section-full_width vighor-section-content-middle sc_layouts_row sc_layouts_row_type_compact sc_layouts_row_fixed sc_layouts_row_fixed_always sc_layouts_hide_on_wide sc_layouts_hide_on_desktop sc_layouts_hide_on_notebook sc_layouts_hide_on_tablet vighor-section-height-default vighor-section-height-default"
+                        <section className="vighor-section vighor-top-section vighor-element vighor-element-5e85655 vighor-section-full_width vighor-section-content-middle sc_layouts_row sc_layouts_row_type_compact sc_layouts_row_fixed sc_layouts_row_fixed_always sc_layouts_hide_on_wide sc_layouts_hide_on_desktop sc_layouts_hide_on_notebook sc_layouts_hide_on_tablet vighor-section-height-default vighor-section-height-default"
                             data-id="5e85655" data-element_type="section">
                             <div className="vighor-container vighor-column-gap-no">
                                 <div className="vighor-row">
@@ -155,7 +155,7 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                     <div className="vighor-widget-container">
                                                         <div id="trx_sc_layouts_menu_158583175"
                                                              className="sc_layouts_iconed_text sc_layouts_menu_mobile_button_burger sc_layouts_menu_mobile_button without_menu">
-                                                            <a className="sc_layouts_item_link sc_layouts_iconed_text_link" href="index.html#">
+                                                            <a onClick={() => setMobileNavOpen(true)} className="sc_layouts_item_link sc_layouts_iconed_text_link" style={{ cursor: "pointer" }}>
                                                                 <span className="sc_layouts_item_icon sc_layouts_iconed_text_icon trx_addons_icon-menu"></span>
                                                             </a>
                                                         </div>
@@ -172,7 +172,6 @@ const Nav: FC<IProps> = (props: IProps) => {
                 </div>
             </div>
         </header>
-        <MobileNav/>
     </>
 }
 export default Nav
