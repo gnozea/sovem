@@ -11376,6 +11376,15 @@ html body .select2 .select2-container .select2-container--default .select2-conta
   border-radius: 0;
 }
 
+@media all and (max-width: 768px) {
+  body .content_wrap {
+    width: 100%;
+  }
+  body .vighor-section.vighor-section-stretched {
+    width: 100%;
+    left: initial;
+  }
+}
 body div.ant-picker-dropdown table th {
   padding: 0;
   background: none;

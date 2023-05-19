@@ -13,6 +13,18 @@
 
 @import "popup";
 
+@media all and (max-width: 768px){
+    body{
+        .content_wrap{
+            width: 100%;
+        }
+        .vighor-section.vighor-section-stretched{
+            width: 100%;
+            left: initial;
+        }
+    }
+}
+
 body div.ant-picker-dropdown {
     table {
         th {

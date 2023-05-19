@@ -1,5 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
-import ReactDOM from "react-dom";
+import React, { useRef } from "react";
 import styled, { keyframes } from "styled-components";
 const loader1 = <svg key={1} version="1.1" className="loader-dots" style={{width: "100px",height: "100px",marginLeft: "60px"}} id="L4" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100" enableBackground="new 0 0 0 0">
     <circle fill="#4a4a4a" stroke="none" cx="6" cy="50" r="6">
