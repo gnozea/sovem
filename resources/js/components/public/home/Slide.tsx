@@ -48,7 +48,7 @@ interface IProps {
 }
 
 const Slide: FC<IProps> = (props: IProps) => {
-    return <section className="vighor-section vighor-top-section vighor-element vighor-element-75e828f vighor-section-full_width vighor-section-stretched vighor-section-height-default vighor-section-height-default" style={{ width: `${props.windowSize[0]}px`, left: "-120px" }}>
+    return <section className="vighor-section vighor-top-section vighor-element vighor-element-75e828f vighor-section-full_width vighor-section-stretched vighor-section-height-default vighor-section-height-default" style={{ width: `${props.windowSize[0]}px`}}>
                             <div className="vighor-container vighor-column-gap-extended">
                                 <div className="vighor-row">
                                     <div className="vighor-column vighor-col-100 vighor-top-column vighor-element vighor-element-c80cd3f sc_inner_width_none sc_content_align_inherit sc_layouts_column_icons_position_left">

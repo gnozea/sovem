@@ -1,4 +1,4 @@
-import React, {FC, lazy, Suspense, useEffect} from "react";
+import React, {FC, lazy, Suspense, useEffect, useLayoutEffect, useState} from "react";
 import Nav from "../components/public/Nav";
 import {Route, Routes} from "react-router-dom";
 import ComplainForm from "../components/public/ComplainForm";
@@ -28,11 +28,28 @@ const bodyClasses = "home page-template-default page page-id-594 wp-custom-logo 
 interface IProps {
     children?: React.ReactNode
 }
+
+const ContentWrap = styled.div<{width: number}>`
+    width: ${(props: any) => props.width}px!important;
+`
+
 const Public:FC<IProps> = (props: IProps) => {
+
+    const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
 
     useEffect(() => {
         document.querySelector("body").className += bodyClasses
     }, [])
+
+    useLayoutEffect(() => {
+        const updateSize = () => {
+            setSize([window.innerWidth, window.innerHeight]);
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, []);
+
 
     const menuItems = [
         {title: "Akèy", href: "/"},
@@ -58,7 +75,7 @@ const Public:FC<IProps> = (props: IProps) => {
         <div className="page_wrap">
             <Nav menuItems={menuItems}/>
             <div className="page_content_wrap">
-                <div className="content_wrap">
+                <ContentWrap className="content_wrap" width={size[0]}>
                     <div className="content">
                         <a id="content_skip_link_anchor" className="impacto_patronus_skip_link_anchor" href="#"></a>
                         <article
@@ -71,7 +88,7 @@ const Public:FC<IProps> = (props: IProps) => {
                                                 <Progress color="#E89C42" style="skype"/>
                                             </LoaderWrapper>}>
                                                 <Routes>
-                                                    <Route path="" element={<Home/>}/>
+                                                    <Route path="" element={<Home size={size}/>}/>
                                                     <Route path="service/track" element={<ServiceTrack/>}/>
                                                     <Route path="provider/validate/:token" element={<CreateProvider/>}/>
                                                     <Route path="complain" element={<ServiceFormProvider><ComplainForm/></ServiceFormProvider>}/>
@@ -83,7 +100,7 @@ const Public:FC<IProps> = (props: IProps) => {
                             </div>
                         </article>
                     </div>
-                </div>
+                </ContentWrap>
             </div>
             <Footer/>
         </div>

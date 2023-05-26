@@ -17,7 +17,12 @@ body {
     .scheme_default .sc_layouts_menu_nav>li.current-menu-parent>a, .scheme_default .sc_layouts_menu_nav>li.current-menu-ancestor>a{
         color: #07203c!important;
     }
+    section.vighor-section{
+        margin: auto;
+        left: 0;
+    }
 }
+
 
 @media all and (max-width: 768px){
     body{

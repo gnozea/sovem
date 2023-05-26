@@ -4,22 +4,14 @@ import Section2 from "./home/Section2";
 import Section3 from "./home/Section3";
 
 interface IProps {
-
+    size: any
 }
 const Home:FC<IProps> = (props: IProps) => {
-    const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
-    useLayoutEffect(() => {
-        const updateSize = () => {
-            setSize([window.innerWidth, window.innerHeight]);
-        }
-        window.addEventListener('resize', updateSize);
-        updateSize();
-        return () => window.removeEventListener('resize', updateSize);
-    }, []);
+
     return <>
-        <Slide windowSize={size}/>
-        <Section2 windowSize={size}/>
-        <Section3 windowSize={size}/>
+        <Slide windowSize={props.size}/>
+        <Section2 windowSize={props.size}/>
+        <Section3 windowSize={props.size}/>
     </>
 }
 export default Home

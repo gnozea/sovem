@@ -11379,6 +11379,10 @@ html body .select2 .select2-container .select2-container--default .select2-conta
 body .scheme_default .sc_layouts_menu_nav > li.current-menu-parent > a, body .scheme_default .sc_layouts_menu_nav > li.current-menu-ancestor > a {
   color: #07203c !important;
 }
+body section.vighor-section {
+  margin: auto;
+  left: 0;
+}
 
 @media all and (max-width: 768px) {
   body div.menu_mobile.menu_mobile_fullscreen.scheme_dark.opened {

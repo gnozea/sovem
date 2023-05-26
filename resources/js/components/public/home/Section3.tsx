@@ -10,7 +10,7 @@ const Section3: FC<IProps> = (props) => {
         data-id="5ad7ac3"
         data-element_type="section"
         data-settings='{"stretch_section":"section-stretched"}'
-        style={{ width: `${props.windowSize[0]}px`, left: "-120px" }}
+        style={{ width: `${props.windowSize[0]}px` }}
     >
         <div className="vighor-container vighor-column-gap-extended">
             <div className="vighor-row">
