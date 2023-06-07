@@ -374,17 +374,23 @@ var Add = function Add(props) {
     _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     logo = _a[0],
     setLogo = _a[1],
-    _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
-    uniqueEmail = _b[0],
-    setUniqueEmail = _b[1],
-    _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
-    busy = _c[0],
-    setBusy = _c[1];
+    _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    email = _b[0],
+    setEmail = _b[1],
+    _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    sendNotificationTo = _c[0],
+    setSendNotificationTo = _c[1],
+    _d = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    uniqueEmail = _d[0],
+    setUniqueEmail = _d[1],
+    _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    busy = _e[0],
+    setBusy = _e[1];
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     var form = new FormData(e.target);
     form["delete"]('logoFile');
-    form.append("logoFile", logo[0]);
+    if (logo) form.append("logoFile", logo[0]);
     setBusy(true);
     axios__WEBPACK_IMPORTED_MODULE_4___default().post("/api/dashboard/provider", form, {
       headers: {
@@ -409,7 +415,12 @@ var Add = function Add(props) {
       }
     }).then(function (rep) {
       var _a, _b;
-      if (((_a = rep.data) === null || _a === void 0 ? void 0 : _a.status) && ((_b = rep.data) === null || _b === void 0 ? void 0 : _b.status) === "error") setUniqueEmail(false);
+      if (((_a = rep.data) === null || _a === void 0 ? void 0 : _a.status) && ((_b = rep.data) === null || _b === void 0 ? void 0 : _b.status) === "error") {
+        setUniqueEmail(false);
+        setEmail(undefined);
+      } else {
+        setEmail(e.target.value.trim());
+      }
     });
   };
   if (user.provider_id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Restricted__WEBPACK_IMPORTED_MODULE_5__["default"], null);
@@ -438,7 +449,42 @@ var Add = function Add(props) {
     onFinished: function onFinished(files) {
       return setLogo(files);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Contents, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("fieldset", {
+  }), email && uniqueEmail && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "form-check text-left px-3",
+    style: {
+      marginTop: "40px"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    defaultChecked: sendNotificationTo,
+    onChange: function onChange(e) {
+      return setSendNotificationTo(e.target.checked);
+    },
+    className: "form-check-input",
+    type: "checkbox",
+    value: "",
+    id: "sendNotif",
+    style: {
+      marginLeft: "0"
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "form-check-label text-primary",
+    style: {
+      fontStyle: "13px",
+      padding: "0 20px"
+    },
+    htmlFor: "sendNotif"
+  }, "Envoyer notification \xE0 ", email, "?"), !sendNotificationTo && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_input_mask__WEBPACK_IMPORTED_MODULE_2___default()), {
+    type: "email",
+    defaultValue: email,
+    name: "notification-email",
+    placeholder: "e.g. email@vighor.com",
+    style: {
+      marginTop: "1em"
+    },
+    required: true,
+    className: "form-control",
+    mask: ""
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Contents, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("fieldset", {
     className: "mt-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "form-group mb-2"

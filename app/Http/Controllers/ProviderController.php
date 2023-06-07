@@ -102,6 +102,9 @@ class ProviderController extends Controller
             "city" => "required|exists:cities,id"
         ]);
 
+//        print_r($request->all());
+//        die();
+
         if ($request->file()) {
             $logo = $request->file('logoFile');
             $path = 'uploads/providers';
@@ -111,16 +114,19 @@ class ProviderController extends Controller
         $request->request->remove('logoFile');
         if ($request->file()) $request->request->add(['logo' => $path . '/' . $name]);
 
+        $userEmail = $request->get("email");
+
+        if ($request->has("notification-email")) $request->merge(["email" => $request->get('notification-email')]);
         $save = Provider::create($request->all());
 
         $token = Str::random(32);
         $spec["email_verification_token"] = $token;
 
         User::create([
-            "email" => $request->get('email'),
+            "email" => $userEmail,
             "email_verification_token" => $token,
             'provider_id' => $save['id'],
-            'password' => \Illuminate\Support\Facades\Hash::make(Str::random(15)),
+            'password' => Hash::make(Str::random(15)),
         ]);
 
         Mail::to($request->get('email'))->send(new ProviderCreation($spec));

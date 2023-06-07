@@ -42,6 +42,8 @@ const Add: FC<IProps> = (props: IProps) => {
     const {user} = useContext(AccountContext),
         {dispatch} = useContext(ProviderContext),
         [logo, setLogo] = useState<any>(),
+        [email, setEmail] = useState<string>(),
+        [sendNotificationTo, setSendNotificationTo] = useState<boolean>(false),
         [uniqueEmail, setUniqueEmail] = useState<boolean>(true),
         [busy, setBusy] = useState<boolean>()
     const handleSubmit = (e: any) => {
@@ -49,7 +51,7 @@ const Add: FC<IProps> = (props: IProps) => {
 
         const form = new FormData(e.target)
         form.delete('logoFile')
-        form.append("logoFile", logo[0])
+        if (logo) form.append("logoFile", logo[0])
         setBusy(true)
         axios.post(`/api/dashboard/provider`, form,{
             headers: {
@@ -71,7 +73,12 @@ const Add: FC<IProps> = (props: IProps) => {
                 email: e.target.value
             }
         }).then((rep) => {
-            if (rep.data?.status && rep.data?.status === "error") setUniqueEmail(false)
+            if (rep.data?.status && rep.data?.status === "error") {
+                setUniqueEmail(false)
+                setEmail(undefined)
+            }else{
+                setEmail(e.target.value.trim())
+            }
         })
     }
 
@@ -84,6 +91,18 @@ const Add: FC<IProps> = (props: IProps) => {
                   <DragAndDrop previousImage={undefined} styles={{minHeight: '200px'}} labelTitle="Selectionner ou drager logo" fileTypes={fileTypes}
                                maxMBSize={1} handleChange={(e: any) => {console.log(e)}} name="logoFile"
                                onFinished={(files: any) => setLogo(files)}/>
+                  { email && uniqueEmail && <>
+                      <div className="form-check text-left px-3" style={{ marginTop: "40px" }}>
+                          <input defaultChecked={sendNotificationTo} onChange={(e: any) => setSendNotificationTo(e.target.checked)} className="form-check-input" type="checkbox" value=""
+                                 id="sendNotif" style={{ marginLeft: "0" }}/>
+                          <label className="form-check-label text-primary" style={{ fontStyle: "13px", padding: "0 20px" }} htmlFor="sendNotif">
+                              Envoyer notification à {email}?
+                          </label>
+
+                          {!sendNotificationTo && <InputMask type="email" defaultValue={email} name="notification-email" placeholder="e.g. email@vighor.com"
+                          style={{ marginTop: "1em" }}           required={true} className={`form-control`} mask=""/>}
+                      </div>
+                  </>}
               </Uploader>
               <Contents>
                   <fieldset className="mt-2">

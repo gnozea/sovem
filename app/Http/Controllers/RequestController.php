@@ -87,7 +87,6 @@ class RequestController extends Controller
         $uuid = Uuid::uuid1();
         $spec = $this->specialists($request->get("specialistId")); //Where provider is active
         $recipients = [];
-
         foreach ($spec as $item){
             if ($item->providers) $recipients[] = $item->providers['email'];
         }
@@ -95,9 +94,9 @@ class RequestController extends Controller
         $spec["violence_type"] = $request->get('violenceType');
         $spec["uuid"] = $uuid;
 
-//        foreach ($recipients as $recipient) {
-            Mail::to($recipients)->send(new \App\Mail\Request($spec));
-//        }
+        foreach ($recipients as $recipient) {
+            Mail::to($recipient)->send(new \App\Mail\Request($spec));
+        }
 
         $latestRequest = Demand::orderBy('created_at','DESC')->first();
         $hex = hexdec(substr(uniqid(), 0, 5) . "" . ($latestRequest ? (int)$latestRequest['id'] : 0));
@@ -212,11 +211,13 @@ class RequestController extends Controller
 
     public function accept($id, Request $request, ServiceRequest $serviceRequest)
     {
+        $request->request->add(['provider_id', Auth::user()["provider_id"]]);
         $request->validate([
             //"request_id" => "required|exists:requests,id",
             "sR.*" => "required|exists:service_requests,id",
             "date" => 'required|date_format:Y-m-d',
-            "time" => 'required|string'
+            "time" => 'required|string',
+            "provider_id" => 'required|exists:users,id',
         ]);
 
         $alreadyClaimed = RequestClaimed::where("provider_id", Auth::user()['provider_id'])
@@ -249,10 +250,12 @@ class RequestController extends Controller
                     "updated" => $found
                 ]
         ];
+
         //First of all update service request status table row
         $updating = $found->increment("claim_amount", 1);//update(["claim_amount" => DB::raw("claim_amount + 1")]); //Both work
 
         $logs = [];
+
         if ($updating) {
             $data = [];
             foreach ($found->get() as $item) {
