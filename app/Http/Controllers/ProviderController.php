@@ -9,11 +9,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Ramsey\Uuid\Uuid;
 
 class ProviderController extends Controller
 {
@@ -71,9 +71,12 @@ class ProviderController extends Controller
         $check->update([
             "name" => $request->get("name"),
             "password" => Hash::make($request->get("password")),
+            'status' => "active",
             "email_verification_token" => null,
             "email_verified_at" => Carbon::now()
         ]);
+
+        Provider::find($request->get("provider"))->update(['status' => "active"]);
 
         $check->save();
 
@@ -101,9 +104,6 @@ class ProviderController extends Controller
             "address_line_1" => "required|string",
             "city" => "required|exists:cities,id"
         ]);
-
-//        print_r($request->all());
-//        die();
 
         if ($request->file()) {
             $logo = $request->file('logoFile');
@@ -230,7 +230,7 @@ class ProviderController extends Controller
         $spec = [
             "subject" => "Votre compte est activé",
             "title" => "Votre compte est activé!",
-            "button_url" => \Illuminate\Support\Env::get("APP_URL") . "/dashboard",
+            "button_url" => Env::get("APP_URL") . "/dashboard",
             "button_text" => "Aller au tableau de bord",
             "message" => "Un admin vient d'activer votre compte. Vous pouvez maintenant accéder au tableau de bord et commencer à accepter des demandes de services."
         ];

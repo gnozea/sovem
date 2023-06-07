@@ -13,6 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Provider extends Model
 {
-    protected $fillable = [ "name", "name_short", "email", "phone", "logo", "address_line_1", "address_line_2", "city", "state"];
+    protected $fillable = [ "name", "name_short", "email", "phone", "status", "logo", "address_line_1", "address_line_2", "city", "state"];
     use HasFactory;
 }

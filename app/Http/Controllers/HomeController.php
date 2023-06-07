@@ -32,15 +32,32 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function chart(Request $request)
+    function providerChart($filter): \Illuminate\Support\Collection
     {
-        $filter = $request->has('filter') ? $request->get('filter') : "created_at";
-        $users = DB::table('requests')
+        return DB::table('requests')
             ->selectRaw("count(id) as total, date_format($filter, '%b %Y') as period")
             ->whereYear($filter, '>=', date("Y"))
             ->groupBy('period')
+            ->whereIn("id", function ($query) {
+                return $query->select('request_id')->from("request_claimed")->where("provider_id", Auth::user()['provider_id']);
+            })
             ->get()
             ->keyBy('period');
+    }
+
+    public function chart(Request $request)
+    {
+        $filter = $request->has('filter') ? $request->get('filter') : "created_at";
+        if (Auth::user()['provider_id']) {
+            $users = $this->providerChart($filter);
+        }else {
+            $users = DB::table('requests')
+                ->selectRaw("count(id) as total, date_format($filter, '%b %Y') as period")
+                ->whereYear($filter, '>=', date("Y"))
+                ->groupBy('period')
+                ->get()
+                ->keyBy('period');
+        }
 
         $periods = collect([]);
         foreach (CarbonPeriod::create('first day of January ' . date('Y'), '1 month', now()/*->subMonth()*/) as $period) {
