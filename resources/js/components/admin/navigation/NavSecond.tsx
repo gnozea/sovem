@@ -29,17 +29,20 @@ const NavSecond: FC<IProps> = (props: IProps) => {
                         <li className="nav-item">
                             <Link to="/dashboard/requests" className={`nav-link ${active === '/dashboard/requests' ? 'active' : ''}`} onClick={setActiveURL}>Requetes</Link>
                         </li>
-                        {/*<li className="nav-item dropdown">*/}
-                        {/*    <Link to="dashboard/requests" className={`nav-link ${active.match('dashboard/requests') ? 'active' : ''}`} onClick={setActiveURL} data-toggle="dropdown">Requettes</Link>*/}
-                        {/*    <div className="dropdown-menu dropdown-menu-arrow">*/}
-                        {/*        <a href="./cards.html" className="dropdown-item ">Non traitées</a>*/}
-                        {/*        <a href="./charts.html" className="dropdown-item ">En cours</a>*/}
-                        {/*        <a href="./pricing-cards.html" className="dropdown-item ">Traitées</a>*/}
-                        {/*    </div>*/}
-                        {/*</li>*/}
                         {!user.provider_id && <li className="nav-item">
                             <Link to="/dashboard/providers" className={`nav-link ${active === '/dashboard/providers' ? 'active' : ''}`} onClick={setActiveURL}>Prestataires</Link>
                         </li>}
+
+                        {!user.provider_id && <li className="nav-item dropdown">
+                            <Link to="#" className={`nav-link ${active.match('dashboard/services') ? 'active' : ''}`} onClick={setActiveURL} data-toggle="dropdown">Services</Link>
+                            <div className="dropdown-menu dropdown-menu-arrow">
+                                <Link to="/dashboard/services" className={`dropdown-item`} onClick={setActiveURL}>Liste des services</Link>
+                                <Link to="/dashboard/specialities" className={`dropdown-item`} onClick={setActiveURL}>Liste des spécialités</Link>
+                            </div>
+                        </li>}
+                        {/*{!user.provider_id && <li className="nav-item">*/}
+                        {/*    <Link to="/dashboard/services" className={`nav-link ${active === '/dashboard/services' ? 'active' : ''}`} onClick={setActiveURL}>Services</Link>*/}
+                        {/*</li>}*/}
                     </ul>}
                 </div>
             </div>

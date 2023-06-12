@@ -39,6 +39,25 @@ class ProviderController extends Controller
         //
     }
 
+    public function search(Request $request)
+    {
+        if (!$request->get('q')) return [];
+
+        $providers = Provider::where("status", "active")
+            ->where("name", "LIKE", "%{$request->get('q')}%")
+            ->orWhere("name_short", "LIKE", "%{$request->get('q')}%");
+        if ($request->has('names')){
+            $names = json_decode($request->get('names'));
+            foreach ($names as $name){
+                $providers->where("name", "NOT LIKE", "%{$name}%");
+            }
+        }
+        return [
+            'status' => 'success',
+            'data' => $providers->get()
+        ];
+    }
+
     /**
      * @param $token
      * @return \Illuminate\Http\JsonResponse

@@ -119,7 +119,7 @@ const Progress = props => {
 
     const ref = useRef()
 
-    if (props.style === 'skype') return <>
+    if (props.style === 'skype') return <LoaderWrapper className="text-center" ref={ref} key="myLoader--loader">
         <SkypeStyle>
             <Dot color={props.color}>
                 <First/>
@@ -128,7 +128,7 @@ const Progress = props => {
             <Dot color={props.color}></Dot>
             <Dot color={props.color}></Dot>
         </SkypeStyle>
-    </>
+    </LoaderWrapper>
 
     return (
         <LoaderWrapper className="text-center" ref={ref} key="myLoader--loader">

@@ -6,6 +6,7 @@ import NavSecond from "../components/admin/navigation/NavSecond";
 import Progress from "../components/utils/Progress"
 import {RequestProvider} from "../context/RequestContext";
 import {ProviderProvider} from "../context/ProviderContext";
+import {ServiceProvider} from "../context/ServiceContext";
 
 interface IProps {
     children?: React.ReactNode
@@ -17,6 +18,7 @@ const Admin: FC<IProps> = (props: IProps) => {
         RequestAcceptation = lazy(() => import("../components/admin/RequestAcceptation")),
         Provider = lazy(() => import("../components/admin/Provider")),
         Profile = lazy(() => import("../components/admin/account/Profile")),
+        Service = lazy(() => import("../components/admin/service/Service")),
         Dashboard = lazy(() => import("../components/admin/Dashboard"))
 
     return <>
@@ -33,6 +35,13 @@ const Admin: FC<IProps> = (props: IProps) => {
                                         <Route path="" element={<Dashboard/>}/>
                                         <Route path="requests" element={<Request/>}/>
                                         <Route path="profile" element={<Profile/>}/>
+                                        <Route path="services">
+                                            <Route path="" element={
+                                                <ServiceProvider>
+                                                    <Service/>
+                                                </ServiceProvider> }
+                                            />
+                                        </Route>
                                         <Route path="providers" element={<ProviderProvider>
                                             <Provider/>
                                         </ProviderProvider>}/>

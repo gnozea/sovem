@@ -7,7 +7,9 @@ use App\Models\RequestLog;
 use App\Models\Service;
 use App\Models\ServiceRequest;
 use App\Models\ServiceSpeciality;
+use App\Models\Speciality;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
@@ -16,11 +18,17 @@ class ServiceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function index()
     {
-        //
+        $services = Service::withCount(['providers'])
+            //->with(["specialities"])
+            ->get();
+        return [
+            'status' => 'success',
+            'data' => $services
+        ];
     }
 
     public function services()
@@ -141,11 +149,45 @@ class ServiceController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "name" => "required|string",
+            "providers.*" => "sometimes|exists:providers,id"
+        ]);
+        $service = Service::create([
+            "name" => $request->get("name"),
+            "added_by" => Auth::id()
+        ]);
+
+        $providers = [];
+        if ($request->has("providers")){
+            foreach ($request->get("providers") as $item){
+                $providers[] = ["provider_id" => $item];
+            }
+
+            $providers = $service->providers()->createMany($providers);
+        }
+
+        return [
+            "status" => "success",
+            "data" => $service
+        ];
+    }
+
+    public function search_specialist($term, Request $request)
+    {
+        $specialist = Speciality::where("name", "LIKE", "%{$request->get('q')}%")
+            ->with(["service_specialities" => function($q) use($request){
+
+            }])->get();
+
+        return [
+            "status" => "success",
+            "data" => $specialist
+        ];
     }
 
     /**

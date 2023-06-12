@@ -41,7 +41,8 @@ type IProps = {
 }
 
 interface IState {
-    data: any
+    data: any,
+    options: object|any
 }
 
 require('/js/select2/dist/js/select2')
@@ -51,98 +52,111 @@ class Select2 extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
         this.state = {
-            data: props.data
+            data: props.data,
+            options: {}
         }
     }
 
     componentDidMount() {
-        const self = this
-        let options: object|any = {},
-            __cache: any = [],
+        let __cache: any = [],
             __lastQuery: any = null
-        if (this.props.searchable === false) options = { ...options, minimumResultsForSearch: -1 }
-        if (!this.props.minimumResultsForSearch === false) options = { ...options, minimumResultsForSearch: 10 }
-        if (this.props.templateResult) options = { ...options, templateResult: this.props.templateResult }
-        if (this.props.dropdownParent) options = { ...options, dropdownParent: this.props.dropdownParent }
-
+        if (this.props.searchable === false) this.setState((prevState: IState) => {
+            const options = { ...prevState.options, minimumResultsForSearch: -1 }
+            return {options}
+        })
+        if (!this.props.minimumResultsForSearch === false) this.setState((prevState: IState) => {
+            const options = { ...prevState.options, minimumResultsForSearch: 10 }
+            return {options}
+        })//options = { ...options, minimumResultsForSearch: 10 }
+        if (this.props.templateResult) this.setState((prevState: IState) => {
+            const options = { ...prevState.options, templateResult: this.props.templateResult }
+            return {options}
+        })//options = { ...options, templateResult: this.props.templateResult }
+        if (this.props.dropdownParent) this.setState((prevState: IState) => {
+            const options = { ...prevState.options, dropdownParent: this.props.dropdownParent }
+            return {options}
+        })//options = { ...options, dropdownParent: this.props.dropdownParent }
 
         if (typeof this.props.onSearch === 'function') {
             const _this = this
-            options = {
-                ...options,
-                ajax: {
-                    url: this.props.searchUrl,
-                    delay: 700,
-                    data: ((params: any) => {
-                        let query: any = {q: params.term}
-                        if (this.props.searchKeys.moreQueryParams){
-                            for (let q in this.props.searchKeys.moreQueryParams){
-                                query[q] = this.props.searchKeys.moreQueryParams[q]
+            this.setState((prevState: IState) => {
+                const options = { ...prevState.options, ajax: {
+                        url: this.props.searchUrl,
+                        delay: 700,
+                        data: ((params: any) => {
+                            let query: any = {q: params.term}
+                            if (this.props.searchKeys.moreQueryParams){
+                                for (let q in this.props.searchKeys.moreQueryParams){
+                                    query[q] = this.props.searchKeys.moreQueryParams[q]
+                                }
+                            }
+                            return query
+                        }),
+                        cache: true,
+                        //cache results
+                        transport: (params: any, success: any, failure: any) => {
+                            //retrieve the cached key or default to _ALL_
+                            let __cacheKey = params.data.q || '_ALL_';
+                            if (__lastQuery !== __cacheKey) {
+                                //remove caches not from last query
+                                __cache = [];
+                            }
+                            __lastQuery = __cacheKey;
+                            if ('undefined' !== typeof __cache[__cacheKey]) {
+                                if('undefined' !== typeof params.data.search){
+                                    // @ts-ignore
+                                    success(_this.matchCustom(params, __cache[__cacheKey]));
+                                    return;
+                                }
+                                //display the cached results
+                                success(__cache[__cacheKey]);
+                                return; /* noop */
+                            }
+                            let $request = $.ajax(params);
+                            $request.then(function(data: any) {
+                                //store data in cache
+                                __cache[__cacheKey] = data;
+                                //display the results
+                                success(__cache[__cacheKey]);
+                            });
+                            $request.fail(failure);
+                            return $request;
+                        },
+                        processResults: (data: any) => {
+                            this.setState({ data: data.data })
+                            let temp: any[] = this.handleAjax(data)
+                            return {
+                                results: temp
                             }
                         }
-                        return query
-                    }),
-                    cache: true,
-                    //cache results
-                    transport: (params: any, success: any, failure: any) => {
-                        //retrieve the cached key or default to _ALL_
-                        let __cacheKey = params.data.q || '_ALL_';
-                        if (__lastQuery !== __cacheKey) {
-                            //remove caches not from last query
-                            __cache = [];
-                        }
-                        __lastQuery = __cacheKey;
-                        if ('undefined' !== typeof __cache[__cacheKey]) {
-                            if('undefined' !== typeof params.data.search){
-                                // @ts-ignore
-                                success(_this.matchCustom(params, __cache[__cacheKey]));
-                                return;
-                            }
-                            //display the cached results
-                            success(__cache[__cacheKey]);
-                            return; /* noop */
-                        }
-                        let $request = $.ajax(params);
-                        $request.then(function(data: any) {
-                            //store data in cache
-                            __cache[__cacheKey] = data;
-                            //display the results
-                            success(__cache[__cacheKey]);
-                        });
-                        $request.fail(failure);
-                        return $request;
                     },
-                    processResults: (data: any) => {
-                        this.setState({ data: data.data })
-                        let temp: any[] = this.handleAjax(data)
-                        return {
-                            results: temp
-                        }
-                    }
-                },
-                minimumInputLength: 1,
-                placeholder: this.props.placeholder
-            }
-            $(self.ref.current).select2(options).on('select2:open', (e: any) => {
-                const input = document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`) as HTMLElement | null
-                input.focus();
-            })
+                    minimumInputLength: 1,
+                    placeholder: this.props.placeholder
+                }
+                return {options}
+            }, this.initSelect)
+        }else {
+            this.initSelect()
         }
-
-        $(self.ref.current).select2(options).on('select2:select', (event: any) => {
+    }
+    initSelect = () => {
+        $(this.ref.current).select2(this.state.options).on('select2:open', (e: any) => {
+            const input = document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`) as HTMLElement | null
+            input.focus();
+        })
+        $(this.ref.current).select2(this.state.options).on('select2:select', (event: any) => {
+            // if (typeof this.props.onSearch === 'function') return self.props.onSelect(event.params.data)
             let index = Array.prototype.indexOf.call(event.params.originalEvent.currentTarget.parentElement.children, event.params.originalEvent.currentTarget)
-            if (typeof this.props.onSelect === 'function') self.props.onSelect({ ...this.state.data[index], ...event.params.data });
+            if (typeof this.props.onSelect === 'function') this.props.onSelect({ ...this.state.data[index], ...event.params.data });
         })
 
-        $(self.ref.current).select2(options).on('select2:opening', (event: any) => { //Creating the placeholder
-            setTimeout(() => {
-                const input = document.querySelector(`[aria-controls="select2-${event.target.id}-results"]`) as HTMLElement | null,
-                     string = event.target.getAttribute('data-select2-id').replace('-data', ''),
-                     input2 = document.querySelector(`[aria-controls="${string}-results"]`) as HTMLElement | null
-                if (input) input.setAttribute('placeholder', this.props.placeholder ? this.props.placeholder : 'Type text here')
-                if (input2) input2.setAttribute('placeholder', this.props.placeholder ? this.props.placeholder : 'Type text here')
-            }, 100)
-            if (this.props.onOpening && typeof this.props.onOpening === 'function') self.props.onOpening()
+        $(this.ref.current).select2(this.state.options).on('select2:opening', (event: any) => { //Creating the placeholder
+            const input = document.querySelector(`[aria-controls="select2-${event.target.id}-results"]`) as HTMLElement | null,
+                string = event.target.getAttribute('data-select2-id').replace('-data', ''),
+                input2 = document.querySelector(`[aria-controls="${string}-results"]`) as HTMLElement | null
+            if (input) input.setAttribute('placeholder', this.props.placeholder ? this.props.placeholder : 'Type text here')
+            if (input2) input2.setAttribute('placeholder', this.props.placeholder ? this.props.placeholder : 'Type text here')
+            if (this.props.onOpening && typeof this.props.onOpening === 'function')this.props.onOpening()
         })
     }
 
@@ -156,22 +170,27 @@ class Select2 extends React.Component<IProps, IState> {
     }
 
     componentDidUpdate(prevProps: IProps) {
-        if(prevProps.data !== this.props.data) {
-            $(this.ref.current).change()
-        }
+
+        if(prevProps.searchUrl !== this.props.searchUrl) this.setState((prevState) => {
+            const options = {...prevState.options}
+            options.ajax.url = this.props.searchUrl
+            options.url = this.props.searchUrl
+            return {options}
+        }, () => $(this.ref.current).select2(this.state.options))
+
+        $(this.ref.current).trigger("change")
+
     }
 
     render() {
-        return <span>
-            <select required={this.props.required} onChange={() => {}}
+        return <select required={this.props.required} onChange={() => {}}
                        className={`js-select ${this.props.classes}`} id={this.props.id}
                        data-placeholder={this.props.placeholder} multiple={this.props.multiple} name={this.props.name}
                        value={this.props.selectedValue ? this.props.selectedValue : undefined}
                        disabled={this.props.disabled} ref={this.ref}>
-                {this.props.placeholder && <option></option>}
-                {this.props.data && this.renderOptions(this.props.data)}
-            </select>
-        </span>
+            {this.props.placeholder && <option></option>}
+            {this.props.data && this.renderOptions(this.props.data)}
+        </select>
     }
 
     handleAjax = (data: any): any[] => {

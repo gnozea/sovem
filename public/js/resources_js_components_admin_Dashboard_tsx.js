@@ -135,14 +135,18 @@ var Dashboard = function Dashboard(props) {
     onClick: function onClick() {
       return setDefaultFilter("created_at");
     },
-    className: "dropdown-item"
-  }, "Date soumission"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    className: "dropdown-item".concat(defaultFilter === "created_at" ? ' ps-1' : '')
+  }, defaultFilter === "created_at" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+    className: "mdi mdi-check"
+  }) : "", " Date soumission"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     disabled: defaultFilter === "incident_date",
     onClick: function onClick() {
       return setDefaultFilter("incident_date");
     },
-    className: "dropdown-item"
-  }, "Date d'incident")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "dropdown-item".concat(defaultFilter === "incident_date" ? ' ps-1' : '')
+  }, defaultFilter === "incident_date" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+    className: "mdi mdi-check"
+  }) : "", " Date d'incident")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: ""
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: ""

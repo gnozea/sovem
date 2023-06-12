@@ -13,5 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ServiceSpeciality extends Model
 {
+    protected $fillable = ['service_id', "speciality_id"];
     use HasFactory;
 }

@@ -26,7 +26,7 @@ function Init() {
         axios.get("/api/account/check").then((rep) => setAccount(rep.data))
     }, [])
     if (typeof account === "boolean") return <LoaderWrapper>
-        <Progress color="#E89C42" style="skype"/>
+        <Progress style="skype"/>
     </LoaderWrapper>
     return <AccountProvider>
         <BrowserRouter>

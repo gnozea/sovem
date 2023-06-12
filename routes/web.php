@@ -59,9 +59,11 @@ Route::prefix("api")->group(function (){
         Route::post('change-password', [\App\Http\Controllers\HomeController::class, "change_password"]);
         Route::get("requests", [RequestController::class, "index"]);
         Route::get("charts", [\App\Http\Controllers\HomeController::class, "chart"]);
+
         Route::post("request/release", [RequestController::class, "release"]);
         Route::get("request/{uuid}", [RequestController::class, "show"]);
         Route::post("request/{uuid}", [RequestController::class, "accept"]);
+
         Route::get("checkByEmail", function (Request $request){
             $check = User::where("email", $request->get('email'))->first();
             if ($check) return [
@@ -74,6 +76,14 @@ Route::prefix("api")->group(function (){
         Route::post("provider/{id}/activate", [ProviderController::class, "activate"])->middleware(AccountType::class);
         Route::put("provider/{id}", [ProviderController::class, "update"])->middleware(AccountType::class);
         Route::post("provider", [ProviderController::class, "store"])->middleware(AccountType::class);
+        Route::get("provider/search", [ProviderController::class, "search"])->middleware(AccountType::class);
+
+        Route::get("services", [ServiceController::class, "index"])->middleware(AccountType::class);
+        Route::post("service", [ServiceController::class, "store"])->middleware(AccountType::class);
+        Route::get("service/{id}/search_specialist", [ServiceController::class, "search_specialist"])->middleware(AccountType::class);
+
+        Route::get("specialist", [ServiceController::class, "index"])->middleware(AccountType::class);
+        Route::post("specialist", [\App\Http\Controllers\SpecialityController::class, "store"])->middleware(AccountType::class);
     });
 });
 

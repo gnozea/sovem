@@ -525,7 +525,8 @@ const ComplainForm: FC<IProps> = (props) => {
                                                                   }} format={"DD/MM/YYYY"} style={{ width: "100%", display: "block" }} showToday={false}
                                                                               //(e: any) => dispatch({ type: "SET_INCIDENT_LOCATION", payload: e.target.value })
                                                                               onChange={(date: Dayjs) => dispatch({ type: "SET_INCIDENT_DATE", payload: date.format("YYYY-MM-DD")})}
-                                                                              presets={rangePresets} popupClassName="office-hours" placeholder="Chwazi yon date." />
+                                                                              // presets={rangePresets}
+                                                                              popupClassName="office-hours" placeholder="Chwazi yon date." />
                                                               </AntDCustom>
                                                           </div>
                                                       </div>

@@ -81,8 +81,10 @@ const Dashboard: FC<IProps> = (props: IProps) => {
                 <i className="fe fe-calendar mr-2"></i>Afficher par
             </button>
             <div className="dropdown-menu">
-                <button disabled={defaultFilter === "created_at"} onClick={() => setDefaultFilter("created_at")} className="dropdown-item">Date soumission</button>
-                <button disabled={defaultFilter === "incident_date"} onClick={() => setDefaultFilter("incident_date")} className="dropdown-item">Date d'incident</button>
+                <button disabled={defaultFilter === "created_at"} onClick={() => setDefaultFilter("created_at")} className={`dropdown-item${defaultFilter === "created_at" ? ' ps-1' : ''}`}>
+                    {defaultFilter === "created_at" ? <i className="mdi mdi-check"></i> : ""} Date soumission</button>
+                <button disabled={defaultFilter === "incident_date"} onClick={() => setDefaultFilter("incident_date")} className={`dropdown-item${defaultFilter === "incident_date" ? ' ps-1' : ''}`}>
+                    {defaultFilter === "incident_date" ? <i className="mdi mdi-check"></i> : ""} Date d'incident</button>
             </div>
         </div>
     </div>

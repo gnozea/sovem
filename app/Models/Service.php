@@ -15,4 +15,14 @@ class Service extends Model
 {
     protected $fillable = ["name", "added_by"];
     use HasFactory;
+
+    public function providers()
+    {
+        return $this->hasMany(ProviderService::class, "service_id");
+    }
+
+    public function specialities()
+    {
+        return $this->hasManyThrough(Speciality::class, ServiceSpeciality::class, "speciality_id", "id", "service_id", "id");
+    }
 }

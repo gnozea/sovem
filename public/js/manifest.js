@@ -137,7 +137,7 @@
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_components_public_ServiceTrack_tsx":1,"resources_js_components_admin_Request_tsx":1,"resources_js_components_admin_RequestAcceptation_tsx":1,"resources_js_components_admin_Provider_tsx":1,"resources_js_components_admin_account_Profile_tsx":1,"resources_js_components_admin_Dashboard_tsx":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_components_public_ServiceTrack_tsx":1,"resources_js_components_admin_Request_tsx":1,"resources_js_components_admin_RequestAcceptation_tsx":1,"resources_js_components_admin_Provider_tsx":1,"resources_js_components_admin_account_Profile_tsx":1,"resources_js_components_admin_service_Service_tsx":1,"resources_js_components_admin_Dashboard_tsx":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
