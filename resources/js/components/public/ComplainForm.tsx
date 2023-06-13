@@ -202,13 +202,13 @@ const ComplainForm: FC<IProps> = (props) => {
         setAlert(undefined)
 
         const parent = e.currentTarget.parentNode.parentNode.parentNode
-        if (step === 0) return setGender(parent)
-        if (step === 1) return setAge(parent)
-        if (step === 2) return getSpecialities(parent)
-        if (step === 3) return getCities(parent)
-        if (step === 4 && state.selections.city === null) return setAlert("Tanpri, di nou nan ki zòn ou rete.")
-        if (step === 5) return setIncidentLocation()
-        if (step === 6) return setViolenceType(parent)
+        if (step === 0) return setViolenceType(parent)
+        if (step === 1) return setGender(parent)
+        if (step === 2) return setAge(parent)
+        if (step === 3) return getSpecialities(parent)
+        if (step === 4) return getCities(parent)
+        if (step === 5 && state.selections.city === null) return setAlert("Tanpri, di nou nan ki zòn ou rete.")
+        if (step === 6) return setIncidentLocation()
         if (step === 7) return setIncidentDate()
         //if (step === 6) return setFelon(parent)
         // //To be uncommented if new step added
@@ -398,7 +398,28 @@ const ComplainForm: FC<IProps> = (props) => {
                                           <div className="Skin">
                                               {alert && <p className="text-danger">{alert}</p>}
                                               {/*Questions start here*/}
-                                              {step === 0 && <>
+                                              {step === 0 && <> {/*Question 5*/}
+                                                  <legend>
+                                                      <div className="QuestionText BorderColor">Chwazi ki fòm vyolans ou sibi.</div>
+                                                  </legend>
+
+                                                  <div className="ChoiceStructure">
+                                                      <div className="QuestionBody">
+                                                          <ul className="ChoiceStructure" ref={ref}>
+                                                              {state.violenceTypes.map((type: any, key: any) => {
+                                                                  return <li className="Selection reg" key={key}>
+                                                                      <Checkbox defaultChecked={state.selections.violenceType.includes(type)}
+                                                                                setRef={ref} id={`QR~vType~${key}`} defaultValue={type}
+                                                                                labelValue={ type } name={`QR~type~${key}`}
+                                                                                onChange={(e: any) => {}}
+                                                                      />
+                                                                  </li>
+                                                              })}
+                                                          </ul>
+                                                      </div>
+                                                  </div>
+                                              </>}
+                                              {step === 1 && <>
                                                   <legend>
                                                       <div className="QuestionText BorderColor">Mwen se yon: </div>
                                                   </legend>
@@ -412,7 +433,7 @@ const ComplainForm: FC<IProps> = (props) => {
                                                       </ul>
                                                   </div>
                                               </>}
-                                              {step === 1 && <> {/*Question 7*/}
+                                              {step === 2 && <> {/*Question 7*/}
                                                   <legend>
                                                       <div className="QuestionText BorderColor">Chwazi group laj ou.</div>
                                                   </legend>
@@ -434,7 +455,7 @@ const ComplainForm: FC<IProps> = (props) => {
                                                       </div>
                                                   </div>
                                               </>}
-                                              {step === 2 && <> {/*Question 1*/}
+                                              {step === 3 && <> {/*Question 1*/}
                                                   <legend>
                                                       <div className="QuestionText BorderColor">Ki sèvis ou bezwen?</div>
                                                   </legend>
@@ -448,7 +469,7 @@ const ComplainForm: FC<IProps> = (props) => {
                                                       </ul>
                                                   </div>
                                               </>}
-                                              {step === 3 && <> {/*Question 2*/}
+                                              {step === 4 && <> {/*Question 2*/}
                                                   <legend>
                                                       <div className="QuestionText BorderColor">Ki espesyalis ou bezwen?</div>
                                                   </legend>
@@ -462,7 +483,7 @@ const ComplainForm: FC<IProps> = (props) => {
                                                       </ul>
                                                   </div>
                                               </>}
-                                              {step === 4 && <> {/*Question 3*/}
+                                              {step === 5 && <> {/*Question 3*/}
                                                   <legend>
                                                       <div className="QuestionText BorderColor">Nan ki vil ou rete?</div>
                                                   </legend>
@@ -475,7 +496,7 @@ const ComplainForm: FC<IProps> = (props) => {
                                                       </div>
                                                       <div className="QuestionBody"></div>
                                               </>}
-                                              {step === 5 && <> {/*Question 4*/}
+                                              {step === 6 && <> {/*Question 4*/}
                                                   <legend>
                                                       <div className="QuestionText BorderColor">Si ou sibi vyolans, nan ki zòn sa te rive?</div>
                                                   </legend>
@@ -491,27 +512,7 @@ const ComplainForm: FC<IProps> = (props) => {
                                                       </div>
                                                   </div>
                                               </>}
-                                              {step === 6 && <> {/*Question 5*/}
-                                                  <legend>
-                                                      <div className="QuestionText BorderColor">Chwazi ki fòm vyolans ou sibi.</div>
-                                                  </legend>
 
-                                                  <div className="ChoiceStructure">
-                                                      <div className="QuestionBody">
-                                                          <ul className="ChoiceStructure" ref={ref}>
-                                                              {state.violenceTypes.map((type: any, key: any) => {
-                                                                  return <li className="Selection reg" key={key}>
-                                                                      <Checkbox defaultChecked={state.selections.violenceType.includes(type)}
-                                                                                setRef={ref} id={`QR~vType~${key}`} defaultValue={type}
-                                                                                labelValue={ type } name={`QR~type~${key}`}
-                                                                                onChange={(e: any) => {}}
-                                                                      />
-                                                                  </li>
-                                                              })}
-                                                          </ul>
-                                                      </div>
-                                                  </div>
-                                              </>}
                                               {step === 7 && <> {/*Question 5*/}
                                                   <legend>
                                                       <div className="QuestionText BorderColor">Ki dat sa te rive w?</div>
