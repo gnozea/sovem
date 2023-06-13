@@ -59,7 +59,7 @@ const Public:FC<IProps> = (props: IProps) => {
 
     const ServiceTrack = lazy(() => import("../components/public/ServiceTrack"))
 
-    return <div className="body_wrap">
+    return <div className="body_wrap" style={{ backgroundColor: "#e6e9f2" }}>
         <ToastContainer
             position="top-center"
             autoClose={5000}

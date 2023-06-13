@@ -16,7 +16,7 @@ const MobileNav: FC<IProps> = (props: IProps) => {
                 <img
                     src="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png"
                     srcSet="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png 2x"
-                    alt="Logo" width="37" height="57"/>
+                    alt="Logo" style={{width: "100px"}}/>
             </a>
             <nav className="menu_mobile_nav_area" itemType="https://schema.org/SiteNavigationElement">
                 <ul id="menu_mobile" className="menu_mobile_nav prepared">
@@ -48,15 +48,15 @@ const MobileNav: FC<IProps> = (props: IProps) => {
                     })}
                 </ul>
             </nav>
-            <div className="search_wrap search_style_normal search_mobile inited">
-                <div className="search_form_wrap">
-                    <form role="search" method="get" className="search_form" action="https://helpline.impacto-patronus.ancorathemes.com/">
-                        <input type="hidden" onChange={() => {}} value="" name="post_types"/>
-                        <input type="text" onChange={() => {}} className="search_field fill_inited" placeholder="Search" value="" name="s"/>
-                        <button type="submit" className="search_submit trx_addons_icon-search"></button>
-                    </form>
-                </div>
-            </div>
+            {/*<div className="search_wrap search_style_normal search_mobile inited">*/}
+            {/*    <div className="search_form_wrap">*/}
+            {/*        <form role="search" method="get" className="search_form" action="https://helpline.impacto-patronus.ancorathemes.com/">*/}
+            {/*            <input type="hidden" onChange={() => {}} value="" name="post_types"/>*/}
+            {/*            <input type="text" onChange={() => {}} className="search_field fill_inited" placeholder="Search" value="" name="s"/>*/}
+            {/*            <button type="submit" className="search_submit trx_addons_icon-search"></button>*/}
+            {/*        </form>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             <div className="socials_mobile">
                 <a target="_blank" href="https://twitter.com/themes_ancora" className="social_item social_item_style_icons sc_icon_type_icons social_item_type_icons" rel="nofollow">
                     <span className="social_icon social_icon_twitter">
@@ -68,13 +68,20 @@ const MobileNav: FC<IProps> = (props: IProps) => {
                         <span className="icon-facebook"></span>
                     </span>
                 </a>
-                <a target="_blank" href="https://www.youtube.com/channel/UCdIjRh7-lPVHqTTKpaf8PLA" className="social_item social_item_style_icons sc_icon_type_icons social_item_type_icons" rel="nofollow"><span className="social_icon social_icon_youtube-video">
-                    <span className="icon-youtube-video">
-
+                <a target="_blank" href="https://www.youtube.com/channel/UCdIjRh7-lPVHqTTKpaf8PLA" className="social_item social_item_style_icons sc_icon_type_icons social_item_type_icons" rel="nofollow">
+                    <span className="social_icon social_icon_youtube-video">
+                        <span className="icon-youtube-video"></span>
                     </span>
-                </span>
                 </a>
             </div>
+
+            <a href="/complain" style={{ marginTop: "20px" }}
+               className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left color_style_link2 sc_button_hover_slide_left sc_button_hover_style_link2"
+               rel="nofollow">
+                <span className="sc_button_text">
+                    <span className="sc_button_title">Mande yon sèvis</span>
+                </span>
+            </a>
         </div>
     </div>
     </>

@@ -81,6 +81,7 @@ Route::prefix("api")->group(function (){
 
         Route::get("services", [ServiceController::class, "index"])->middleware(AccountType::class);
         Route::post("service", [ServiceController::class, "store"])->middleware(AccountType::class);
+        Route::post("service/link-provider", [ServiceController::class, "link_provider"])->middleware(AccountType::class);
         Route::get("service/{id}/search_specialist", [ServiceController::class, "search_specialist"])->middleware(AccountType::class);
 
         Route::get("specialist", [ServiceController::class, "index"])->middleware(AccountType::class);

@@ -55,7 +55,7 @@ const Admin: FC<IProps> = (props: IProps) => {
             </div>
         </RequestProvider>
         <ToastContainer
-            position="bottom-center"
+            position="top-center"
             autoClose={5000}
             hideProgressBar={false}
             newestOnTop={false}

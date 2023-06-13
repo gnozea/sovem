@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProviderSpeciality;
 use App\Models\ServiceSpeciality;
 use App\Models\Speciality;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 
 class SpecialityController extends Controller
 {
@@ -72,19 +74,41 @@ class SpecialityController extends Controller
     {
         $request->validate([
             "new" => "sometimes|between:0,1",
-            "name" => "string|required_if:new,1",
+            "name" => "string|required_with:new",
             "specialist.*" => "sometimes|exists:specialities,id",
             "providers.*" => "required|exists:providers,id",
             "service_id" => "required|exists:services,id"
         ]);
 
-//        $specialist = [];
-//        if ($request->has("new")){
-//            $specialist = Speciality::create([
-//                "name" => $request->get("name")
-//            ]);
-//        }
-        print_r($request->all());
+
+        //1.0 Create new speciality
+        $specialist = [];
+        if ($request->has("new") && $request->get("new") == "1"):
+            $specialist[] = Speciality::create(["name" => $request->get("name")])->toArray()['id'];
+        else: //1.1 or get those selected by user
+            $specialist = $request->get("specialist");
+        endif;
+
+        //2. Add service_specialities
+        $service_specialities = [];
+        $provider_specialities = [];
+        foreach ($specialist as $item){
+            $service_specialities[] = ["service_id" => $request->get("service_id"), "speciality_id" => $item, "created_at" => Carbon::now()];
+
+            if ($request->has("providers") && count($request->get("providers"))) foreach ($request->get("providers") as $provider){
+                $provider_specialities[] = ["speciality_id" => $item, "provider_id" => $provider, "created_at" => Carbon::now()];
+            }
+        }
+
+        //Save service_specialities data
+        $ss = ServiceSpeciality::insert($service_specialities);
+
+        //3. Add provider_specialities
+        if ($request->has("providers") && count($request->get("providers"))) ProviderSpeciality::insert($provider_specialities);
+
+        return [
+            "status" => "success"
+        ];
     }
 
     /**

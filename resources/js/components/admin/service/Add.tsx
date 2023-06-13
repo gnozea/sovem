@@ -8,6 +8,7 @@ import axios from "axios";
 import Progress from "../../utils/Progress";
 import {Add as SpecialistAdd} from "../specialist/Add"
 import BrowserTitle from "../../utils/BrowserTitle";
+import {toast} from "react-toastify";
 
 interface IProps {
 
@@ -41,6 +42,7 @@ const Add: FC<IProps> = (props: IProps) => {
                 service: {...rep.data.data},
                 providers: providers
             })
+            toast.success("Le nouveau service a été ajouté.")
             dispatch({type: "ADD_SERVICE", payload: {...rep.data.data, providers_count: providers.length}})
             setProviders([])
             setName(undefined)

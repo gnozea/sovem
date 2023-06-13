@@ -1,6 +1,7 @@
 import React, {FC, useEffect, useState} from "react";
 import {Link, NavLink} from "react-router-dom";
 import MobileNav from "./MobileNav";
+import styled from "styled-components";
 
 interface IProps {
     menuItems: { title: string, href: string, children?: {title: string, href: string}[] }[]
@@ -69,7 +70,6 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                                 {props.menuItems.map((item: any, key: number) =>
                                                                     <li key={key} className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-3786">
                                                                         <NavLink to={item.href} className={(isActive) => {
-                                                                            console.log(isActive);
                                                                             return isActive ? "sf-with-ul-" : ""
                                                                         }}>
                                                                             <span>{item.title}</span>
@@ -117,7 +117,7 @@ const Nav: FC<IProps> = (props: IProps) => {
                         </section>
                         <div className="sc_layouts_row_fixed_placeholder" style={{ backgroundColor: "rgba(0, 0, 0, 0)", height: "0px" }}></div>
                         <section className="vighor-section vighor-top-section vighor-element vighor-element-5e85655 vighor-section-full_width vighor-section-content-middle sc_layouts_row sc_layouts_row_type_compact sc_layouts_row_fixed sc_layouts_row_fixed_always sc_layouts_hide_on_wide sc_layouts_hide_on_desktop sc_layouts_hide_on_notebook sc_layouts_hide_on_tablet vighor-section-height-default vighor-section-height-default"
-                            data-id="5e85655" data-element_type="section">
+                            data-id="5e85655" data-element_type="section" style={{ paddingRight: ".2em" }}>
                             <div className="vighor-container vighor-column-gap-no">
                                 <div className="vighor-row">
                                     <div
@@ -136,7 +136,7 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                             className="logo_image"
                                                             src="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png"
                                                             srcSet="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png 2x"
-                                                            alt="Impacto Patronus" width="212" height="80"/>
+                                                            alt="Impacto Patronus" style={{width: "100px"}}/>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -153,12 +153,19 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                     data-id="32fe7257" data-element_type="widget"
                                                     data-widget_type="trx_sc_layouts_menu.default">
                                                     <div className="vighor-widget-container">
-                                                        <div id="trx_sc_layouts_menu_158583175"
+                                                        <Flex id="trx_sc_layouts_menu_158583175"
                                                              className="sc_layouts_iconed_text sc_layouts_menu_mobile_button_burger sc_layouts_menu_mobile_button without_menu">
                                                             <a onClick={() => setMobileNavOpen(true)} className="sc_layouts_item_link sc_layouts_iconed_text_link" style={{ cursor: "pointer" }}>
                                                                 <span className="sc_layouts_item_icon sc_layouts_iconed_text_icon trx_addons_icon-menu"></span>
                                                             </a>
-                                                        </div>
+                                                            <a href="/complain" style={{ padding: "10px" }}
+                                                               className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left color_style_link2 sc_button_hover_slide_left sc_button_hover_style_link2"
+                                                               rel="nofollow">
+                                                                <span className="sc_button_text">
+                                                                    <span className="sc_button_title">Mande yon sèvis</span>
+                                                                </span>
+                                                            </a>
+                                                        </Flex>
                                                     </div>
                                                 </div>
                                             </div>
@@ -175,3 +182,9 @@ const Nav: FC<IProps> = (props: IProps) => {
     </>
 }
 export default Nav
+
+const Flex = styled.div`
+    display: flex!important;
+    align-items: center;
+    gap: 1em
+`

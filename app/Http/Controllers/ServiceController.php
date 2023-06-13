@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Provider;
+use App\Models\ProviderService;
 use App\Models\RequestLog;
 use App\Models\Service;
 use App\Models\ServiceRequest;
 use App\Models\ServiceSpeciality;
 use App\Models\Speciality;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -173,6 +176,23 @@ class ServiceController extends Controller
         return [
             "status" => "success",
             "data" => $service
+        ];
+    }
+
+    public function link_provider(Request $request, ProviderService $providerService)
+    {
+        $request->validate([
+            "service_id" => "required|exists:services,id",
+            "providers.*" => "required|exists:providers,id"
+        ]);
+
+        $providers = [];
+        foreach ($request->get("providers") as $item){
+            $providers[] = ["provider_id" => $item, "service_id" => $request->get("service_id"), "created_at" => Carbon::now()];
+        }
+        $ps = $providerService->insert($providers);
+        return [
+            "status" => "success"
         ];
     }
 

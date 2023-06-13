@@ -305,7 +305,7 @@ const ComplainForm: FC<IProps> = (props) => {
 
     if (accepted && !state.services) return <Progress style="skype"/>
 
-    return <div className="position-relative service-form-request-wrap">
+    return <div className="position-relative service-form-request-wrap mb-5">
         <section className="vighor-section vighor-top-section vighor-element vighor-element-21b3bff vighor-section-boxed vighor-section-height-default vighor-section-height-default">
             <div className="vighor-container vighor-column-gap-extended">
                   <div className="vighor-row">
@@ -365,8 +365,10 @@ const ComplainForm: FC<IProps> = (props) => {
                                               <h4>Atansyon</h4>
                                               <p>
                                                   Nou se yon enstitisyon endepandan ki fè yon pon ant oumenm ak kèk fonisè swen sikolojik, fizik elatriye.
-                                                  Nou pa responsab travay fonisè sa yo. Travay nou fini lamennm nou fin konekte w ak yon founisè. Ou gendwa aksepte oswa refize sèvis yon founisè pou nenpòt rezon
-                                                  tankou mank konfyans, kondisyon yo pa nan sans ou nou site sayo sèlman.
+                                                  Nou pa responsab travay fonisè sa yo. Travay nou fini lamennm nou fin konekte w ak yon founisè. Ou gen dwa aksepte oswa refize sèvis yon founisè pou nenpòt rezon
+                                                  tankou mank konfyans, kondisyon yo pa nan sans ou pou nou site sayo sèlman.
+                                                  <span className="divider-inner d-block mt-3"/>
+                                                  Sevis sa pa fèt pou moun ki gen ijans, si w gen yon ijans pou w wè yon pwofesyonèl medikal osinon yon lòt pwofesyonèl, ale nan sant sante oswa lopital ki pi prè w la. Si se pwoblèm sekirite ijan w genyen, ale lapolis.
                                               </p>
                                           </div>
                                           <div className="columns_wrap no_spaces text-center mt-5">

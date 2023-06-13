@@ -364,14 +364,7 @@ var Request = function Request(props) {
       className: "dropdown-item"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "dropdown-icon fe fe-thumbs-down"
-    }), " Relacher "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "dropdown-divider"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-      href: "",
-      className: "dropdown-item"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-      className: "dropdown-icon fe fe-link"
-    }), " Separated link")))));
+    }), " Relacher ")))));
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "dataTables_info",
     id: "DataTables_Table_0_info",

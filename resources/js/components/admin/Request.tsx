@@ -145,8 +145,8 @@ const Request: FC<IProps> = (props: IProps) => {
                                                  style={{position: "absolute", transform: "translate3d(15px, 20px, 0px)", top: "0px", left: "0px", willChange: "transform"}}>
                                                 <button className="dropdown-item" onClick={() => setShowDetail(unclaimed)}><i className="dropdown-icon fe fe-layers"></i> Details </button>
                                                 {status.indexOf("claimed") > -1 && <button onClick={() => setShowRelease(key)} className="dropdown-item"><i className="dropdown-icon fe fe-thumbs-down"></i> Relacher </button>}
-                                                <div className="dropdown-divider"></div>
-                                                <a href="" className="dropdown-item"><i className="dropdown-icon fe fe-link"></i> Separated link</a>
+                                                {/*<div className="dropdown-divider"></div>*/}
+                                                {/*<a href="" className="dropdown-item"><i className="dropdown-icon fe fe-link"></i> Separated link</a>*/}
                                             </div>
                                         </div>
                                     </td>

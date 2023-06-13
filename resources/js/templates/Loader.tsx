@@ -14,6 +14,7 @@ const Loader: FC<IProps> = (props: IProps) => {
     useEffect(() => {
         dispatch({ type: "SET_ACCOUNT", payload: props.account })
     }, [])
+
     if (url.indexOf('dashboard') === -1) return <Public/>
     if (!Object.keys(props.account).length) return <Login/>
     axios.defaults.params = {}

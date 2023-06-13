@@ -6,10 +6,11 @@ import {motion} from "framer-motion";
 import axios from "axios";
 import Progress from "../../utils/Progress";
 import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
 
 interface IProps {
     service: any,
-    onBack?: any
+    onBack: any
 }
 export const AddFromService: FC<IProps> = (props: IProps) => {
     const [providers, setProviders] = useState<any[]>([]),
@@ -18,8 +19,6 @@ export const AddFromService: FC<IProps> = (props: IProps) => {
         [error, setError] = useState<string>(),
         [chooseExisting, setChooseExisting] = useState<boolean>(true),
         [name, setName] = useState<string>("")
-
-    console.log(props);
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
@@ -46,16 +45,11 @@ export const AddFromService: FC<IProps> = (props: IProps) => {
                 form.append("providers[]", provider.id)
             })
         }
-        // setLoading(true)
+        setLoading(true)
         axios.post("/api/dashboard/specialist/add_from_service", form).then((rep: any) => {
-            // setLoading(false)
-            // setShowServiceAdd({
-            //     service: {...rep.data.data},
-            //     providers: providers
-            // })
-            // dispatch({type: "ADD_SERVICE", payload: {...rep.data.data, providers_count: providers.length}})
-            // setProviders([])
-            // setName("")
+            setLoading(false)
+            toast.success("Service mis à jour avec succès.")
+            props.onBack()
         })
     }
     const providerSelected = () => {
@@ -129,7 +123,7 @@ export const AddFromService: FC<IProps> = (props: IProps) => {
                         <label className="form-label">Rechercher existant<span className="form-required">*</span></label>
                         <Select2 classes="service-form" multiple={false} selectedValue={undefined} onSearch={(e: any) => {}} searchKeys={ { id: 'id', text: ['name'] } } searchUrl={`/api/dashboard/service/${props.service.id}/search_specialist`}
                                  onSelect={handleSpecialistSelect}
-                                 searchable={true} placeholder="Nom du prestataire" id="sname"
+                                 searchable={true} placeholder="Nom du spécialiste" id="sname"
                         />
                     </motion.div>}
                 </div>

@@ -9,6 +9,7 @@ import _ from "lodash";
 import Popup from "../../utils/Popup";
 import Add from "./Add";
 import {AddFromService} from "../specialist/AddFromService";
+import LinkProvider from "./LinkProvider";
 
 interface IProps {
 
@@ -18,21 +19,35 @@ const Service: FC<IProps> = (props: IProps) => {
     const { state, dispatch } = useContext(ServiceContext),
         {user} = useContext(AccountContext),
         [showAdd, setShowAdd] = useState<boolean>(),
-        [showAddSpecialist, setShowAddSpecialist] = useState<any>()
+        [showAddSpecialist, setShowAddSpecialist] = useState<any>(),
+        [showLinkProvider, setShowLinkProvider] = useState<any>(),
+        [loading, setLoading] = useState<boolean>(),
+        [reload, setReload] = useState<boolean>()
 
     useEffect(() => {
         axios.get("/api/dashboard/services").then((rep: any) => {
             const data = [...rep.data.data]
             dispatch({type: "ADD_SERVICES", payload: data})
+            setLoading(false)
         })
-    }, [])
+        if (reload) setReload(false)
+    }, [reload])
 
     if (user.provider_id) return <Restricted/>
     if (!state.length) return <Progress/>
     return <div className="row">
-        {showAddSpecialist && <Popup onPopupClose={() => {setShowAddSpecialist(undefined)}} isSmall={true} parentId={"2437n"} children={<AddFromService service={...showAddSpecialist}/>}/>}
+        {showLinkProvider && <Popup onPopupClose={() => {setShowLinkProvider(undefined)}} isSmall={true} parentId={"2455n"} children={<LinkProvider service={...showLinkProvider} onDone={() => {
+            setReload(true)
+            setShowLinkProvider(false)
+            setLoading(false)
+        }}/>}/>}
+        {showAddSpecialist && <Popup onPopupClose={() => {setShowAddSpecialist(undefined)}} isSmall={true} parentId={"2437n"} children={<AddFromService service={...showAddSpecialist} onBack={() => {
+            setReload(true)
+            setShowAddSpecialist(false)
+        }}/>}/>}
         {showAdd && <Popup onPopupClose={() => {setShowAdd(undefined)}} isSmall={true} parentId={"2434n"} children={<Add/>}/>}
         <BrowserTitle title={"Services"}/>
+        {loading && <Progress/>}
         <div className="col-12">
             <div className="card">
                 <div className="card-header">
@@ -67,6 +82,7 @@ const Service: FC<IProps> = (props: IProps) => {
                         </thead>
                         <tbody>
                         {state.map((rep: any, key: any) => {
+                            const specialists: any = rep.specialists.map((spec: any) => spec.name)
                             return <tr key={key} role="row">
                                 <td className=""><span className="text-muted">{key+1}</span></td>
                                 <td>
@@ -82,7 +98,7 @@ const Service: FC<IProps> = (props: IProps) => {
                                     </span>
                                 </td>
                                 <td className="">
-                                    <span className={`${rep.specialists.length === 0 ? "text-danger" : "text-primary"}`}>
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top" className={`${rep.specialists.length === 0 ? "text-danger" : "text-primary"}`} title={specialists.join(", ").replace(/, ([^,]*)$/, ' et $1')}>
                                     {rep.specialists.length === 0 ? "Pas de spécialiste" : ""}
                                     {rep.specialists.length > 0 ? `${rep.specialists.length} spécaliste${rep.specialists.length > 1 ? "s" : ''}` : ""}
                                     </span>
@@ -95,8 +111,8 @@ const Service: FC<IProps> = (props: IProps) => {
                                             <a href="" className="dropdown-item"><i className="dropdown-icon fe fe-layers"></i> Details </a>
                                             <button className="dropdown-item"><i className="dropdown-icon fe fe-edit-2"></i> Modifier</button>
                                             <div className="dropdown-divider"></div>
-                                            <button className="dropdown-item">
-                                                <i className="dropdown-icon fe fe-user-check"></i> Lier à un prestataire
+                                            <button className="dropdown-item" onClick={() => setShowLinkProvider(rep)}>
+                                                <i className="dropdown-icon fe fe-user-check"></i> Lier à des prestataires
                                             </button>
                                             <button className="dropdown-item" onClick={() => setShowAddSpecialist(rep)}>
                                                 <i className="dropdown-icon fe fe-git-pull-request"></i> Ajouter spécialité

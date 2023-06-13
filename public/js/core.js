@@ -15,14 +15,13 @@ let hexToRgba = function(hex, opacity) {
 /**
  *
  */
-$(document).ready(function() {
+jQuery(function($) {
   /** Constant div card */
   const DIV_CARD = 'div.card';
-
   /** Initialize tooltips */
   $('[data-toggle="tooltip"]').tooltip();
 
-  /** Initialize popovers */
+    /** Initialize popovers */
   $('[data-toggle="popover"]').popover({
     html: true
   });

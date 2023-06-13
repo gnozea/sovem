@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {motion} from "framer-motion";
 import axios from "axios";
 import Progress from "../../utils/Progress";
+import {toast} from "react-toastify";
 
 interface IProps {
     default?: {providers?: any, service?: any},
@@ -27,6 +28,7 @@ export const Add: FC<IProps> = (props: IProps) => {
             id = [...id, provider.id]
             form.append("providers[]", provider.id)
         })
+        toast.success("Le nouveau spécialiste a été ajouté.")
         axios.post("/api/dashboard/specialist", form).then((rep: any) => {
             setLoading(false)
             props.onBack(rep.data)
