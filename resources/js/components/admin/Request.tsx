@@ -36,24 +36,38 @@ const Request: FC<IProps> = (props: IProps) => {
         [busy, setBusy] = useState<boolean>(),
         [showDetail, setShowDetail] = useState<any>(),
         [showRelease, setShowRelease] = useState<any>(),
+        [url, setUrl] = useState<string>("/api/dashboard/requests"),
         [paginate, setPaginate] = useState<any>({
             to: null,
             from: null
         })
     moment.locale('fr');
-    useEffect(() => {
-        axios.get("/api/dashboard/requests").then((rep: any) => {
+
+    const getData = () => {
+        axios.get(url).then((rep: any) => {
             dispatch({type: "SET_REQUESTS", payload: rep.data[0].data})
-            setPaginate({
-                from: rep.data[0].from,
-                to: rep.data[0].to,
-                prev_page_url: rep.data[0].prev_page_url,
+            setPaginate((prevState: any) => {
+                return {
+                    ...prevState,
+                    from: rep.data[0].from,
+                    to: rep.data[0].to,
+                    prev_page_url: rep.data[0].prev_page_url,
+                    next_page_url: rep.data[0].next_page_url,
+                    first_page_url: rep.data[0].first_page_url,
+                    current_page: rep.data[0].current_page,
+                    per_page: rep.data[0].per_page,
+                    path: rep.data[0].path,
+                }
             })
         })
-    }, [])
+    }
+    useEffect(() => {
+        getData()
+        setBusy(false)
+    }, [url])
 
     if (!state.length) return <Progress/>
-    return <div className="row">
+    return <div className="row position-relative">
         <BrowserTitle title={"Demandes de services"}/>
         {busy && <Progress/>}
         {showDetail && <RequestDetails item={showDetail} onClose={() => setShowDetail(undefined)}/>}
@@ -61,7 +75,7 @@ const Request: FC<IProps> = (props: IProps) => {
         <div className="col-12">
             <div className="card">
                 <div className="card-header">
-                    <h3 className="card-title">Demandes de service</h3>
+                    <h3 className="card-title">Demandes de services</h3>
                 </div>
                 <div className="table-responsive">
                     <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper no-footer">
@@ -159,12 +173,18 @@ const Request: FC<IProps> = (props: IProps) => {
                              aria-live="polite">Affichage {paginate.from} à {paginate.to} entrées
                         </div>
                         <div className="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                            <button className={`paginate_button previous${paginate.prev_page_url === "null" ? "disabled": ""}`} aria-controls="DataTables_Table_0" data-dt-idx={0} tabIndex={0} id="DataTables_Table_0_previous">Précédente</button>
+                            <button disabled={!paginate?.prev_page_url} className={`paginate_button previous${!paginate?.prev_page_url ? "disabled": ""}`} onClick={() => {
+                                setUrl(paginate.prev_page_url)
+                                setBusy(true)
+                            }} aria-controls="DataTables_Table_0" data-dt-idx={0} tabIndex={0} id="DataTables_Table_0_previous">Précédente</button>
                             {/*<span>*/}
                             {/*    <a className="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx={1} tabIndex={0}>1</a>*/}
                             {/*    <a className="paginate_button " aria-controls="DataTables_Table_0" data-dt-idx="2" tabIndex={0}>2</a>*/}
                             {/*</span>*/}
-                            <button className="paginate_button next" aria-controls="DataTables_Table_0" data-dt-idx="3" tabIndex={0} id="DataTables_Table_0_next">Suivante</button>
+                            <button disabled={!paginate?.next_page_url} className={`paginate_button next${!paginate?.next_page_url ? "disabled": ""}`} onClick={() => {
+                                setUrl(paginate.next_page_url)
+                                setBusy(true)
+                            }} aria-controls="DataTables_Table_0" data-dt-idx="3" tabIndex={0} id="DataTables_Table_0_next">Suivante</button>
                         </div>
                     </div>
                 </div>

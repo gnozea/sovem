@@ -109,6 +109,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _context_AccountContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../context/AccountContext */ "./resources/js/context/AccountContext.tsx");
 /* harmony import */ var _providers_Release__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./providers/Release */ "./resources/js/components/admin/providers/Release.tsx");
 /* harmony import */ var _RequestDetails__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../RequestDetails */ "./resources/js/components/RequestDetails.tsx");
+var __assign = undefined && undefined.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+  };
+  return __assign.apply(this, arguments);
+};
 
 
 
@@ -147,29 +157,43 @@ var Request = function Request(props) {
     _d = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     showRelease = _d[0],
     setShowRelease = _d[1],
-    _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("/api/dashboard/requests"),
+    url = _e[0],
+    setUrl = _e[1],
+    _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       to: null,
       from: null
     }),
-    paginate = _e[0],
-    setPaginate = _e[1];
+    paginate = _f[0],
+    setPaginate = _f[1];
   moment__WEBPACK_IMPORTED_MODULE_5___default().locale('fr');
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/dashboard/requests").then(function (rep) {
+  var getData = function getData() {
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get(url).then(function (rep) {
       dispatch({
         type: "SET_REQUESTS",
         payload: rep.data[0].data
       });
-      setPaginate({
-        from: rep.data[0].from,
-        to: rep.data[0].to,
-        prev_page_url: rep.data[0].prev_page_url
+      setPaginate(function (prevState) {
+        return __assign(__assign({}, prevState), {
+          from: rep.data[0].from,
+          to: rep.data[0].to,
+          prev_page_url: rep.data[0].prev_page_url,
+          next_page_url: rep.data[0].next_page_url,
+          first_page_url: rep.data[0].first_page_url,
+          current_page: rep.data[0].current_page,
+          per_page: rep.data[0].per_page,
+          path: rep.data[0].path
+        });
       });
     });
-  }, []);
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getData();
+    setBusy(false);
+  }, [url]);
   if (!state.length) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_1__["default"], null);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "row"
+    className: "row position-relative"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_2__["default"], {
     title: "Demandes de services"
   }), busy && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_1__["default"], null), showDetail && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RequestDetails__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -190,7 +214,7 @@ var Request = function Request(props) {
     className: "card-header"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", {
     className: "card-title"
-  }, "Demandes de service")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, "Demandes de services")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "table-responsive"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     id: "DataTables_Table_0_wrapper",
@@ -374,13 +398,23 @@ var Request = function Request(props) {
     className: "dataTables_paginate paging_simple_numbers",
     id: "DataTables_Table_0_paginate"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    className: "paginate_button previous".concat(paginate.prev_page_url === "null" ? "disabled" : ""),
+    disabled: !(paginate === null || paginate === void 0 ? void 0 : paginate.prev_page_url),
+    className: "paginate_button previous".concat(!(paginate === null || paginate === void 0 ? void 0 : paginate.prev_page_url) ? "disabled" : ""),
+    onClick: function onClick() {
+      setUrl(paginate.prev_page_url);
+      setBusy(true);
+    },
     "aria-controls": "DataTables_Table_0",
     "data-dt-idx": 0,
     tabIndex: 0,
     id: "DataTables_Table_0_previous"
   }, "Pr\xE9c\xE9dente"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-    className: "paginate_button next",
+    disabled: !(paginate === null || paginate === void 0 ? void 0 : paginate.next_page_url),
+    className: "paginate_button next".concat(!(paginate === null || paginate === void 0 ? void 0 : paginate.next_page_url) ? "disabled" : ""),
+    onClick: function onClick() {
+      setUrl(paginate.next_page_url);
+      setBusy(true);
+    },
     "aria-controls": "DataTables_Table_0",
     "data-dt-idx": "3",
     tabIndex: 0,

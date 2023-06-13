@@ -53,7 +53,6 @@ class RequestController extends Controller
 //                }
             ])
             ->has("requests")
-//            ->whereHas("claimed")
             ->simplePaginate(15);
 
         foreach ($req as $key => $item){
