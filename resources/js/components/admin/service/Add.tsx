@@ -44,7 +44,6 @@ const Add: FC<IProps> = (props: IProps) => {
             dispatch({type: "ADD_SERVICE", payload: {...rep.data.data, providers_count: providers.length}})
             setProviders([])
             setName(undefined)
-            setName(undefined)
         })
     }
 

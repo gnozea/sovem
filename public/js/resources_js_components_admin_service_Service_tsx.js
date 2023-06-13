@@ -109,7 +109,6 @@ var Add = function Add(props) {
       });
       setProviders([]);
       setName(undefined);
-      setName(undefined);
     });
   };
   var handleProviderSelect = function handleProviderSelect(e) {
@@ -320,7 +319,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _utils_Popup__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../utils/Popup */ "./resources/js/components/utils/Popup.tsx");
 /* harmony import */ var _Add__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Add */ "./resources/js/components/admin/service/Add.tsx");
-/* harmony import */ var _specialist_Add__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../specialist/Add */ "./resources/js/components/admin/specialist/Add.tsx");
+/* harmony import */ var _specialist_AddFromService__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../specialist/AddFromService */ "./resources/js/components/admin/specialist/AddFromService.tsx");
 var __spreadArray = undefined && undefined.__spreadArray || function (to, from, pack) {
   if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
     if (ar || !(i in from)) {
@@ -371,8 +370,8 @@ var Service = function Service(props) {
     },
     isSmall: true,
     parentId: "2437n",
-    children: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_specialist_Add__WEBPACK_IMPORTED_MODULE_10__.Add, {
-      "default": showAddSpecialist
+    children: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_specialist_AddFromService__WEBPACK_IMPORTED_MODULE_10__.AddFromService, {
+      service: showAddSpecialist
     })
   }), showAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_8__["default"], {
     onPopupClose: function onPopupClose() {
@@ -395,11 +394,11 @@ var Service = function Service(props) {
     onClick: function onClick() {
       return setShowAdd(true);
     },
-    className: "btn btn-outline-primary btn-md ms-auto"
+    className: "btn btn-outline-primary btn-sm ms-auto"
   }, "Ajouter service")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "table-responsive"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("table", {
-    className: "table card-table table-striped table-vcenter",
+    className: "table table-hover table-outline table-vcenter text-nowrap card-table",
     role: "grid"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
     role: "row"
@@ -433,6 +432,14 @@ var Service = function Service(props) {
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
     tabIndex: 0,
+    rowSpan: 1,
+    colSpan: 1,
+    "aria-label": "Invoice Subject: activate to sort column ascending",
+    style: {
+      width: "20px"
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
+    tabIndex: 0,
     className: "no-sort",
     rowSpan: 1,
     colSpan: 1,
@@ -456,8 +463,12 @@ var Service = function Service(props) {
     }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
       className: ""
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-      className: "text-muted"
+      className: "".concat(rep.providers_count === 0 ? "text-danger" : "text-primary")
     }, rep.providers_count === 0 ? "Pas de prestataire" : "", rep.providers_count > 0 ? "".concat(rep.providers_count, " prestataire").concat(rep.providers_count > 1 ? "s" : '') : "")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+      className: ""
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+      className: "".concat(rep.specialists.length === 0 ? "text-danger" : "text-primary")
+    }, rep.specialists.length === 0 ? "Pas de spécialiste" : "", rep.specialists.length > 0 ? "".concat(rep.specialists.length, " sp\xE9caliste").concat(rep.specialists.length > 1 ? "s" : '') : "")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
       className: "text-right"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "item-action dropdown"
@@ -497,9 +508,7 @@ var Service = function Service(props) {
     }), " Lier \xE0 un prestataire"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "dropdown-item",
       onClick: function onClick() {
-        return setShowAddSpecialist({
-          service: rep
-        });
+        return setShowAddSpecialist(rep);
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "dropdown-icon fe fe-git-pull-request"
@@ -721,6 +730,317 @@ var List = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(templat
   return props.haveItem ? "3px 3px 0 0" : 0;
 });
 var Select = (0,styled_components__WEBPACK_IMPORTED_MODULE_5__["default"])(framer_motion__WEBPACK_IMPORTED_MODULE_6__.motion.div)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"], ["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"])));
+var templateObject_1, templateObject_2;
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/specialist/AddFromService.tsx":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/admin/specialist/AddFromService.tsx ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AddFromService": () => (/* binding */ AddFromService)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/BrowserTitle */ "./resources/js/components/utils/BrowserTitle.tsx");
+/* harmony import */ var _utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/form-components/Select2 */ "./resources/js/components/utils/form-components/Select2.tsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/dom/motion.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _utils_Progress__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/Progress */ "./resources/js/components/utils/Progress.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+var __makeTemplateObject = undefined && undefined.__makeTemplateObject || function (cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", {
+      value: raw
+    });
+  } else {
+    cooked.raw = raw;
+  }
+  return cooked;
+};
+var __spreadArray = undefined && undefined.__spreadArray || function (to, from, pack) {
+  if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+    if (ar || !(i in from)) {
+      if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+      ar[i] = from[i];
+    }
+  }
+  return to.concat(ar || Array.prototype.slice.call(from));
+};
+
+
+
+
+
+
+
+
+var AddFromService = function AddFromService(props) {
+  var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    providers = _a[0],
+    setProviders = _a[1],
+    _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    specialistSelected = _b[0],
+    setSpecialistSelected = _b[1],
+    _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    loading = _c[0],
+    setLoading = _c[1],
+    _d = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    error = _d[0],
+    setError = _d[1],
+    _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    chooseExisting = _e[0],
+    setChooseExisting = _e[1],
+    _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+    name = _f[0],
+    setName = _f[1];
+  console.log(props);
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    if (name.trim().length === 0 && specialistSelected.length === 0) return setError("Veuillez choisir ou entrer le nom d'au moins un spécialiste");
+    var form = new FormData();
+    if (!chooseExisting) {
+      form.append("name", name);
+      form.append("new", "1");
+    } else {
+      var id_1 = [];
+      specialistSelected.map(function (specialist) {
+        id_1 = __spreadArray(__spreadArray([], id_1, true), [specialist.id], false);
+        form.append("specialist[]", specialist.id);
+      });
+    }
+    form.append("service_id", props.service.id);
+    if (providers) {
+      var id_2 = [];
+      providers.map(function (provider) {
+        id_2 = __spreadArray(__spreadArray([], id_2, true), [provider.id], false);
+        form.append("providers[]", provider.id);
+      });
+    }
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/dashboard/specialist/add_from_service", form).then(function (rep) {});
+  };
+  var providerSelected = function providerSelected() {
+    if (providers.length > 0) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "tags mt-2 mb-2"
+      }, providers.map(function (provider, index) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "pt-1 pt-1 pe-1 d-inline-block",
+          key: index
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+          className: "tag",
+          key: index
+        }, provider === null || provider === void 0 ? void 0 : provider.name, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          type: "button",
+          style: {
+            border: "none"
+          },
+          className: "tag-addon"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+          className: "fe fe-x",
+          onClick: function onClick() {
+            setProviders(function (prevState) {
+              var all = __spreadArray([], prevState, true);
+              all.splice(index, 1);
+              return all;
+            });
+          }
+        }))));
+      }));
+    } else {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+    }
+  };
+  var specialistSelectedList = function specialistSelectedList() {
+    if (specialistSelected.length > 0) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "tags mt-3 mb-2"
+      }, specialistSelected.map(function (provider, index) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "pt-1 pt-1 pe-1 d-inline-block",
+          key: index
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+          className: "tag",
+          key: index
+        }, provider === null || provider === void 0 ? void 0 : provider.name, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          type: "button",
+          style: {
+            border: "none"
+          },
+          className: "tag-addon"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+          className: "fe fe-x",
+          onClick: function onClick() {
+            setSpecialistSelected(function (prevState) {
+              var all = __spreadArray([], prevState, true);
+              all.splice(index, 1);
+              return all;
+            });
+          }
+        }))));
+      }));
+    } else {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+    }
+  };
+  var handleProviderSelect = function handleProviderSelect(e) {
+    setProviders(function (prevState) {
+      return __spreadArray(__spreadArray([], prevState, true), [e], false);
+    });
+  };
+  var handleSpecialistSelect = function handleSpecialistSelect(e) {
+    setError("");
+    setSpecialistSelected(function (prevState) {
+      return __spreadArray(__spreadArray([], prevState, true), [e], false);
+    });
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Select, {
+    initial: {
+      x: -10,
+      opacity: 0
+    },
+    animate: {
+      x: 0,
+      opacity: 1
+    },
+    exit: {
+      x: 10,
+      opacity: 0
+    }
+  }, loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    title: "Ajouter spécialiste"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "form-label m-0 mb-2"
+  }, "Ajouter sp\xE9cialiste"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    style: {
+      boxShadow: "rgb(227, 232, 238) 0px -1px inset",
+      width: "100%",
+      height: "1px",
+      marginTop: "-1px",
+      marginLeft: "-22px"
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("fieldset", {
+    className: "mt-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "form-group mb-2"
+  }, !chooseExisting && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_5__.motion.div, {
+    initial: {
+      x: 10,
+      opacity: 0
+    },
+    animate: {
+      x: 0,
+      opacity: 1
+    },
+    exit: {
+      x: -10,
+      opacity: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "form-label"
+  }, "Nom sp\xE9cialiste", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "form-required"
+  }, "*")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    onChange: function onChange(e) {
+      setName(e.target.value);
+      setError("");
+    },
+    defaultValue: name,
+    type: "text",
+    name: "name",
+    required: true,
+    placeholder: "Nom du sp\xE9cialiste",
+    className: "form-control"
+  })), chooseExisting && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_5__.motion.div, {
+    initial: {
+      x: -10,
+      opacity: 0
+    },
+    animate: {
+      x: 0,
+      opacity: 1
+    },
+    exit: {
+      x: 10,
+      opacity: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "form-label"
+  }, "Rechercher existant", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "form-required"
+  }, "*")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    classes: "service-form",
+    multiple: false,
+    selectedValue: undefined,
+    onSearch: function onSearch(e) {},
+    searchKeys: {
+      id: 'id',
+      text: ['name']
+    },
+    searchUrl: "/api/dashboard/service/".concat(props.service.id, "/search_specialist"),
+    onSelect: handleSpecialistSelect,
+    searchable: true,
+    placeholder: "Nom du prestataire",
+    id: "sname"
+  }))), specialistSelected.length > 0 && chooseExisting && specialistSelectedList(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "form-label"
+  }, "ou ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+    to: "#",
+    onClick: function onClick() {
+      return setChooseExisting(function (prevState) {
+        return !prevState;
+      });
+    }
+  }, !chooseExisting ? "choisir existant" : "taper un nouveau")), error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "text-danger",
+    style: {
+      fontSize: "13px"
+    }
+  }, error)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    style: {
+      boxShadow: "rgb(227, 232, 238) 0px -1px inset",
+      width: "100%",
+      height: "1px",
+      marginTop: ".5em",
+      marginBottom: ".5em"
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "form-label"
+  }, "Choisir prestataire"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    classes: "service-form",
+    multiple: false,
+    selectedValue: undefined,
+    onSearch: function onSearch(e) {},
+    searchKeys: {
+      id: 'id',
+      text: ['name']
+    },
+    searchUrl: '/api/dashboard/provider/search',
+    onSelect: handleProviderSelect,
+    searchable: true,
+    placeholder: "Nom du prestataire",
+    id: "pname"
+  }), providerSelected(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "mt-3 text-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    className: "btn btn-primary btn-sm"
+  }, "Enregistrer"))));
+};
+var List = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    label{\n        border: ", ";\n        padding: ", ";\n        border-radius: ", ";\n        margin: 0;\n    }\n    .tags{\n        margin: 1rem 0 2rem;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n        font-size: 0.9375rem;\n        max-height: 40rem;\n        overflow: auto;\n        background: #fcfcfc;\n        border-top: none;\n        margin-top: 0!important;\n        border-radius: 0 0 3px 3px;\n        padding: .5rem!important;\n        max-height: 62px;\n        padding-top: 0!important;\n        position: relative;\n        overflow: hidden;\n        &:after{\n            position: absolute;\n            content: \"Voir plus\"\n            font-size: 12px;\n        }\n        &:before{\n            position: absolute;\n            content: \"\"\n            width: 100%;\n            height: 5px;\n            background: \"#000\";\n        }\n    }\n"], ["\n    label{\n        border: ", ";\n        padding: ", ";\n        border-radius: ", ";\n        margin: 0;\n    }\n    .tags{\n        margin: 1rem 0 2rem;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n        font-size: 0.9375rem;\n        max-height: 40rem;\n        overflow: auto;\n        background: #fcfcfc;\n        border-top: none;\n        margin-top: 0!important;\n        border-radius: 0 0 3px 3px;\n        padding: .5rem!important;\n        max-height: 62px;\n        padding-top: 0!important;\n        position: relative;\n        overflow: hidden;\n        &:after{\n            position: absolute;\n            content: \"Voir plus\"\n            font-size: 12px;\n        }\n        &:before{\n            position: absolute;\n            content: \"\"\n            width: 100%;\n            height: 5px;\n            background: \"#000\";\n        }\n    }\n"])), function (props) {
+  return props.haveItem ? "1px solid rgba(0, 40, 100, 0.12)" : "none";
+}, function (props) {
+  return props.haveItem ? ".5rem" : 0;
+}, function (props) {
+  return props.haveItem ? "3px 3px 0 0" : 0;
+});
+var Select = (0,styled_components__WEBPACK_IMPORTED_MODULE_7__["default"])(framer_motion__WEBPACK_IMPORTED_MODULE_5__.motion.div)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"], ["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"])));
 var templateObject_1, templateObject_2;
 
 /***/ }),

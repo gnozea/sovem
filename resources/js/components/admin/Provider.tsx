@@ -58,7 +58,7 @@ const Provider: FC<IProps> = (props: IProps) => {
             <div className="card">
                 <div className="card-header">
                     <h3 className="card-title">Prestataires</h3>
-                    <button onClick={() => setShowAdd(true)} className="btn btn-outline-primary btn-md ms-auto">Ajouter prestataire</button>
+                    <button onClick={() => setShowAdd(true)} className="btn btn-outline-primary btn-sm ms-auto">Ajouter prestataire</button>
                 </div>
                 <div className="table-responsive">
                     <div id="DataTables_Table_0_wrapper" className="dataTables_wrapper no-footer">

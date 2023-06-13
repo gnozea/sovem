@@ -21,8 +21,8 @@ class Service extends Model
         return $this->hasMany(ProviderService::class, "service_id");
     }
 
-    public function specialities()
+    public function specialists()
     {
-        return $this->hasManyThrough(Speciality::class, ServiceSpeciality::class, "speciality_id", "id", "service_id", "id");
+        return $this->hasManyThrough(Speciality::class, ServiceSpeciality::class, "service_id", "id", "id", "speciality_id");
     }
 }

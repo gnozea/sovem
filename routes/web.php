@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SpecialityController;
 use App\Http\Middleware\AccountType;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -83,7 +84,8 @@ Route::prefix("api")->group(function (){
         Route::get("service/{id}/search_specialist", [ServiceController::class, "search_specialist"])->middleware(AccountType::class);
 
         Route::get("specialist", [ServiceController::class, "index"])->middleware(AccountType::class);
-        Route::post("specialist", [\App\Http\Controllers\SpecialityController::class, "store"])->middleware(AccountType::class);
+        Route::post("specialist", [SpecialityController::class, "store"])->middleware(AccountType::class);
+        Route::post("specialist/add_from_service", [SpecialityController::class, "add_from_service"])->middleware(AccountType::class);
     });
 });
 

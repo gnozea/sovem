@@ -68,6 +68,25 @@ class SpecialityController extends Controller
         ];
     }
 
+    public function add_from_service(Request $request)
+    {
+        $request->validate([
+            "new" => "sometimes|between:0,1",
+            "name" => "string|required_if:new,1",
+            "specialist.*" => "sometimes|exists:specialities,id",
+            "providers.*" => "required|exists:providers,id",
+            "service_id" => "required|exists:services,id"
+        ]);
+
+//        $specialist = [];
+//        if ($request->has("new")){
+//            $specialist = Speciality::create([
+//                "name" => $request->get("name")
+//            ]);
+//        }
+        print_r($request->all());
+    }
+
     /**
      * Display the specified resource.
      *

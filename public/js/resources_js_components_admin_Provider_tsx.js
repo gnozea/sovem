@@ -119,7 +119,7 @@ var Provider = function Provider(props) {
     onClick: function onClick() {
       return setShowAdd(true);
     },
-    className: "btn btn-outline-primary btn-md ms-auto"
+    className: "btn btn-outline-primary btn-sm ms-auto"
   }, "Ajouter prestataire")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "table-responsive"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {

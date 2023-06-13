@@ -23,8 +23,7 @@ class ServiceController extends Controller
     public function index()
     {
         $services = Service::withCount(['providers'])
-            //->with(["specialities"])
-            ->get();
+            ->with(["specialists"])->get();
         return [
             'status' => 'success',
             'data' => $services
@@ -180,9 +179,7 @@ class ServiceController extends Controller
     public function search_specialist($term, Request $request)
     {
         $specialist = Speciality::where("name", "LIKE", "%{$request->get('q')}%")
-            ->with(["service_specialities" => function($q) use($request){
-
-            }])->get();
+            ->with(["service_specialities"])->get();
 
         return [
             "status" => "success",
