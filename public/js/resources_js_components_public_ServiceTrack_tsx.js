@@ -521,7 +521,6 @@ var ServiceTrack = function ServiceTrack(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: ""
   }, "Verifye eta demand lan"))))))))), (results === null || results === void 0 ? void 0 : results.services.length) === 0 && confirmed.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    title: "Dosye ".concat(results.request.ticket_number),
     onPopupClose: function onPopupClose() {
       return setShowPopup(false);
     },
@@ -540,7 +539,15 @@ var ServiceTrack = function ServiceTrack(props) {
     className: "mt-0"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: ""
-  }, "Demand ou an poko trete")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Okenn prestat\xE8 poko aksepte trete dosye w la. Pa enkyete w yap reponn ou nan yon ti tan!"))), ((results === null || results === void 0 ? void 0 : results.services.length) > 0 || confirmed.length > 0) && showPopup && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, "Demand ou an poko trete")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    className: "mb-2"
+  }, "Okenn prestat\xE8 poko aksepte trete dosye w la. Pa enkyete w yap reponn ou nan yon ti tan!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    className: "text-center m-0 mb-2",
+    style: {
+      fontSize: "20px",
+      fontWeight: "600"
+    }
+  }, "Dosye ", results.request.ticket_number))), ((results === null || results === void 0 ? void 0 : results.services.length) > 0 || confirmed.length > 0) && showPopup && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
     onPopupClose: function onPopupClose() {
       setShowPopup(false);
       setCurrent(0);

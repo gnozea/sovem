@@ -114,7 +114,7 @@ const ServiceTrack: FC<IProps> = (props: IProps) => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {(results?.services.length === 0 && confirmed.length === 0) && <Popup title={`Dosye ${results.request.ticket_number}`} onPopupClose={() => setShowPopup(false)} parentId={1900}>
+                                                    {(results?.services.length === 0 && confirmed.length === 0) && <Popup onPopupClose={() => setShowPopup(false)} parentId={1900}>
                                                             <div className="results-set mt-4 text-center">
                                                                 <div style={{ width: "200px", margin: "0 auto" }}>
                                                                     <img src="/images/novelist-writing-animate.svg" alt=""/>
@@ -122,7 +122,8 @@ const ServiceTrack: FC<IProps> = (props: IProps) => {
                                                                 <h4 className="mt-0">
                                                                     <span className="">Demand ou an poko trete</span>
                                                                 </h4>
-                                                                <p>Okenn prestatè poko aksepte trete dosye w la. Pa enkyete w yap reponn ou nan yon ti tan!</p>
+                                                                <p className="mb-2">Okenn prestatè poko aksepte trete dosye w la. Pa enkyete w yap reponn ou nan yon ti tan!</p>
+                                                                <p className="text-center m-0 mb-2" style={{ fontSize: "20px", fontWeight: "600" }}>Dosye {results.request.ticket_number}</p>
                                                             </div>
                                                         </Popup>
                                                     }

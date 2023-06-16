@@ -54,10 +54,11 @@ const Public:FC<IProps> = (props: IProps) => {
     const menuItems = [
         {title: "Akèy", href: "/"},
         {title: "Swiv dosyew", href: "/service/track"},
-        {title: "Kiyès nou ye", href: ""},
+        {title: "Kiyès nou ye", href: "/about-us"},
     ]
 
-    const ServiceTrack = lazy(() => import("../components/public/ServiceTrack"))
+    const ServiceTrack = lazy(() => import("../components/public/ServiceTrack")),
+    About = lazy(() => import("../components/public/About"))
 
     return <div className="body_wrap" style={{ backgroundColor: "#e6e9f2" }}>
         <ToastContainer
@@ -89,6 +90,7 @@ const Public:FC<IProps> = (props: IProps) => {
                                             </LoaderWrapper>}>
                                                 <Routes>
                                                     <Route path="" element={<Home size={size}/>}/>
+                                                    <Route path="about-us" element={<About size={size}/>}/>
                                                     <Route path="service/track" element={<ServiceTrack/>}/>
                                                     <Route path="provider/validate/:token" element={<CreateProvider/>}/>
                                                     <Route path="complain" element={<ServiceFormProvider><ComplainForm/></ServiceFormProvider>}/>

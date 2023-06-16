@@ -1,4 +1,5 @@
 import React, {createRef, FC, useEffect, useLayoutEffect, useRef, useState} from "react";
+import {Link} from "react-router-dom"
 
 interface IProps {
     windowSize: any
@@ -87,25 +88,22 @@ const Section2: FC<IProps> = (props) => {
                                                                 >
                                                                     <div className="sc_promo_text_inner trx_addons_inline_835092385">
                                                                         <h2 className="sc_item_title sc_promo_title sc_item_title_style_with_line sc_item_title_tag trx_addons_inline_1758223025">
-                                    <span className="sc_item_title_text">
-                                      Every person deserves healthy
-                                      relationships.
-                                    </span>
+                                                                            <span className="sc_item_title_text">
+                                                                                Tout moun dwe viv ak lapè
+                                                                            </span>
                                                                         </h2>
                                                                         <div
                                                                             id="sc_button_1731220190"
                                                                             className="sc_item_button sc_button_wrap sc_item_button sc_item_button_default sc_promo_button"
                                                                         >
-                                                                            <a
-                                                                                href="https://helpline.impacto-patronus.ancorathemes.com/about-us/"
+                                                                            <Link
+                                                                                to="/about-us/"
                                                                                 className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left sc_button_hover_slide_left sc_button_hover_style_dark"
                                                                             >
-                                      <span className="sc_button_text">
-                                        <span className="sc_button_title">
-                                          More About Us
-                                        </span>
-                                      </span>
-                                                                            </a>
+                                                                                <span className="sc_button_text">
+                                                                                    <span className="sc_button_title">Kiyès nou ye</span>
+                                                                                </span>
+                                                                            </Link>
                                                                         </div>
                                                                     </div>
                                                                 </div>

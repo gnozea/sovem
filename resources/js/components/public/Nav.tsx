@@ -9,7 +9,15 @@ interface IProps {
 const Nav: FC<IProps> = (props: IProps) => {
     const [position, setPosition] = useState<number>(0),
         [showTrack, setShowTrack] = useState<boolean>(false),
-        [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false)
+        [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false),
+        [active, setActive] = useState(location.pathname.toString())
+
+
+    const setActiveURL = (event: any) => {
+
+    }
+
+
     useEffect(() => {
         const updatePosition = () => setPosition(window.pageYOffset);
         window.addEventListener("scroll", updatePosition);
@@ -19,7 +27,7 @@ const Nav: FC<IProps> = (props: IProps) => {
 
 
     return <>
-        {mobileNavOpen && <MobileNav menuItems={props.menuItems} onCloseMenu={() => setMobileNavOpen(false)}/>}
+        {mobileNavOpen && <MobileNav menuItems={props.menuItems} onCloseMenu={() => setMobileNavOpen(false)} active={active} onClickUrl={(url: string) => setActive(url)}/>}
         <header className="top_panel top_panel_custom top_panel_custom_2768 top_panel_custom_helpline-header without_bg_image">
             <div data-vighor-type="cpt_layouts" className="vighor vighor-2768">
                 <div className="vighor-inner">
@@ -37,13 +45,13 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                     data-id="71f766da" data-element_type="widget"
                                                     data-widget_type="trx_sc_layouts_logo.default">
                                                     <div className="vighor-widget-container">
-                                                        <a href="/" id="trx_sc_layouts_logo_1139677019"
+                                                        <Link to="/" id="trx_sc_layouts_logo_1139677019"
                                                            className="sc_layouts_logo sc_layouts_logo_default trx_addons_inline_1362397269"><img
                                                             className="logo_image"
                                                             src="/images/PHOTO-2023-04-30-00-07-25.jpg"
                                                             srcSet="/images/PHOTO-2023-04-30-00-07-25.jpg 2x"
                                                             alt="Logo" width="212" height="80"/>
-                                                        </a>
+                                                        </Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,12 +76,10 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                                 className="sc_layouts_menu_nav menu_main_nav inited sf-js-enabled sf-arrows"
                                                                 style={{ touchAction: "pan-y" }}>
                                                                 {props.menuItems.map((item: any, key: number) =>
-                                                                    <li key={key} className="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor current-menu-parent menu-item-has-children menu-item-3786">
-                                                                        <NavLink to={item.href} className={(isActive) => {
-                                                                            return isActive ? "sf-with-ul-" : ""
-                                                                        }}>
+                                                                    <li key={key} className={`menu-item menu-item-type-custom menu-item-object-custom${active === item.href ? " current-menu-ancestor current-menu-parent" : " "}menu-item-has-children menu-item-3786`}>
+                                                                        <Link to={item.href} onClick={() => setActive(item.href)} className={"sf-with-ul"}>
                                                                             <span>{item.title}</span>
-                                                                        </NavLink>
+                                                                        </Link>
                                                                     </li>
                                                                 )}
 

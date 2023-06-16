@@ -1,8 +1,11 @@
 import React, {FC} from "react"
+import {Link, NavLink} from "react-router-dom";
 
 interface IProps {
     children?: React.ReactNode,
     onCloseMenu: any,
+    active: string,
+    onClickUrl: any
     menuItems: {title: string, href: string, children?: {title: string, href: string}[]}[]
 }
 const MobileNav: FC<IProps> = (props: IProps) => {
@@ -22,11 +25,11 @@ const MobileNav: FC<IProps> = (props: IProps) => {
                 <ul id="menu_mobile" className="menu_mobile_nav prepared">
                     {props.menuItems.map((item: any, key: number) => {
                         return <li key={key}
-                                   className="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3786 current-menu-ancestor current-menu-parent">
-                            <a href={item.href}>
+                                   className={`menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3786${props.active === item.href ? " current-menu-ancestor current-menu-parent" : " "}`}>
+                            <Link to={item.href} onClick={() => props.onClickUrl(item.href)}>
                                 <span>{item.title}</span>
                                 {item.children && <span className="open_child_menu"></span>}
-                            </a>
+                            </Link>
                             {/*<ul className="sub-menu">*/}
                             {/*    <li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-home page_item page-item-594 menu-item-3829 current-menu-item current_page_item">*/}
                             {/*        <a href="https://helpline.impacto-patronus.ancorathemes.com/" aria-current="page">*/}
