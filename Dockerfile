@@ -1,17 +1,34 @@
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+FROM php:7.4-fpm
 
-WORKDIR /app
-COPY . /app
-RUN composer global require hirak/prestissimo && composer install
+ENV APCu_VERSION 5.1.20
+ENV APCuBC_VERSION 1.0.4
 
-FROM php:7.4-apache
-RUN docker-php-ext-install pdo pdo_mysql
+# Install composer:
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-EXPOSE 8080
-COPY --from=composer /app /var/www/
-COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY .env /var/www/.env
-RUN chmod 777 -R /var/www/storage/ && \
-    echo "Listen 8080" >> /etc/apache2/ports.conf && \
-    chown -R www-data:www-data /var/www/ && \
-    a2enmod rewrite
+RUN pecl install
+
+# Install APCu, redis, ...
+RUN pecl install apcu \
+    && apt-get install -y openssl pkg-config \
+    && pecl uninstall mongodb \
+    && docker-php-ext-enable apcu \
+    && pecl clear-cache \
+    && pecl install -o -f redis \
+    && rm -rf /tmp/pear \
+    && docker-php-ext-enable redis \
+    && pecl install mongodb \
+    &&  echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongo.ini
+
+
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+COPY init.sh /
+
+ RUN chmod +x /init.sh
+
+ ENTRYPOINT ["/init.sh"]
+
+#To build => docker build -t huguesbert17/php-fpm-with-apcu-redis:latest .
+#To push => docker push huguesbert17/php-fpm-with-apcu-redis:latest
+#To update local tag link to docker hub => sudo docker tag huguesbert17/php-fpm-with-apcu-redis huguesbert17/php-fpm-with-apcu-redis:latest
