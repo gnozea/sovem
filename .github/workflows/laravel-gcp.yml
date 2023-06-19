@@ -22,7 +22,7 @@ env:
   GKE_CLUSTER: cluster-1    # TODO: update to cluster name
   GKE_ZONE: us-central1-c   # TODO: update to cluster zone
   DEPLOYMENT_NAME: gke-rapha-konektem # TODO: update to deployment name
-  REPOSITORY: sovem # TODO: update to Artifact Registry docker repository
+  REPOSITORY: rapha-konektem # TODO: update to Artifact Registry docker repository
   IMAGE: gcr.io/cloudrun/rapha-konektem
 
 jobs:
