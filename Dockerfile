@@ -1,10 +1,11 @@
+FROM php:7.4-apache
+
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 COPY . /app
 RUN composer global require hirak/prestissimo && composer install
 
-FROM php:7.4-apache
 RUN docker-php-ext-install pdo pdo_mysql
 
 EXPOSE 8080
