@@ -27,52 +27,106 @@ env:
   REPOSITORY: rapha-konektem # TODO: update to Artifact Registry docker repository
   IMAGE: gcr.io/cloudrun/rapha-konektem
 
+#jobs:
+#  setup-build-publish-deploy:
+#    name: Setup, Build, Publish, and Deploy
+#    runs-on: ubuntu-latest
+#    environment: production
+#
+#    permissions:
+#      contents: 'read'
+#      id-token: 'write'
+#
+#    steps:
+#    - name: Checkout
+#      uses: actions/checkout@v3
+#
+#    # Configure Workload Identity Federation and generate an access token.
+#    - id: 'auth'
+#      name: 'Authenticate to Google Cloud'
+#      uses: 'google-github-actions/auth@v1'
+#      with:
+#        token_format: 'access_token'
+#        workload_identity_provider: 'projects/711655966568/locations/global/workloadIdentityPools/k8s-pool-prod/providers/k8s-provider'
+#        service_account: 'github-actions@rapha-konektem.iam.gserviceaccount.com'
+#
+#    # Alternative option - authentication via credentials json
+#    # - id: 'auth'
+#    #   uses: 'google-github-actions/auth@v0'
+#    #   with:
+#    #     credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+#
+#
+#    # Configure Docker with Credentials
+#    - name: Configure Docker
+#      run: |
+#        gcloud auth configure-docker
+#
+#    # Build the Docker image
+#    - name: Build & Publish
+#      run: |
+#        gcloud config set project ${{ secrets.GCP_PROJECT }}
+#        gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }}:latest
+#        gcloud config set run/region us-central1
+#
+#    # Deploy the Docker image to the GKE cluster
+#    - name: Deploy
+#      run: |
+#        gcloud run deploy ${{ secrets.GCP_APPLICATION }} --image gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }} \
+#        --platform managed \
+#        --allow-unauthenticated \
+#        --memory 512M
+
+
+
+#name: Build and Push Python Image to Google Cloud Platform
+#on:
+#  push:
+#    branches: [ main ]
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  build-push-gcr:
+    name: Build and Push to GCP
     runs-on: ubuntu-latest
-    environment: production
-
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
+    env:
+      IMAGE_NAME: konektem-rapha
+      PROJECT_ID: ${{ secrets.GKE_PROJECT }}
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    # Configure Workload Identity Federation and generate an access token.
-    - id: 'auth'
-      name: 'Authenticate to Google Cloud'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        token_format: 'access_token'
-        workload_identity_provider: 'projects/711655966568/locations/global/workloadIdentityPools/k8s-pool-prod/providers/k8s-provider'
-        service_account: 'github-actions@rapha-konektem.iam.gserviceaccount.com'
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          #service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+          export_default_credentials: true
 
-    # Alternative option - authentication via credentials json
-    # - id: 'auth'
-    #   uses: 'google-github-actions/auth@v0'
-    #   with:
-    #     credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.GCP_APPLICATION }}:latest .
 
+      - name: Automatic Tagging of Releases
+        id: increment-git-tag
+        run: |
+          bash ./scripts/git_update.sh -v major
 
-    # Configure Docker with Credentials
-    - name: Configure Docker
-      run: |
-        gcloud auth configure-docker
+      - name: Configure Docker Client
+        run: |-
+          gcloud auth configure-docker --quiet
+          gcloud auth configure-docker us-west2-docker.pkg.dev --quiet
 
-    # Build the Docker image
-    - name: Build & Publish
-      run: |
-        gcloud config set project ${{ secrets.GCP_PROJECT }}
-        gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }}:latest
-        gcloud config set run/region us-central1
+      - name: Push Docker Image to Container Registry (GCR)
+        env:
+          GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
+        run: |-
+          docker tag ${{ secrets.GCP_APPLICATION }}:latest gcr.io/{{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }}:latest
+          docker tag ${{ secrets.GCP_APPLICATION }}:latest gcr.io/{{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }}:$GIT_TAG
+          docker push gcr.io/{{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }}:latest
+          docker push gcr.io/{{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }}:$GIT_TAG
 
-    # Deploy the Docker image to the GKE cluster
-    - name: Deploy
-      run: |
-        gcloud run deploy ${{ secrets.GCP_APPLICATION }} --image gcr.io/${{ secrets.GCP_PROJECT }}/${{ secrets.GCP_APPLICATION }} \
-        --platform managed \
-        --allow-unauthenticated \
-        --memory 512M
+      - name: Push Docker Image to Artifact Registry
+        env:
+          GIT_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
+        run: |-
+          docker tag ${{ secrets.GCP_APPLICATION }}:latest us-west2-docker.pkg.dev/{{ secrets.GCP_PROJECT }}/images/${{ secrets.GCP_APPLICATION }}:latest
+          docker tag ${{ secrets.GCP_APPLICATION }}:latest us-west2-docker.pkg.dev/{{ secrets.GCP_PROJECT }}/images/${{ secrets.GCP_APPLICATION }}:$GIT_TAG
+          docker push us-west2-docker.pkg.dev/{{ secrets.GCP_PROJECT }}/images/${{ secrets.GCP_APPLICATION }}:latest
+          docker push us-west2-docker.pkg.dev/{{ secrets.GCP_PROJECT }}/images/${{ secrets.GCP_APPLICATION }}:$GIT_TAG
