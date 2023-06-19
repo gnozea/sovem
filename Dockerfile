@@ -4,7 +4,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 COPY . /app
-RUN composer global require hirak/prestissimo && composer install
+#RUN composer global require hirak/prestissimo &&
+RUN composer install
 
 RUN docker-php-ext-install pdo pdo_mysql
 
