@@ -139,22 +139,18 @@ const Section2: FC<IProps> = (props) => {
                                                                         <div className="sc_icons_item sc_icons_item_linked">
                                                                             <div className="sc_icons_item_details">
                                                                                 <h4 className="sc_icons_item_title">
-                                                                                    <span>Identify Abuse</span>
+                                                                                    <span>Ki objektif pòtay sa a</span>
                                                                                 </h4>
                                                                                 <div className="sc_icons_item_description">
-                                        <span>
-                                          Domestic violence is a pattern of
-                                          behaviors used by one partner to
-                                          maintain power and control over
-                                          another partner in an intimate
-                                          relationship.
-                                        </span>
+                                                                                    <span>
+                                                                                      Pòtay sa a reyalize nan objektif sa yo:
+                                                                                        Asire ke moun ki viktim vyolans yo gen aksè ak yon kat jewografik òganizasyon gratis yo, enstitisyon...
+                                                                                    </span>
                                                                                 </div>
-                                                                                <a
-                                                                                    href="#"
-                                                                                >
-                                                                                    Read More
-                                                                                </a>
+                                                                                <Link className="sc_icons_item_link" to={{
+                                                                                    pathname: "/about-us",
+                                                                                    hash: "#goal-123",
+                                                                                }}>Li plis toujou</Link>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -162,23 +158,15 @@ const Section2: FC<IProps> = (props) => {
                                                                         <div className="sc_icons_item sc_icons_item_linked">
                                                                             <div className="sc_icons_item_details">
                                                                                 <h4 className="sc_icons_item_title">
-                                                                                    <span>Plan for Safety</span>
+                                                                                    <span>Kijan sit la fonksyone?</span>
                                                                                 </h4>
                                                                                 <div className="sc_icons_item_description">
-                                        <span>
-                                          A safety plan is a set of actions that
-                                          can help lower your risk of being hurt
-                                          by your partner. It includes
-                                          information specific to you and your
-                                          life.
-                                        </span>
+                                                                                    <span>Lè yon itilizatè konekte sou sit la, lap jis klike sou onglè MANDE YON SEVIS. Epi, lap swiv tout etap yo nan reponn kesyon ki korespon n ak sitiyasyon l.
+                                                                                    </span>
                                                                                 </div>
-                                                                                <a
-                                                                                    href="#"
-                                                                                    className="sc_icons_item_link"
-                                                                                >
-                                                                                    Read More
-                                                                                </a>
+                                                                                <Link to="/about-us" className="sc_icons_item_link">
+                                                                                    Li plis toujou
+                                                                                </Link>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -186,23 +174,17 @@ const Section2: FC<IProps> = (props) => {
                                                                         <div className="sc_icons_item sc_icons_item_linked">
                                                                             <div className="sc_icons_item_details">
                                                                                 <h4 className="sc_icons_item_title">
-                                                                                    <span>Support Others</span>
+                                                                                    <span>Apre demand lan fin soumèt</span>
                                                                                 </h4>
                                                                                 <div className="sc_icons_item_description">
-                                        <span>
-                                          Since those experiencing abuse are
-                                          often isolated by their abusers, it’s
-                                          important to know how you can support
-                                          survivors on the path to finding
-                                          safety.
-                                        </span>
+                                                                                    <span>Aprè moun nan fin soumèt yon demann sèvis, founisè ki enskri yo ap resevwa yon alèt nan yon sistèm otomatik ki entegre nan pòtay la...</span>
                                                                                 </div>
-                                                                                <a
-                                                                                    href="#"
+                                                                                <Link
+                                                                                    to="/about-us"
                                                                                     className="sc_icons_item_link"
                                                                                 >
-                                                                                    Read More
-                                                                                </a>
+                                                                                    Li plis toujou
+                                                                                </Link>
                                                                             </div>
                                                                         </div>
                                                                     </div>

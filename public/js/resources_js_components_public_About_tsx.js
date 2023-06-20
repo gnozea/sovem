@@ -462,9 +462,7 @@ __webpack_require__.r(__webpack_exports__);
 var SectionIV = function SectionIV(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     className: "vighor-section vighor-top-section vighor-element vighor-element-8fa36ae vighor-section-stretched vighor-section-boxed vighor-section-height-default vighor-section-height-default",
-    "data-id": "8fa36ae",
-    "data-element_type": "section",
-    "data-settings": '{"stretch_section":"section-stretched","background_background":"classic"}',
+    id: "goal-123",
     style: {
       width: "".concat(props.size[0], "px")
     }

@@ -13,6 +13,17 @@
 
 @import "popup";
 
+@media all and (max-width: 669px) {
+    body{
+        .vighor-2768 .vighor-element.vighor-element-5e85655{
+            padding-right: 0!important;
+        }
+        .scheme_default .sc_button_default.color_style_link2, .scheme_default .color_style_link2 .sc_button_default, .scheme_default .sc_button.color_style_link2:not(.sc_button_simple):not(.sc_button_bordered):not(.sc_button_bg_image), .scheme_default .color_style_link2 .sc_button:not(.sc_button_simple):not(.sc_button_bordered):not(.sc_button_bg_image){
+            padding: 11px!important;
+        }
+    }
+}
+
 body {
     .scheme_default .sc_layouts_menu_nav>li.current-menu-parent>a, .scheme_default .sc_layouts_menu_nav>li.current-menu-ancestor>a{
         color: #07203c!important;
