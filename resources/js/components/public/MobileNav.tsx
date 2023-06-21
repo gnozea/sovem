@@ -15,21 +15,21 @@ const MobileNav: FC<IProps> = (props: IProps) => {
         <div className="menu_mobile menu_mobile_fullscreen scheme_dark opened">
         <div className="menu_mobile_inner">
             <a className="menu_mobile_close theme_button_close" onClick={props.onCloseMenu}><span className="theme_button_close_icon"></span></a>
-            <a className="sc_layouts_logo" href="https://helpline.impacto-patronus.ancorathemes.com/">
+            <Link className="sc_layouts_logo" to="/">
                 <img
                     src="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png"
                     srcSet="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png 2x"
                     alt="Logo" style={{width: "100px"}}/>
-            </a>
+            </Link>
             <nav className="menu_mobile_nav_area" itemType="https://schema.org/SiteNavigationElement">
                 <ul id="menu_mobile" className="menu_mobile_nav prepared">
                     {props.menuItems.map((item: any, key: number) => {
                         return <li key={key}
                                    className={`menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-3786${props.active === item.href ? " current-menu-ancestor current-menu-parent" : " "}`}>
-                            <Link to={item.href} onClick={() => props.onClickUrl(item.href)}>
+                            <a href={item.href} onClick={() => props.onClickUrl(item.href)}>
                                 <span>{item.title}</span>
                                 {item.children && <span className="open_child_menu"></span>}
-                            </Link>
+                            </a>
                             {/*<ul className="sub-menu">*/}
                             {/*    <li className="menu-item menu-item-type-post_type menu-item-object-page menu-item-home page_item page-item-594 menu-item-3829 current-menu-item current_page_item">*/}
                             {/*        <a href="https://helpline.impacto-patronus.ancorathemes.com/" aria-current="page">*/}

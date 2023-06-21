@@ -1,13 +1,13 @@
 import React, {FC} from "react";
 
 interface IProps {
-    size: any
+
 }
 
 
 export const SectionVI: FC<IProps> = (props: IProps) => {
     return <section className="vighor-section vighor-top-section vighor-element vighor-element-8fa36ae vighor-section-stretched vighor-section-boxed vighor-section-height-default vighor-section-height-default"
-        style={{ width: `${props.size[0]}px` }}
+        // style={{ width: `${props.size[0]}px` }}
     >
         <div className="vighor-container vighor-column-gap-extended">
             <div className="vighor-row">

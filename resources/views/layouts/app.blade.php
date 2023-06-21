@@ -10,7 +10,7 @@
         <!-- CSRF Token -->
 {{--        <meta name="csrf-token" content="{{ csrf_token() }}">--}}
         <meta name="auth-inspector" content="{{ Auth::check() }}">
-        <title>Sovem tanpri</title>
+        <title>Fè demad sèvis ou</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -27,7 +27,7 @@
             <link rel="stylesheet" href="{{ asset("css/main.css") }}">
 
         @endif
-        <link href=" {{ asset('css/layout.min.css') }}" rel="stylesheet" type="text/css">
+{{--        <link href="{{ asset('css/layout.min.css') }}" rel="stylesheet" type="text/css">--}}
         <link href="{{ asset('css/icons/icomoon/styles.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/icons/material/materialdesignicons.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/icons/fabric-icon/fabric-icons--inline.css') }}" rel="stylesheet" type="text/css">

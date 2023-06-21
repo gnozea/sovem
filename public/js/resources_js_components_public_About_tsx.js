@@ -32,13 +32,7 @@ __webpack_require__.r(__webpack_exports__);
 var About = function About(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_1__["default"], {
     title: "Kiyès nou ye"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_Banner__WEBPACK_IMPORTED_MODULE_3__.Banner, {
-    size: props.size
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionI__WEBPACK_IMPORTED_MODULE_2__.SectionI, {
-    size: props.size
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionII__WEBPACK_IMPORTED_MODULE_4__.SectionII, {
-    size: props.size
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_Banner__WEBPACK_IMPORTED_MODULE_3__.Banner, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionI__WEBPACK_IMPORTED_MODULE_2__.SectionI, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionII__WEBPACK_IMPORTED_MODULE_4__.SectionII, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-widget-container"
@@ -46,9 +40,7 @@ var About = function About(props) {
     className: "vighor-spacer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-spacer-inner"
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionIII__WEBPACK_IMPORTED_MODULE_5__.SectionIII, {
-    size: props.size
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionIII__WEBPACK_IMPORTED_MODULE_5__.SectionIII, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-widget-container"
@@ -56,9 +48,7 @@ var About = function About(props) {
     className: "vighor-spacer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-spacer-inner"
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionIV__WEBPACK_IMPORTED_MODULE_6__.SectionIV, {
-    size: props.size
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionIV__WEBPACK_IMPORTED_MODULE_6__.SectionIV, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-widget-container"
@@ -66,9 +56,7 @@ var About = function About(props) {
     className: "vighor-spacer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-spacer-inner"
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionV__WEBPACK_IMPORTED_MODULE_7__.SectionV, {
-    size: props.size
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionV__WEBPACK_IMPORTED_MODULE_7__.SectionV, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-widget-container"
@@ -76,9 +64,7 @@ var About = function About(props) {
     className: "vighor-spacer"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-spacer-inner"
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionVI__WEBPACK_IMPORTED_MODULE_8__.SectionVI, {
-    size: props.size
-  }));
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_about_SectionVI__WEBPACK_IMPORTED_MODULE_8__.SectionVI, null));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (About);
 
@@ -171,10 +157,7 @@ var SectionI = function SectionI(props) {
     className: "vighor-section vighor-top-section vighor-element vighor-element-8fa36ae vighor-section-stretched vighor-section-boxed vighor-section-height-default vighor-section-height-default",
     "data-id": "8fa36ae",
     "data-element_type": "section",
-    "data-settings": '{"stretch_section":"section-stretched","background_background":"classic"}',
-    style: {
-      width: "".concat(props.size[0], "px")
-    }
+    "data-settings": '{"stretch_section":"section-stretched","background_background":"classic"}'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-container vighor-column-gap-extended"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -290,10 +273,7 @@ var SectionII = function SectionII(props) {
     className: "vighor-section vighor-top-section vighor-element vighor-element-8fa36ae vighor-section-stretched vighor-section-boxed vighor-section-height-default vighor-section-height-default",
     "data-id": "8fa36ae",
     "data-element_type": "section",
-    "data-settings": '{"stretch_section":"section-stretched","background_background":"classic"}',
-    style: {
-      width: "".concat(props.size[0], "px")
-    }
+    "data-settings": '{"stretch_section":"section-stretched","background_background":"classic"}'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-container vighor-column-gap-extended",
     style: {
@@ -374,10 +354,7 @@ var SectionIII = function SectionIII(props) {
     className: "vighor-section vighor-top-section vighor-element vighor-element-8fa36ae vighor-section-stretched vighor-section-boxed vighor-section-height-default vighor-section-height-default",
     "data-id": "8fa36ae",
     "data-element_type": "section",
-    "data-settings": '{"stretch_section":"section-stretched","background_background":"classic"}',
-    style: {
-      width: "".concat(props.size[0], "px")
-    }
+    "data-settings": '{"stretch_section":"section-stretched","background_background":"classic"}'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-container vighor-column-gap-extended",
     style: {
@@ -462,10 +439,7 @@ __webpack_require__.r(__webpack_exports__);
 var SectionIV = function SectionIV(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
     className: "vighor-section vighor-top-section vighor-element vighor-element-8fa36ae vighor-section-stretched vighor-section-boxed vighor-section-height-default vighor-section-height-default",
-    id: "goal-123",
-    style: {
-      width: "".concat(props.size[0], "px")
-    }
+    id: "goal-123"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-container vighor-column-gap-extended",
     style: {
@@ -552,10 +526,7 @@ var SectionV = function SectionV(props) {
     className: "vighor-section vighor-top-section vighor-element vighor-element-8fa36ae vighor-section-stretched vighor-section-boxed vighor-section-height-default vighor-section-height-default",
     "data-id": "8fa36ae",
     "data-element_type": "section",
-    "data-settings": '{"stretch_section":"section-stretched","background_background":"classic"}',
-    style: {
-      width: "".concat(props.size[0], "px")
-    }
+    "data-settings": '{"stretch_section":"section-stretched","background_background":"classic"}'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-container vighor-column-gap-extended",
     style: {
@@ -631,10 +602,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var SectionVI = function SectionVI(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", {
-    className: "vighor-section vighor-top-section vighor-element vighor-element-8fa36ae vighor-section-stretched vighor-section-boxed vighor-section-height-default vighor-section-height-default",
-    style: {
-      width: "".concat(props.size[0], "px")
-    }
+    className: "vighor-section vighor-top-section vighor-element vighor-element-8fa36ae vighor-section-stretched vighor-section-boxed vighor-section-height-default vighor-section-height-default"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "vighor-container vighor-column-gap-extended"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {

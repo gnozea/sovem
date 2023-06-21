@@ -94,8 +94,7 @@ const Section3: FC<IProps> = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div
-                                className="vighor-element vighor-element-6e505ab sc_fly_static vighor-widget vighor-widget-trx_sc_button"
+                            <div className="vighor-element vighor-element-6e505ab sc_fly_static vighor-widget vighor-widget-trx_sc_button"
                                 data-id="6e505ab"
                                 data-element_type="widget"
                                 data-widget_type="trx_sc_button.default"
@@ -134,8 +133,5 @@ const Section3: FC<IProps> = (props) => {
             </div>
         </div>
     </section>
-
-
-
 }
 export default Section3

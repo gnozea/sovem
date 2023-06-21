@@ -2,7 +2,6 @@ import React, {FC} from "react";
 import {Link} from "react-router-dom";
 
 interface IProps {
-    size: any
 }
 
 
@@ -12,7 +11,7 @@ export const SectionI: FC<IProps> = (props: IProps) => {
         data-id="8fa36ae"
         data-element_type="section"
         data-settings='{"stretch_section":"section-stretched","background_background":"classic"}'
-        style={{ width: `${props.size[0]}px` }}
+        // style={{ width: `${props.size[0]}px` }}
     >
         <div className="vighor-container vighor-column-gap-extended">
             <div className="vighor-row">

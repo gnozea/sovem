@@ -40,6 +40,7 @@
         "google-map-react": "^2.2.1",
         "jquery": "^3.6.4",
         "lodash": "^4.17.21",
+        "moment": "^2.29.4",
         "popmotion": "^11.0.5",
         "react": "^17.0.2",
         "react-apexcharts": "^1.4.0",

@@ -15,9 +15,9 @@ interface IProps {
 const About: FC<IProps> = (props: IProps) => {
     return <>
       <BrowserTitle title={"Kiyès nou ye"}/>
-      <Banner size={props.size}/>
-      <SectionI size={props.size}/>
-      <SectionII size={props.size}/>
+      <Banner/>
+      <SectionI/>
+      <SectionII/>
         <div className="vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer">
             <div className="vighor-widget-container">
                 <div className="vighor-spacer">
@@ -25,7 +25,7 @@ const About: FC<IProps> = (props: IProps) => {
                 </div>
             </div>
         </div>
-      <SectionIII size={props.size}/>
+      <SectionIII/>
         <div className="vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer">
             <div className="vighor-widget-container">
                 <div className="vighor-spacer">
@@ -33,7 +33,7 @@ const About: FC<IProps> = (props: IProps) => {
                 </div>
             </div>
         </div>
-      <SectionIV size={props.size}/>
+      <SectionIV/>
         <div className="vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer">
             <div className="vighor-widget-container">
                 <div className="vighor-spacer">
@@ -41,7 +41,7 @@ const About: FC<IProps> = (props: IProps) => {
                 </div>
             </div>
         </div>
-        <SectionV size={props.size}/>
+        <SectionV/>
 
         <div className="vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer">
             <div className="vighor-widget-container">
@@ -50,7 +50,7 @@ const About: FC<IProps> = (props: IProps) => {
                 </div>
             </div>
         </div>
-        <SectionVI size={props.size}/>
+        <SectionVI/>
   </>
 }
 export default About

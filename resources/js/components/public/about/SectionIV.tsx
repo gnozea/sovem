@@ -1,14 +1,15 @@
 import React, {FC} from "react";
 
 interface IProps {
-    size: any
+
 }
 
 
 export const SectionIV: FC<IProps> = (props: IProps) => {
     return <section
         className="vighor-section vighor-top-section vighor-element vighor-element-8fa36ae vighor-section-stretched vighor-section-boxed vighor-section-height-default vighor-section-height-default"
-        id="goal-123" style={{ width: `${props.size[0]}px` }}
+        id="goal-123"
+        // style={{ width: `${props.size[0]}px` }}
     >
         <div className="vighor-container vighor-column-gap-extended" style={{ backgroundColor: "#fff" }}>
             <div className="vighor-row">
