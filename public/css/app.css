@@ -11449,8 +11449,29 @@ body section.vighor-section {
 }
 
 @media all and (max-width: 768px) {
+  body.body-no-scroll {
+    overflow: hidden;
+    height: 100vh;
+  }
+  body .theme_button_close_icon {
+    top: -63% !important;
+    left: 31% !important;
+  }
+  body .menu_mobile_inner {
+    overflow: visible !important;
+  }
+  body .page_wrap .menu_mobile_overlay {
+    display: none !important;
+  }
+  body div.menu_mobile.menu_mobile_fullscreen.scheme_dark.opened {
+    top: 47px !important;
+  }
+  body div.menu_mobile.menu_mobile_fullscreen.scheme_dark.opened ~ .top_panel.top_panel_custom .sc_layouts_iconed_text_link .trx_addons_icon-menu {
+    visibility: hidden;
+  }
   body div.menu_mobile.menu_mobile_fullscreen.scheme_dark.opened {
     height: 100%;
+    border: 1px solid #ebebeb;
   }
   body div.menu_mobile_overlay {
     display: block !important;

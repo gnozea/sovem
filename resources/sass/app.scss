@@ -85,8 +85,29 @@ body {
 
 @media all and (max-width: 768px){
     body{
+        &.body-no-scroll{
+            overflow: hidden;
+            height: 100vh;
+        }
+        .theme_button_close_icon{
+            top: -63%!important;
+            left: 31%!important;
+        }
+        .menu_mobile_inner{
+            overflow: visible!important;
+        }
+        .page_wrap .menu_mobile_overlay{
+            display: none!important;
+        }
+        div.menu_mobile.menu_mobile_fullscreen.scheme_dark.opened{ //To be removed if customer want to rollback to previous menu style
+            top: 47px!important;
+            ~ .top_panel.top_panel_custom .sc_layouts_iconed_text_link .trx_addons_icon-menu{
+                visibility: hidden;
+            }
+        }
         div.menu_mobile.menu_mobile_fullscreen.scheme_dark.opened{
             height: 100%;
+            border: 1px solid #ebebeb;
         }
         div.menu_mobile_overlay{
             display: block!important;

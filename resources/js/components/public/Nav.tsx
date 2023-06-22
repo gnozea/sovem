@@ -25,6 +25,11 @@ const Nav: FC<IProps> = (props: IProps) => {
         return () => window.removeEventListener("scroll", updatePosition);
     }, [])
 
+    useEffect(() => {
+        if (mobileNavOpen) document.querySelector("body").classList.add("body-no-scroll")
+        if (!mobileNavOpen) document.querySelector("body").classList.remove("body-no-scroll")
+    }, [mobileNavOpen])
+
 
     return <>
         {mobileNavOpen && <MobileNav menuItems={props.menuItems} onCloseMenu={() => setMobileNavOpen(false)} active={active} onClickUrl={(url: string) => setActive(url)}/>}
