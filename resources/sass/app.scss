@@ -13,6 +13,54 @@
 
 @import "popup";
 
+
+
+//Customize menu style
+body .scheme_dark.scheme-customized{
+    .menu_mobile_inner{
+        background: #fff;
+    }
+    .theme_button_close_icon{
+        &:after, &:before{
+            border-color: #0d2c50!important;
+        }
+    }
+    .socials_mobile{
+        a{
+
+        }
+    }
+}
+
+body .menu_mobile .menu_mobile_nav_area li{
+    margin: 10px 0;
+    a{
+        box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.14);
+        background: #fff;
+        border-radius: 8px;
+        padding: 10px 8px;
+        text-transform: none;
+        color: #252525;
+        font-size: 16px!important;
+    }
+}
+
+body .sc_button.sc_button_default.sc_button_size_normal.sc_button_icon_left.color_style_link2.sc_button_hover_slide_left.sc_button_hover_style_link2.link-red-btn{
+    background: #d73c4e!important;
+    margin: 0!important;
+}
+@media (max-width: 767px) {
+    body .service-follow-up{
+        padding: 10px 40px!important;
+    }
+    body .vighor-2768 .vighor-element.vighor-element-45287991 {
+        width: 30%!important;
+    }
+    body .vighor-2768 .vighor-element.vighor-element-16373ea5{
+        width: 70%!important;
+    }
+}
+
 @media all and (max-width: 669px) {
     body{
         .vighor-2768 .vighor-element.vighor-element-5e85655{
@@ -61,6 +109,7 @@ body {
         .vighor-section.vighor-section-stretched{
             width: 100%!important;
             left: 0!important;
+            margin-bottom: 62px;
         }
     }
 }

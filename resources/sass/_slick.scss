@@ -44,6 +44,9 @@ body .slick-dots {
 }
 
 @media (max-width: 768px) {
+    .slick-dots{
+        display: none!important;
+    }
     .sl-parallax-wrap.scheme_default{
         width: 100%;
         max-width: 100%!important;

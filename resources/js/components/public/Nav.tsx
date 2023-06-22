@@ -112,6 +112,13 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                                     <span className="sc_button_title">Mande yon sèvis</span>
                                                                 </span>
                                                             </a>
+                                                            <a href="/complain"
+                                                               className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left color_style_link2 sc_button_hover_slide_left sc_button_hover_style_link2 link-red-btn"
+                                                               rel="nofollow">
+                                                                <span className="sc_button_text">
+                                                                    <span className="sc_button_title">Swiv dosyew</span>
+                                                                </span>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -136,7 +143,7 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                     data-id="43ab5f0a" data-element_type="widget"
                                                     data-widget_type="trx_sc_layouts_logo.default">
                                                     <div className="vighor-widget-container">
-                                                        <a href="index.html#" id="trx_sc_layouts_logo_484185902"
+                                                        <a href="/" id="trx_sc_layouts_logo_484185902"
                                                            className="sc_layouts_logo sc_layouts_logo_default trx_addons_inline_1112168072">
                                                             <img
                                                             className="logo_image"
@@ -159,17 +166,26 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                     data-id="32fe7257" data-element_type="widget"
                                                     data-widget_type="trx_sc_layouts_menu.default">
                                                     <div className="vighor-widget-container">
-                                                        <Flex id="trx_sc_layouts_menu_158583175"
-                                                             className="sc_layouts_iconed_text sc_layouts_menu_mobile_button_burger sc_layouts_menu_mobile_button without_menu">
-                                                            <a onClick={() => setMobileNavOpen(true)} className="sc_layouts_item_link sc_layouts_iconed_text_link" style={{ cursor: "pointer" }}>
+                                                        <Flex id="trx_sc_layouts_menu_158583175" className="sc_layouts_iconed_text sc_layouts_menu_mobile_button_burger sc_layouts_menu_mobile_button without_menu">
+                                                            <div>
+                                                                <a href="/complain" style={{ padding: "10px" }}
+                                                                   className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left color_style_link2 sc_button_hover_slide_left sc_button_hover_style_link2"
+                                                                   rel="nofollow">
+                                                                    <span className="sc_button_text">
+                                                                        <span className="sc_button_title">Mande sèvis</span>
+                                                                    </span>
+                                                                </a>
+                                                                <a href="/complain" style={{ padding: "10px" }}
+                                                                   className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left color_style_link2 sc_button_hover_slide_left sc_button_hover_style_link2 link-red-btn"
+                                                                   rel="nofollow">
+                                                                    <span className="sc_button_text">
+                                                                        <span className="sc_button_title">Swiv dosye w</span>
+                                                                    </span>
+                                                                </a>
+                                                            </div>
+
+                                                            <a onClick={() => setMobileNavOpen(true)} className="sc_layouts_item_link sc_layouts_iconed_text_link" style={{ cursor: "pointer", marginRight: "10px" }}>
                                                                 <span className="sc_layouts_item_icon sc_layouts_iconed_text_icon trx_addons_icon-menu"></span>
-                                                            </a>
-                                                            <a href="/complain" style={{ padding: "10px" }}
-                                                               className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left color_style_link2 sc_button_hover_slide_left sc_button_hover_style_link2"
-                                                               rel="nofollow">
-                                                                <span className="sc_button_text">
-                                                                    <span className="sc_button_title">Mande yon sèvis</span>
-                                                                </span>
                                                             </a>
                                                         </Flex>
                                                     </div>

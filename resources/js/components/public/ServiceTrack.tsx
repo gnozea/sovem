@@ -72,7 +72,7 @@ const ServiceTrack: FC<IProps> = (props: IProps) => {
                             <div className="vighor-row">
                                 <div className="vighor-column vighor-col-100 vighor-top-column vighor-element vighor-element-51472d7 sc_inner_width_none sc_content_align_inherit sc_layouts_column_icons_position_left">
                                     <div className="vighor-column-wrap vighor-element-populated">
-                                        <div className="vighor-widget-wrap">
+                                        <div className="vighor-widget-wrap service-follow-up">
                                             <div className="vighor-element vighor-element-ca6ee5d sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer">
                                                 <div className="vighor-widget-container">
                                                     <div className="">

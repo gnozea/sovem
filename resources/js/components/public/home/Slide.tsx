@@ -98,7 +98,7 @@ const Slide: FC<IProps> = (props: IProps) => {
                                                     </h2>
                                                     <a href="/complain" className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left sc_button_hover_slide_left">
                                                             <span className="sc_button_text">
-                                                                <span className="sc_button_title">Repòte sa kounya</span>
+                                                                <span className="sc_button_title">Mande yon sèvis</span>
                                                             </span>
                                                     </a>
                                                 </motion.div>
@@ -113,7 +113,7 @@ const Slide: FC<IProps> = (props: IProps) => {
                                                     </h2>
                                                     <a href="/complain" className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left sc_button_hover_slide_left">
                                                             <span className="sc_button_text">
-                                                                <span className="sc_button_title">Mande yon asistans</span>
+                                                                <span className="sc_button_title">Mande yon sèvis</span>
                                                             </span>
                                                     </a>
                                                 </motion.div>
@@ -128,7 +128,7 @@ const Slide: FC<IProps> = (props: IProps) => {
                                                     </h2>
                                                     <a href="/complain" className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left sc_button_hover_slide_left">
                                                             <span className="sc_button_text">
-                                                                <span className="sc_button_title">Nou ka edew</span>
+                                                                <span className="sc_button_title">Mande yon sèvis</span>
                                                             </span>
                                                     </a>
                                                 </motion.div>
