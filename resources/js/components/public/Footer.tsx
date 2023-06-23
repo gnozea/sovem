@@ -20,17 +20,16 @@ const Footer: FC<IProps> = (props: IProps) => {
                                   <div
                                       className="vighor-column vighor-col-33 vighor-top-column vighor-element vighor-element-e74a8cd sc-mobile_content_align_center sc_layouts_column_align_left sc_layouts_column sc_inner_width_none sc_content_align_inherit sc_layouts_column_icons_position_left">
                                       <div className="vighor-column-wrap vighor-element-populated">
-                                          <div className="vighor-widget-wrap">
+                                          <div className="vighor-widget-wrap justify-content-center pt-xm-5" style={{ alignContent: "center" }}>
                                               <div
                                                   className="sc_layouts_item vighor-element vighor-element-46f24b5 sc_fly_static vighor-widget vighor-widget-trx_sc_layouts_logo">
                                                   <div className="vighor-widget-container">
                                                       <Link to="/" className="sc_layouts_logo sc_layouts_logo_default trx_addons_inline_1267794613">
                                                           <img className="logo_image"
-                                                              src="//helpline.impacto-patronus.ancorathemes.com/wp-content/uploads/2019/03/tree-logo.png"
-                                                              srcSet="//helpline.impacto-patronus.ancorathemes.com/wp-content/uploads/2019/03/tree-logo-retina.png 2x"
-                                                              alt="Impacto Patronus"
-                                                              width={80}
-                                                              height={80}
+                                                              src="/images/logo.png"
+                                                              srcSet="/images/logo.png 2x"
+                                                              alt="logo"
+                                                               style={{ width: "140px" }}
                                                           />
                                                       </Link>
                                                   </div>

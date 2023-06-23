@@ -21,12 +21,17 @@ class CreateRequestsTable extends Migration
             $table->enum("gender", ["Fi", "Gason"]);
             $table->string("your_city");
             $table->string("incident_location");
-            $table->date("incident_date");
+            $table->bigInteger("incident_city")->nullable();
+            $table->date("incident_date")->nullable();
             $table->string("violence_type"); //["Vyolans seksyel", "Vyolans Fizik", "Deplasman fòse"]
             $table->enum("felon", ["Yon patenè", "Yon manm fanmi", "Yon otorite", "Yon enkoni"]);
             $table->string("media_path")->nullable();
+            $table->enum("status", ['claimed', 'unclaimed', 'solved', 'unsolved']);
             $table->timestamps();
             $table->softDeletes();
+        });
+        Schema::table("request", function (Blueprint $table){
+            $table->foreign("incident_city")->references("id")->on("cities");
         });
     }
 

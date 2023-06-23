@@ -90,7 +90,7 @@ const Slide: FC<IProps> = (props: IProps) => {
                                 <div className="vighor-widget-container">
                                     <Slider {...settings}>
                                         <div className="slide-inner">
-                                            <img src="https://helpline.impacto-patronus.ancorathemes.com/wp-content/uploads/2021/07/slider_slide3-copyright.jpg" alt=""/>
+                                            <img src="/images/slide-1-009.png" alt=""/>
                                             <motion.div variants={container} initial="hidden" animate="visible" className="sl-parallax-wrap scheme_default">
                                                 <motion.div className="slide-slogan" variants={item}>
                                                     <h2 className="mb-4" style={{ color: "#fff" }}>Ou se yon viktim <span
@@ -105,7 +105,7 @@ const Slide: FC<IProps> = (props: IProps) => {
                                             </motion.div>
                                         </div>
                                         <div className="slide-inner">
-                                            <img src="https://helpline.impacto-patronus.ancorathemes.com/wp-content/uploads/2021/07/slider_slide2-copyright.jpg" alt=""/>
+                                            <img src="/images/slide-2-0178-21.png" alt=""/>
                                             <motion.div variants={container} initial="hidden" animate="visible" className="sl-parallax-wrap scheme_default">
                                                 <motion.div className="slide-slogan" variants={item}>
                                                     <h2 className="mb-4" style={{ color: "#fff" }}>Ou vle yon moun <span

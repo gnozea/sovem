@@ -31,7 +31,8 @@ class Request extends Model
         "violence_type",
         "felon",
         "media_path",
-        "status"
+        "status",
+        "incident_city"
     ];
 
     public function speciality_type()

@@ -148,7 +148,7 @@ var Request = function Request(props) {
     state = _a.state,
     dispatch = _a.dispatch,
     user = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AccountContext__WEBPACK_IMPORTED_MODULE_6__["default"]).user,
-    _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
     busy = _b[0],
     setBusy = _b[1],
     _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
@@ -185,13 +185,26 @@ var Request = function Request(props) {
           path: rep.data[0].path
         });
       });
+      setBusy(false);
     });
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getData();
     setBusy(false);
   }, [url]);
-  if (!state.length) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_1__["default"], null);
+  if (busy && !state.length) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_1__["default"], null);
+  if (!state.length) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "row",
+    style: {
+      height: "100vh",
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-12",
+    style: {
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Il n'y a pas encore de demande")));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "row position-relative"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -567,28 +580,6 @@ var Release = function Release(props) {
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Release);
 var templateObject_1;
-
-/***/ }),
-
-/***/ "./resources/js/components/utils/BrowserTitle.tsx":
-/*!********************************************************!*\
-  !*** ./resources/js/components/utils/BrowserTitle.tsx ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var BrowserTitle = function BrowserTitle(props) {
-  var title = "Global communication";
-  document.title = "".concat(props.title, " | ").concat(title);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BrowserTitle);
 
 /***/ }),
 

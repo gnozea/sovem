@@ -65,12 +65,28 @@ class ServiceController extends Controller
     public function search_city(Request $request)
     {
         if (!$request->get('q')) return [];
-        $cities = Department::with(["cities" => function ($query) use ($request) {
+
+
+        if ($request->has("all")) $cities = Department::with(["cities" => function ($query) use ($request) {
+            return $query->where("name", "LIKE", "%{$request->get('q')}%");
+        }])->get();
+
+        if (!$request->has("all")) $cities = Department::with(["cities" => function ($query) use ($request) {
             return $query->where("name", "LIKE", "%{$request->get('q')}%");
         }])->where("status", "open")->get();
+
+        $all = [];
+        if ($request->has("all")){
+            foreach (array_merge(array_filter($cities->pluck('cities')->toArray())) as $array){
+                foreach ($array as $item) {
+                    $all[] = $item;
+                }
+            }
+        }
+
         return [
             'status' => 'success',
-            'data' => $cities->pluck('cities')[0]
+            'data' => !$request->has("all") ? $cities->pluck('cities')[0] : $all
         ];
     }
 

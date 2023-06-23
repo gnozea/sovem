@@ -9,7 +9,7 @@ import {SectionV} from "./about/SectionV";
 import {SectionVI} from "./about/SectionVI";
 
 interface IProps {
-    size: any
+    // size: any
 }
 
 const About: FC<IProps> = (props: IProps) => {

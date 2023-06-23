@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use PHPUnit\Exception;
 
 class ProviderController extends Controller
 {
@@ -148,13 +149,50 @@ class ProviderController extends Controller
             'password' => Hash::make(Str::random(15)),
         ]);
 
-        Mail::to($request->get('email'))->send(new ProviderCreation($spec));
+        try {
+            Mail::to($request->get('email'))->send(new ProviderCreation($spec));
+        }catch (\Swift_TransportException $exception){}
 
         $save['status'] = "pending";
 
         return [
             "status" => "success",
             "created" => $save
+        ];
+    }
+
+    public function add_specialist($id, Request $request)
+    {
+        $request->validate([
+            "specialists.*" => "required|exists:specialities,id"
+        ]);
+        $specialists = [];
+        foreach ($request->get('specialists') as $specialist){
+            $specialists[] = [
+              "speciality_id" => $specialist
+            ];
+        }
+        $provider = Provider::find($id);
+
+        $create = $provider->provider_specialities()->createMany($specialists);
+        $numberText = count($specialists) == 1 ? "une" : count($specialists);
+        try {
+            $spec = [
+                "subject" => "Spécialité ajouté à votre compte",
+                "title" => "Vous avez " . $numberText . " nouvelle spécialité" . (count($specialists) > 1 ? "s" : ""),
+                "button_url" => Env::get("APP_URL") . "/dashboard",
+                "button_text" => "Aller au tableau de bord",
+                "message" => "Un administrateur vient d'ajouter " . count($specialists) . " spécialité" . (count($specialists) > 1 ? "s" : "") . " à votre compte sur " . \env("APP_URL") . ". Desormais vous recevrez des demandes de service. "
+            ];
+            Mail::to($provider['email'])->send(new ProviderActivation($spec));
+        }catch (\Swift_TransportException $exception){
+
+        }
+        if ($create) return [
+            "status" => "success"
+        ];
+        return [
+            "status" => "error"
         ];
     }
 
@@ -253,7 +291,11 @@ class ProviderController extends Controller
             "button_text" => "Aller au tableau de bord",
             "message" => "Un admin vient d'activer votre compte. Vous pouvez maintenant accéder au tableau de bord et commencer à accepter des demandes de services."
         ];
-        Mail::to($item['email'])->send(new ProviderActivation($spec));
+        try {
+            Mail::to($item['email'])->send(new ProviderActivation($spec));
+        }catch (\Swift_TransportException $exception){
+
+        }
         return [
           "status" => "success"
         ];

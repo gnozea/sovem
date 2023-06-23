@@ -72,6 +72,7 @@ interface IProps {
 const ComplainForm: FC<IProps> = (props) => {
     const [accepted, setAccepted] = useState<boolean>(false),
         [loading, setLoading] = useState<boolean>(false),
+        [codeCopied, setCodeCopied] = useState<boolean>(false),
         [submit, setSubmit] = useState<boolean>(false),
         [copied, setCopied] = useState<boolean>(false),
         [submitted, setSubmitted] = useState<any>(),
@@ -246,6 +247,24 @@ const ComplainForm: FC<IProps> = (props) => {
         })
     }
 
+    const handleCodeCopied = () => {
+        toast.success("Ou kopye nimero dosye w la.", {
+            position: "top-center",
+            autoClose: false,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+        setCodeCopied(true)
+
+        setTimeout(() => {
+            setCodeCopied(false)
+        }, 1300)
+    }
+
     if (submitted) return <PopupStyled fullWidth={true} closable={false} onPopupClose={() => {}} parentId={1299}>
         <div className="position-relative service-form-request-wrap">
             <section className="vighor-section vighor-top-section vighor-element vighor-element-21b3bff vighor-section-boxed vighor-section-height-default vighor-section-height-default">
@@ -267,28 +286,56 @@ const ComplainForm: FC<IProps> = (props) => {
                                                     className="sc_item_title_text">Demand ou an ale!</span>
                                                 </h2>
                                                 <div className="mt-3">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus alias amet animi commodi debitis
-                                                        deleniti dolore dolorum earum eum excepturi facilis harum id iusto, minima nemo nulla officia omnis
-                                                        perspiciatis placeat quam qui quos repellat, reprehenderit repudiandae suscipit voluptas?
+                                                    <p style={{ maxWidth: "800px", margin: "0 auto" }}>Demand ou a ale. Tout pèstatè ki espesyalize nan sèvis ou mande a o kouran. Gen jiska 3 prestatè ki ka asepte
+                                                        founi sèvis ou mande a men w ap gen pou w chwazi yon sèl nan yo. Toujou vizite sit la pou w ka jwenn dènye nouvèl
+                                                        sou demand ou a. Itilize nimewo demand {submitted?.ticket_number} pou w ka swiv dosye w la.
                                                     </p>
                                                     <div className="scheme_default text-center">
                                                         <h6 className="mt-2">
                                                             <span className="vighor-title">Nimewo dosye ou a se:</span>
                                                         </h6>
-                                                        <h6 className="mt-2">
-                                                            <CopyToClipboard text={submitted?.ticket_number} onCopy={() => toast.success("Ou kopye nimero dosye w la.", {
-                                                                position: "top-center",
-                                                                autoClose: false,
-                                                                hideProgressBar: false,
-                                                                closeOnClick: true,
-                                                                pauseOnHover: true,
-                                                                draggable: true,
-                                                                progress: undefined,
-                                                                theme: "light",
-                                                            })}>
-                                                                <span className="vighor-title">{submitted?.ticket_number}</span>
+                                                        <h6 className="mt-2" style={{ width: "410px", margin: "0 auto" }}>
+                                                            <CopyToClipboard text={submitted?.ticket_number} onCopy={handleCodeCopied}>
+                                                                <span className="vighor-title">{submitted?.ticket_number}
+                                                                    <button  style={{
+                                                                        display: "flex",
+                                                                        padding: "1px 6px",
+                                                                        margin: "10px auto",
+                                                                        borderRadius: "8px",
+                                                                        fontSize: "18px",
+                                                                        alignItems: "center",
+                                                                        gap: "5px",
+                                                                        background: "none",
+                                                                        border: "none",
+                                                                        color: codeCopied ? "#4BB04F" : "#07203C"
+                                                                    }}>
+                                                                        {!codeCopied && <span>Klike pou kopye kòd la</span>}
+                                                                        {codeCopied && <div style={{ fontSize: "1.5em", marginTop: "20px" }}>
+                                                                            <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                                                                <path d="M19.965 8.521C19.988 8.347 20 8.173 20 8c0-2.379-2.143-4.288-4.521-3.965C14.786 2.802 13.466 2 12 2s-2.786.802-3.479 2.035C6.138 3.712 4 5.621 4 8c0 .173.012.347.035.521C2.802 9.215 2 10.535 2 12s.802 2.785 2.035 3.479A3.976 3.976 0 0 0 4 16c0 2.379 2.138 4.283 4.521 3.965C9.214 21.198 10.534 22 12 22s2.786-.802 3.479-2.035C17.857 20.283 20 18.379 20 16c0-.173-.012-.347-.035-.521C21.198 14.785 22 13.465 22 12s-.802-2.785-2.035-3.479zm-9.01 7.895-3.667-3.714 1.424-1.404 2.257 2.286 4.327-4.294 1.408 1.42-5.749 5.706z"></path>
+                                                                            </svg>
+                                                                        </div>}
+
+                                                                    </button>
+                                                                </span>
                                                             </CopyToClipboard>
                                                         </h6>
+                                                        <div style={{ display: "flex", gap: "1em", justifyContent: "center" }}>
+                                                            <a href="/" style={{ padding: "10px" }}
+                                                               className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left color_style_link2 sc_button_hover_slide_left sc_button_hover_style_link2"
+                                                               rel="nofollow">
+                                                                    <span className="sc_button_text">
+                                                                        <span className="sc_button_title">Tounen nan akèy</span>
+                                                                    </span>
+                                                            </a>
+                                                            <a href="/service/track" style={{ padding: "10px" }}
+                                                               className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left color_style_link2 sc_button_hover_slide_left sc_button_hover_style_link2 link-red-btn"
+                                                               rel="nofollow">
+                                                                    <span className="sc_button_text">
+                                                                        <span className="sc_button_title">Swiv dosye w</span>
+                                                                    </span>
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -497,20 +544,35 @@ const ComplainForm: FC<IProps> = (props) => {
                                                       <div className="QuestionBody"></div>
                                               </>}
                                               {step === 6 && <> {/*Question 4*/}
-                                                  <legend>
-                                                      <div className="QuestionText BorderColor">Si ou sibi vyolans, nan ki zòn sa te rive?</div>
-                                                  </legend>
-                                                  <div className="QuestionBody">
+                                                  <>
+                                                      <legend>
+                                                          <div className="QuestionText BorderColor">Nan ki vil sa te rive?</div>
+                                                      </legend>
+
                                                       <div className="ChoiceStructure">
-                                                          <div className="dk-speakout-full">
-                                                              <input autoComplete="pff" name="incident_location"
-                                                                     id="where-this-happen" type="text"
-                                                                     onChange={(e: any) => dispatch({ type: "SET_INCIDENT_LOCATION", payload: e.target.value })}
-                                                                     defaultValue={state.selections.incidentLocation}
-                                                                     placeholder="Ekri non kote sa te rive w la" className="fill_inited"/>
+                                                          <Select2 classes="service-form" multiple={false} onSearch={(e: any) => {}} searchKeys={ { id: 'id', text: ['name'] } } searchUrl={`/api/city/search?all=true`}
+                                                                   selectedValue={state.selections?.crimeCity?.id}
+                                                                   onSelect={(e: any) => dispatch({ type: "SET_CRIME_CITY", payload: e })}
+                                                                   searchable={true} name="teacher_id" placeholder="Ekri non vil sa te rive w a la." id="city"/>
+                                                      </div>
+                                                      <div className="QuestionBody"></div>
+                                                  </>
+                                                  {state.selections?.crimeCity?.id && <>
+                                                      <legend>
+                                                          <div className="QuestionText BorderColor pb-0 pt-4">Nan ki zòn oswa lokalite sa te rive?</div>
+                                                      </legend>
+                                                      <div className="QuestionBody">
+                                                          <div className="ChoiceStructure">
+                                                              <div className="dk-speakout-full">
+                                                                  <input autoComplete="pff" name="incident_location"
+                                                                         id="where-this-happen" type="text"
+                                                                         onChange={(e: any) => dispatch({ type: "SET_INCIDENT_LOCATION", payload: e.target.value })}
+                                                                         defaultValue={state.selections.incidentLocation}
+                                                                         placeholder="Ekri non zòn sa te rive w la" className="fill_inited"/>
+                                                              </div>
                                                           </div>
                                                       </div>
-                                                  </div>
+                                                  </>}
                                               </>}
 
                                               {step === 7 && <> {/*Question 5*/}

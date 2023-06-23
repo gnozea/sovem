@@ -94,7 +94,9 @@ class RequestController extends Controller
         $spec["uuid"] = $uuid;
 
         foreach ($recipients as $recipient) {
-            Mail::to($recipient)->send(new \App\Mail\Request($spec));
+            try {
+                Mail::to($recipient)->send(new \App\Mail\Request($spec));
+            }catch (\Swift_TransportException $exception){}
         }
 
         $latestRequest = Demand::orderBy('created_at','DESC')->first();
@@ -105,6 +107,7 @@ class RequestController extends Controller
             "age_range" => $request->get("ageRange"),
             "gender" => $request->get("gender"),
             "your_city" => $request->get("city")['id'],
+            "incident_city" => $request->get("crimeCity")['id'],
             "incident_location" => $request->get("incidentLocation"),
             "incident_date" => $request->get("incidentDate"),
             "violence_type" => json_encode($request->get("violenceType")),

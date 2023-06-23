@@ -18,7 +18,7 @@ class CreateServiceRequestsTable extends Migration
             $table->unsignedBigInteger("service_id");
             $table->unsignedBigInteger("speciality_id");
             $table->unsignedBigInteger("request_id");
-            $table->unsignedBigInteger("provider_id");
+            $table->unsignedBigInteger("provider_id")->nullable();
             $table->integer("claim_amount")->default(0)->comment("Null when no claims, up to 3");
             $table->enum("status", ["claimed", "unclaimed", "solved", "unsolved", "released"])->default("unclaimed");
             $table->softDeletes();

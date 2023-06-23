@@ -20,4 +20,9 @@ class Provider extends Model
     {
         return $this->hasMany(ProviderService::class, 'provider_id');
     }
+
+    public function provider_specialities()
+    {
+        return $this->hasMany(ProviderSpeciality::class, "provider_id");
+    }
 }

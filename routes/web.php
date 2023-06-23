@@ -30,6 +30,16 @@ use Illuminate\Support\Facades\Route;
 Route::view('/{path?}', 'layouts.app')->where('path','^(?!api|auth|uploads).*$');;
 
 Auth::routes();
+Route::get('.well-known/pki-validation/{file}', function (){
+    $file = "B8B9FF6FF29AA92FC0AF414DB4262150.txt";
+    $file= public_path() . "/$file";
+
+    $headers = [
+        'Content-Type' => 'application/txt',
+    ];
+
+     return response()->download($file, "$file", $headers);
+});
 
 Route::prefix("api")->group(function (){
     Route::get("account/check", function (){
@@ -77,6 +87,7 @@ Route::prefix("api")->group(function (){
         Route::post("provider/{id}/activate", [ProviderController::class, "activate"])->middleware(AccountType::class);
         Route::put("provider/{id}", [ProviderController::class, "update"])->middleware(AccountType::class);
         Route::post("provider", [ProviderController::class, "store"])->middleware(AccountType::class);
+        Route::post("provider/{id}/add-specialist", [ProviderController::class, "add_specialist"])->middleware(AccountType::class);
         Route::get("provider/search", [ProviderController::class, "search"])->middleware(AccountType::class);
 
         Route::get("services", [ServiceController::class, "index"])->middleware(AccountType::class);

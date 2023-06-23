@@ -17,9 +17,9 @@ const MobileNav: FC<IProps> = (props: IProps) => {
             <a className="menu_mobile_close theme_button_close" onClick={props.onCloseMenu}><span className="theme_button_close_icon"></span></a>
             {/*<Link className="sc_layouts_logo" to="/">*/}
             {/*    <img*/}
-            {/*        src="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png"*/}
-            {/*        srcSet="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png 2x"*/}
-            {/*        alt="Logo" style={{width: "100px"}}/>*/}
+            {/*        src="/images/logo.png"*/}
+            {/*        srcSet="/images/logo.png 2x"*/}
+            {/*        alt="Impacto Patronus" style={{width: "100px"}}/>*/}
             {/*</Link>*/}
             <nav className="menu_mobile_nav_area" itemType="https://schema.org/SiteNavigationElement">
                 <ul id="menu_mobile" className="menu_mobile_nav prepared">

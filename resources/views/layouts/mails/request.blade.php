@@ -23,7 +23,7 @@
                 <tr>
                     <td style="text-align:center;">
                         <a href="https://vighor.com" title="logo" target="_blank">
-                            <img width="60" src="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png" title="logo">
+                            <img width="90" src="https://konektem.org/images/logo.png" title="logo" alt="">
                         </a>
                     </td>
                 </tr>

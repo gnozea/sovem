@@ -8,6 +8,8 @@ import Edit from "./providers/Edit";
 import Add from "./providers/Add";
 import ProviderContext from "../../context/ProviderContext";
 import _ from "lodash";
+import Popup from "../utils/Popup";
+import AddSpecialist from "./providers/AddSpecialist";
 
 interface IProps {
 
@@ -23,8 +25,9 @@ const Provider: FC<IProps> = (props: IProps) => {
     const [paginate, setPaginate] = useState<any>(),
         {user} = useContext(AccountContext),
         {providers, dispatch} = useContext(ProviderContext),
-        [busy, setBusy] = useState<boolean>(),
+        [busy, setBusy] = useState<boolean>(true),
         [showEdit, setShowEdit] = useState<any>(),
+        [showAddSpecialist, setShowAddSpecialist] = useState<any>(),
         [showAdd, setShowAdd] = useState<boolean>()
 
     useEffect(() => {
@@ -33,6 +36,7 @@ const Provider: FC<IProps> = (props: IProps) => {
             dispatch({type: "SET_PROVIDERS", payload: data.data});
             delete data.data
             setPaginate(data)
+            setBusy(false)
         })
     }, [])
 
@@ -47,12 +51,29 @@ const Provider: FC<IProps> = (props: IProps) => {
         })
     }
 
+    const setAddSpeciality = (key: any) => {
+        setShowAddSpecialist(providers[key])
+    }
+
+    const handleSendVerificationEmail = (user: any) => {
+
+    }
+
     if (user.provider_id) return <Restricted/>
-    if (!providers.length || !paginate) return <Progress/>
+    if (busy && (!providers.length || !paginate)) return <Progress/>
+
+    if (!providers.length) return <div className="row" style={{ height: "100vh", alignItems: "center" }}>
+        {showAdd && <Add onClose={() => setShowAdd(undefined)}/>}
+        <div className="col-12" style={{ textAlign: "center" }}>
+            <h2>Il n'y a pas encore de prestataire</h2>
+            <button onClick={() => setShowAdd(true)} className="btn btn-outline-primary btn-sm ms-auto">Ajouter prestataire</button>
+        </div>
+    </div>
     return <div className="row">
         <BrowserTitle title="Prestataires"/>
         {busy && <Progress/>}
         {showEdit !== undefined && <Edit provider={showEdit} onClose={() => setShowEdit(undefined)}/>}
+        {showAddSpecialist && <AddSpecialist provider={showAddSpecialist} onClose={() => setShowAddSpecialist(undefined)} service={showAddSpecialist}/>}
         {showAdd && <Add onClose={() => setShowAdd(undefined)}/>}
         <div className="col-12">
             <div className="card">
@@ -133,7 +154,10 @@ const Provider: FC<IProps> = (props: IProps) => {
                                                 <button className="dropdown-item" onClick={() => setShowEdit(key)}><i className="dropdown-icon fe fe-edit-2"></i> Modifier</button>
                                                 {rep.status === "active" && <button className="dropdown-item" onClick={() => handleDisableEnable(key, "disable")}><i className="dropdown-icon fe fe-lock"></i> Désactiver</button>}
                                                 {(rep.status === "inactive" || rep.status === "disabled" || rep.status === "pending") && <button className="dropdown-item" onClick={() => handleDisableEnable(key, "enable")}><i className="dropdown-icon fe fe-lock"></i> Activer</button>}
+                                                <button className="dropdown-item" onClick={() => setAddSpeciality(key)}>
+                                                    <i className="dropdown-icon fe fe-git-pull-request"></i> Lier spécialité</button>
                                                 <div className="dropdown-divider"></div>
+                                                {rep.status === "pending" && 1 && <button className="dropdown-item" onClick={() => handleSendVerificationEmail(rep.id)}><i className="dropdown-icon fe fe-edit-2"></i> Send verification email</button>}
                                                 <a href="" className="dropdown-item"><i className="dropdown-icon fe fe-trash-2"></i> Supprimer</a>
                                             </div>
                                         </div>

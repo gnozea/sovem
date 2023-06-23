@@ -19,7 +19,7 @@ const Section3: FC<IProps> = (props) => {
                     data-element_type="column"
                     data-settings='{"background_background":"classic"}'
                 >
-                    <div className="vighor-column-wrap">
+                    <div className="vighor-column-wrap" style={{ backgroundImage: "/images/1246478597262.png" }}>
                         <div className="vighor-widget-wrap"></div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@ const Section3: FC<IProps> = (props) => {
                                         </h1>
                                         <div className="sc_item_descr sc_title_descr">
                                             <p>
-                                                Mande è espesyalis sou sistèm nan lè ou gen difikilte. Lè tout saw eseye yo echwe oswa ou pa gen chwa.
+                                                Mande èd espesyalis sou sistèm nan lè ou gen difikilte. Lè tout saw eseye yo echwe oswa ou pa gen chwa.
                                                 Espesyalis nou yo la pou edew e pèsòn pap kapab jwenn enfòmasyon pèsonèl ou nan okenn sans.
                                             </p>
                                         </div>

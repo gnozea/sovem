@@ -1,4 +1,5 @@
 import React, {createContext, FC, useReducer} from "react"
+import moment from "moment";
 
 const initialState: any = {
     services: null,
@@ -11,12 +12,13 @@ const initialState: any = {
         serviceId: [],
         specialistId: [],
         city: null,
+        crimeCity: null,
         felon: [],
         violenceType: [],
         incidentLocation: null,
         ageRange: null,
         gender: null,
-        incidentDate: null,
+        incidentDate: moment().format("YYYY-MM-DD"),
     }
 }
 
@@ -37,12 +39,13 @@ interface IState {
     selections: {
         serviceId: (string|number)[],
         specialistId: (string|number)[],
-        city: null,
+        city: any,
+        crimeCity: any,
         felon: string,
         incidentLocation: any,
         violenceType: string[],
-        ageRange: null,
-        gender: null,
+        ageRange: any,
+        gender: any,
         incidentDate: Date,
     }
 }
@@ -88,6 +91,12 @@ const reducer = (state: IState, action: IAction) => {
     if (action.type === "SET_CITY") {
         state.selections.city = action.payload
         return state
+    }
+
+    if (action.type === "SET_CRIME_CITY") {
+        const copy: any = { ...state }
+        copy.selections = {...copy.selections, crimeCity: action.payload}
+        return copy
     }
 
     if (action.type === "SET_INCIDENT_LOCATION") {

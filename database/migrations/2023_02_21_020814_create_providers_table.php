@@ -22,10 +22,14 @@ class CreateProvidersTable extends Migration
             $table->string("logo")->nullable();
             $table->string("address_line_1")->nullable();
             $table->string("address_line_2")->nullable();
-            $table->string("city")->nullable();
+            $table->unsignedBigInteger("city")->nullable();
             $table->enum("status", ["active", "disabled", "inactive","pending"])->default("pending");
             $table->string("state")->nullable();
             $table->timestamps();
+        });
+
+        Schema::table("providers", function (Blueprint $table) {
+            $table->foreign("city")->references("id")->on("cities");
         });
     }
 

@@ -64,7 +64,7 @@ export const SectionI: FC<IProps> = (props: IProps) => {
                                                                     className="sc_promo_image"
                                                                     style={{
                                                                         backgroundImage:
-                                                                            "url(//helpline.impacto-patronus.ancorathemes.com/wp-content/uploads/2021/06/shutterstock_1904004145-copyright.jpg)",
+                                                                            "url(/images/post-13-copyright.jpg)",
                                                                         width: "calc(40% - 30px/2)",
                                                                         right: 0
                                                                     }}

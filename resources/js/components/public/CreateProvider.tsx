@@ -113,6 +113,7 @@ const CreateProvider: FC<IProps> = (props: IProps) => {
                                                                                 </div>
                                                                             </>
                                                                             <>
+                                                                                <input autoComplete="username" defaultValue={details.email} type="hidden"  />
                                                                                 <h6 className="mt-4 text-start mb-0">
                                                                                     <span className="vighor-title">Mot de passe</span>
                                                                                 </h6>

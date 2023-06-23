@@ -11426,10 +11426,10 @@ body .sc_button.sc_button_default.sc_button_size_normal.sc_button_icon_left.colo
     padding: 10px 40px !important;
   }
   body .vighor-2768 .vighor-element.vighor-element-45287991 {
-    width: 30% !important;
+    width: 25% !important;
   }
   body .vighor-2768 .vighor-element.vighor-element-16373ea5 {
-    width: 70% !important;
+    width: 75% !important;
   }
 }
 @media all and (max-width: 669px) {
@@ -11454,8 +11454,8 @@ body section.vighor-section {
     height: 100vh;
   }
   body .theme_button_close_icon {
-    top: -63% !important;
-    left: 31% !important;
+    left: 40% !important;
+    top: -73% !important;
   }
   body .menu_mobile_inner {
     overflow: visible !important;
@@ -11491,7 +11491,7 @@ body section.vighor-section {
   body .vighor-container.vighor-column-gap-no {
     min-width: 90% !important;
   }
-  body .vighor-section.vighor-section-stretched {
+  body .vighor-section.vighor-section-stretched:last-of-type {
     width: 100% !important;
     left: 0 !important;
     margin-bottom: 62px;

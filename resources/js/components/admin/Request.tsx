@@ -10,6 +10,7 @@ import {keys} from "lodash";
 import {toast} from "react-toastify";
 import Release from "./providers/Release";
 import RequestDetails from "../RequestDetails";
+import Add from "./providers/Add";
 
 interface IProps {
     children?: React.ReactNode
@@ -33,7 +34,7 @@ const words: any = {
 const Request: FC<IProps> = (props: IProps) => {
     const { state, dispatch } = useContext(RequestContext),
         {user} = useContext(AccountContext),
-        [busy, setBusy] = useState<boolean>(),
+        [busy, setBusy] = useState<boolean>(true),
         [showDetail, setShowDetail] = useState<any>(),
         [showRelease, setShowRelease] = useState<any>(),
         [url, setUrl] = useState<string>("/api/dashboard/requests"),
@@ -59,6 +60,7 @@ const Request: FC<IProps> = (props: IProps) => {
                     path: rep.data[0].path,
                 }
             })
+            setBusy(false)
         })
     }
     useEffect(() => {
@@ -66,7 +68,12 @@ const Request: FC<IProps> = (props: IProps) => {
         setBusy(false)
     }, [url])
 
-    if (!state.length) return <Progress/>
+    if (busy && !state.length) return <Progress/>
+    if (!state.length) return <div className="row" style={{ height: "100vh", alignItems: "center" }}>
+        <div className="col-12" style={{ textAlign: "center" }}>
+            <h2>Il n'y a pas encore de demande</h2>
+        </div>
+    </div>
     return <div className="row position-relative">
         <BrowserTitle title={"Demandes de services"}/>
         {busy && <Progress/>}

@@ -531,7 +531,7 @@ var Service = function Service(props) {
     _d = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     showLinkProvider = _d[0],
     setShowLinkProvider = _d[1],
-    _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
     loading = _e[0],
     setLoading = _e[1],
     _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
@@ -549,7 +549,31 @@ var Service = function Service(props) {
     if (reload) setReload(false);
   }, [reload]);
   if (user.provider_id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Restricted__WEBPACK_IMPORTED_MODULE_4__["default"], null);
-  if (!state.length) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+  if (loading && !state.length) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+  if (!state.length) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "row",
+    style: {
+      height: "100vh",
+      alignItems: "center"
+    }
+  }, showAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    onPopupClose: function onPopupClose() {
+      setShowAdd(undefined);
+    },
+    isSmall: true,
+    parentId: "2434n",
+    children: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Add__WEBPACK_IMPORTED_MODULE_9__["default"], null)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-12",
+    style: {
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Il n'y a pas encore de service"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    onClick: function onClick() {
+      return setShowAdd(true);
+    },
+    className: "btn btn-outline-primary btn-sm ms-auto"
+  }, "Ajouter service")));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "row"
   }, showLinkProvider && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_8__["default"], {
@@ -1266,27 +1290,6 @@ var List = styled_components__WEBPACK_IMPORTED_MODULE_8__["default"].div(templat
 });
 var Select = (0,styled_components__WEBPACK_IMPORTED_MODULE_8__["default"])(framer_motion__WEBPACK_IMPORTED_MODULE_6__.motion.div)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"], ["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"])));
 var templateObject_1, templateObject_2;
-
-/***/ }),
-
-/***/ "./resources/js/components/utils/BrowserTitle.tsx":
-/*!********************************************************!*\
-  !*** ./resources/js/components/utils/BrowserTitle.tsx ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var BrowserTitle = function BrowserTitle(props) {
-  var title = "Global communication";
-  document.title = "".concat(props.title, " | ").concat(title);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BrowserTitle);
 
 /***/ }),
 

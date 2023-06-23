@@ -19,7 +19,7 @@ const NavTop: FC<IProps> = (props: IProps) => {
         <div className="container">
             <div className="d-flex">
                 <a className="header-brand" href="./index.html">
-                    <img src="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png" className="header-brand-img" alt="tabler logo"/>
+                    <img src="/images/logo.png" className="header-brand-img" alt="logo"/>
                 </a>
                 <div className="d-flex order-lg-2 ml-auto">
                     <div className="dropdown d-none d-md-flex">

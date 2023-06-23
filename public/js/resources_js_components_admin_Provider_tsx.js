@@ -23,6 +23,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _context_ProviderContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../context/ProviderContext */ "./resources/js/context/ProviderContext.tsx");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _providers_AddSpecialist__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./providers/AddSpecialist */ "./resources/js/components/admin/providers/AddSpecialist.tsx");
 var __assign = undefined && undefined.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -33,6 +34,7 @@ var __assign = undefined && undefined.__assign || function () {
   };
   return __assign.apply(this, arguments);
 };
+
 
 
 
@@ -57,15 +59,18 @@ var Provider = function Provider(props) {
     _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_ProviderContext__WEBPACK_IMPORTED_MODULE_8__["default"]),
     providers = _b.providers,
     dispatch = _b.dispatch,
-    _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
     busy = _c[0],
     setBusy = _c[1],
     _d = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     showEdit = _d[0],
     setShowEdit = _d[1],
     _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
-    showAdd = _e[0],
-    setShowAdd = _e[1];
+    showAddSpecialist = _e[0],
+    setShowAddSpecialist = _e[1],
+    _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    showAdd = _f[0],
+    setShowAdd = _f[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/dashboard/providers").then(function (rep) {
       var data = __assign({}, rep.data);
@@ -75,6 +80,7 @@ var Provider = function Provider(props) {
       });
       delete data.data;
       setPaginate(data);
+      setBusy(false);
     });
   }, []);
   var handleDisableEnable = function handleDisableEnable(e, action) {
@@ -92,8 +98,33 @@ var Provider = function Provider(props) {
       setBusy(false);
     });
   };
+  var setAddSpeciality = function setAddSpeciality(key) {
+    setShowAddSpecialist(providers[key]);
+  };
+  var handleSendVerificationEmail = function handleSendVerificationEmail(user) {};
   if (user.provider_id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Restricted__WEBPACK_IMPORTED_MODULE_5__["default"], null);
-  if (!providers.length || !paginate) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+  if (busy && (!providers.length || !paginate)) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+  if (!providers.length) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "row",
+    style: {
+      height: "100vh",
+      alignItems: "center"
+    }
+  }, showAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_providers_Add__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    onClose: function onClose() {
+      return setShowAdd(undefined);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "col-12",
+    style: {
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Il n'y a pas encore de prestataire"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    onClick: function onClick() {
+      return setShowAdd(true);
+    },
+    className: "btn btn-outline-primary btn-sm ms-auto"
+  }, "Ajouter prestataire")));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -103,6 +134,12 @@ var Provider = function Provider(props) {
     onClose: function onClose() {
       return setShowEdit(undefined);
     }
+  }), showAddSpecialist && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_providers_AddSpecialist__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    provider: showAddSpecialist,
+    onClose: function onClose() {
+      return setShowAddSpecialist(undefined);
+    },
+    service: showAddSpecialist
   }), showAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_providers_Add__WEBPACK_IMPORTED_MODULE_7__["default"], {
     onClose: function onClose() {
       return setShowAdd(undefined);
@@ -283,9 +320,23 @@ var Provider = function Provider(props) {
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "dropdown-icon fe fe-lock"
-    }), " Activer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    }), " Activer"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "dropdown-item",
+      onClick: function onClick() {
+        return setAddSpeciality(key);
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+      className: "dropdown-icon fe fe-git-pull-request"
+    }), " Lier sp\xE9cialit\xE9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "dropdown-divider"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    }), rep.status === "pending" && 1 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "dropdown-item",
+      onClick: function onClick() {
+        return handleSendVerificationEmail(rep.id);
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+      className: "dropdown-icon fe fe-edit-2"
+    }), " Send verification email"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
       href: "",
       className: "dropdown-item"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
@@ -588,6 +639,161 @@ var templateObject_1, templateObject_2, templateObject_3;
 
 /***/ }),
 
+/***/ "./resources/js/components/admin/providers/AddSpecialist.tsx":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/admin/providers/AddSpecialist.tsx ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/form-components/Select2 */ "./resources/js/components/utils/form-components/Select2.tsx");
+/* harmony import */ var _utils_Popup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/Popup */ "./resources/js/components/utils/Popup.tsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _utils_Progress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/Progress */ "./resources/js/components/utils/Progress.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
+var __makeTemplateObject = undefined && undefined.__makeTemplateObject || function (cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", {
+      value: raw
+    });
+  } else {
+    cooked.raw = raw;
+  }
+  return cooked;
+};
+var __spreadArray = undefined && undefined.__spreadArray || function (to, from, pack) {
+  if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+    if (ar || !(i in from)) {
+      if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+      ar[i] = from[i];
+    }
+  }
+  return to.concat(ar || Array.prototype.slice.call(from));
+};
+
+
+
+
+
+
+
+var AddSpecialist = function AddSpecialist(props) {
+  var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    specialistSelected = _a[0],
+    setSpecialistSelected = _a[1],
+    _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    error = _b[0],
+    setError = _b[1],
+    _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    isLoading = _c[0],
+    setIsLoading = _c[1];
+  var handleSpecialistSelect = function handleSpecialistSelect(e) {
+    setError("");
+    setSpecialistSelected(function (prevState) {
+      return __spreadArray(__spreadArray([], prevState, true), [e], false);
+    });
+  };
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    var form = new FormData();
+    var id = [];
+    setIsLoading(true);
+    specialistSelected.map(function (specialist) {
+      id = __spreadArray(__spreadArray([], id, true), [specialist.id], false);
+      form.append("specialists[]", specialist.id);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_4___default().post("/api/dashboard/provider/".concat(props.provider.id, "/add-specialist"), form).then(function (rep) {
+      if (rep.data.status === "success") {
+        react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success("Vous avez ajout\xE9 ".concat(specialistSelected.length, " sp\xE9calit\xE9").concat(specialistSelected.length > 1 ? "s" : '', "."));
+      } else {
+        react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.error("Votre requête n'a pas été effectuée.");
+      }
+      setIsLoading(false);
+      props.onClose();
+    });
+  };
+  var specialistSelectedList = function specialistSelectedList() {
+    if (specialistSelected.length > 0) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "tags mt-3 mb-2"
+      }, specialistSelected.map(function (provider, index) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "pt-1 pt-1 pe-1 d-inline-block",
+          key: index
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+          className: "tag",
+          key: index
+        }, provider === null || provider === void 0 ? void 0 : provider.name, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          type: "button",
+          style: {
+            border: "none"
+          },
+          className: "tag-addon"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+          className: "fe fe-x",
+          onClick: function onClick() {
+            setSpecialistSelected(function (prevState) {
+              var all = __spreadArray([], prevState, true);
+              all.splice(index, 1);
+              return all;
+            });
+          }
+        }))));
+      }));
+    } else {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+    }
+  };
+  if (isLoading) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    onPopupClose: function onPopupClose() {
+      return typeof props.onClose === "function" ? props.onClose() : undefined;
+    },
+    isSmall: true,
+    parentId: "24341123"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "form-label"
+  }, "Ajouter sp\xE9cialit\xE9 pour ", props.provider.name_short), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Select, {
+    className: ""
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "form-label"
+  }, "Rechercher sp\xE9cialist", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "form-required"
+  }, "*")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    classes: "service-form",
+    multiple: false,
+    selectedValue: undefined,
+    onSearch: function onSearch(e) {},
+    searchKeys: {
+      id: 'id',
+      text: ['name']
+    },
+    searchUrl: "/api/dashboard/service/".concat(props.service.id, "/search_specialist"),
+    onSelect: handleSpecialistSelect,
+    searchable: true,
+    placeholder: "Nom du sp\xE9cialiste",
+    id: "sname"
+  })), specialistSelected.length > 0 && specialistSelectedList(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "mt-3 text-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    disabled: !specialistSelected.length,
+    onClick: handleSubmit,
+    className: "btn btn-primary btn-sm"
+  }, "Enregistrer")));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddSpecialist);
+var Select = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    margin-top: 30px;\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"], ["\n    margin-top: 30px;\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"])));
+var templateObject_1;
+
+/***/ }),
+
 /***/ "./resources/js/components/admin/providers/Edit.tsx":
 /*!**********************************************************!*\
   !*** ./resources/js/components/admin/providers/Edit.tsx ***!
@@ -720,28 +926,6 @@ var Edit = function Edit(props) {
   }, "Mettre \xE0 jour")))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Edit);
-
-/***/ }),
-
-/***/ "./resources/js/components/utils/BrowserTitle.tsx":
-/*!********************************************************!*\
-  !*** ./resources/js/components/utils/BrowserTitle.tsx ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var BrowserTitle = function BrowserTitle(props) {
-  var title = "Global communication";
-  document.title = "".concat(props.title, " | ").concat(title);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BrowserTitle);
 
 /***/ }),
 

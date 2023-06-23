@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from "../components/public/Home";
+import About from "../components/public/About";
 import CreateProvider from "../components/public/CreateProvider";
 const LoaderWrapper = styled.div`
     position: absolute;
@@ -57,8 +58,7 @@ const Public:FC<IProps> = (props: IProps) => {
         {title: "Kiyès nou ye", href: "/about-us"},
     ]
 
-    const ServiceTrack = lazy(() => import("../components/public/ServiceTrack")),
-    About = lazy(() => import("../components/public/About"))
+    const ServiceTrack = lazy(() => import("../components/public/ServiceTrack"))
 
     return <div className="body_wrap" style={{ backgroundColor: "#e6e9f2" }}>
         <ToastContainer
@@ -85,12 +85,10 @@ const Public:FC<IProps> = (props: IProps) => {
                                 <div className="vighor vighor-594">
                                     <div className="vighor-inner">
                                         <div className="vighor-section-wrap">
-                                            <Suspense fallback={<LoaderWrapper>
-                                                <Progress color="#E89C42" style="skype"/>
-                                            </LoaderWrapper>}>
+                                            <Suspense fallback={<LoaderWrapper><Progress color="#E89C42" style="skype"/></LoaderWrapper>}>
                                                 <Routes>
                                                     <Route path="" element={<Home size={size}/>}/>
-                                                    <Route path="about-us" element={<About size={size}/>}/>
+                                                    <Route path="about-us" element={<About/>}/>
                                                     <Route path="service/track" element={<ServiceTrack/>}/>
                                                     <Route path="provider/validate/:token" element={<CreateProvider/>}/>
                                                     <Route path="complain" element={<ServiceFormProvider><ComplainForm/></ServiceFormProvider>}/>

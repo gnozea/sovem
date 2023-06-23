@@ -21,7 +21,7 @@ const Service: FC<IProps> = (props: IProps) => {
         [showAdd, setShowAdd] = useState<boolean>(),
         [showAddSpecialist, setShowAddSpecialist] = useState<any>(),
         [showLinkProvider, setShowLinkProvider] = useState<any>(),
-        [loading, setLoading] = useState<boolean>(),
+        [loading, setLoading] = useState<boolean>(true),
         [reload, setReload] = useState<boolean>()
 
     useEffect(() => {
@@ -34,7 +34,14 @@ const Service: FC<IProps> = (props: IProps) => {
     }, [reload])
 
     if (user.provider_id) return <Restricted/>
-    if (!state.length) return <Progress/>
+    if (loading && !state.length) return <Progress/>
+    if (!state.length) return <div className="row" style={{ height: "100vh", alignItems: "center" }}>
+        {showAdd && <Popup onPopupClose={() => {setShowAdd(undefined)}} isSmall={true} parentId={"2434n"} children={<Add/>}/>}
+        <div className="col-12" style={{ textAlign: "center" }}>
+            <h2>Il n'y a pas encore de service</h2>
+            <button onClick={() => setShowAdd(true)} className="btn btn-outline-primary btn-sm ms-auto">Ajouter service</button>
+        </div>
+    </div>
     return <div className="row">
         {showLinkProvider && <Popup onPopupClose={() => {setShowLinkProvider(undefined)}} isSmall={true} parentId={"2455n"} children={<LinkProvider service={...showLinkProvider} onDone={() => {
             setReload(true)

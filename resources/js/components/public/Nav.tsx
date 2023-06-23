@@ -51,11 +51,8 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                     data-widget_type="trx_sc_layouts_logo.default">
                                                     <div className="vighor-widget-container">
                                                         <Link to="/" id="trx_sc_layouts_logo_1139677019"
-                                                           className="sc_layouts_logo sc_layouts_logo_default trx_addons_inline_1362397269"><img
-                                                            className="logo_image"
-                                                            src="/images/PHOTO-2023-04-30-00-07-25.jpg"
-                                                            srcSet="/images/PHOTO-2023-04-30-00-07-25.jpg 2x"
-                                                            alt="Logo" width="212" height="80"/>
+                                                           className="sc_layouts_logo sc_layouts_logo_default trx_addons_inline_1362397269">
+                                                            <img className="logo_image" src="/images/logo.png" srcSet="/images/logo.png 2x" alt="Logo"/>
                                                         </Link>
                                                     </div>
                                                 </div>
@@ -117,7 +114,7 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                                     <span className="sc_button_title">Mande yon sèvis</span>
                                                                 </span>
                                                             </a>
-                                                            <a href="/complain"
+                                                            <a href="/service/track"
                                                                className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left color_style_link2 sc_button_hover_slide_left sc_button_hover_style_link2 link-red-btn"
                                                                rel="nofollow">
                                                                 <span className="sc_button_text">
@@ -152,9 +149,9 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                            className="sc_layouts_logo sc_layouts_logo_default trx_addons_inline_1112168072">
                                                             <img
                                                             className="logo_image"
-                                                            src="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png"
-                                                            srcSet="https://vighor.com/templates/hugue-theme-main/img/logo-primary.png 2x"
-                                                            alt="Impacto Patronus" style={{width: "100px"}}/>
+                                                            src="/images/logo.png"
+                                                            alt="logo"
+                                                            srcSet="/images/logo.png"/>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -180,7 +177,7 @@ const Nav: FC<IProps> = (props: IProps) => {
                                                                         <span className="sc_button_title">Mande sèvis</span>
                                                                     </span>
                                                                 </a>
-                                                                <a href="/complain" style={{ padding: "10px" }}
+                                                                <a href="/service/track" style={{ padding: "10px" }}
                                                                    className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left color_style_link2 sc_button_hover_slide_left sc_button_hover_style_link2 link-red-btn"
                                                                    rel="nofollow">
                                                                     <span className="sc_button_text">
