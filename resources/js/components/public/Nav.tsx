@@ -132,7 +132,7 @@ const Nav: FC<IProps> = (props: IProps) => {
                         </section>
                         <div className="sc_layouts_row_fixed_placeholder" style={{ backgroundColor: "rgba(0, 0, 0, 0)", height: "0px" }}></div>
                         <section className="vighor-section vighor-top-section vighor-element vighor-element-5e85655 vighor-section-full_width vighor-section-content-middle sc_layouts_row sc_layouts_row_type_compact sc_layouts_row_fixed sc_layouts_row_fixed_always sc_layouts_hide_on_wide sc_layouts_hide_on_desktop sc_layouts_hide_on_notebook sc_layouts_hide_on_tablet vighor-section-height-default vighor-section-height-default"
-                            data-id="5e85655" data-element_type="section" style={{ paddingRight: ".2em" }}>
+                            data-id="5e85655" data-element_type="section" style={{ paddingRight: ".2em", margin: "10px 0" }}>
                             <div className="vighor-container vighor-column-gap-no">
                                 <div className="vighor-row">
                                     <div

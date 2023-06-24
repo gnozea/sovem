@@ -68,10 +68,22 @@ class HomeController extends Controller
             return $users->get($period)->total ?? 0;
         });
 
+        //print_r($this->request_by_dept($filter));
+
         return [
             'totals' => $totals->toArray(),
             'periods' => $periods->toArray()
         ];
+    }
+
+    public function request_by_dept($filter): \Illuminate\Support\Collection
+    {
+        return DB::table('requests')
+            ->selectRaw("count(id) as total, date_format($filter, '%b %Y') as period, gender")
+            ->whereYear($filter, '>=', date("Y"))
+            ->groupBy(['gender', "period"])
+            ->get()
+            ->keyBy('period');
     }
 
     public function change_password(Request $request)

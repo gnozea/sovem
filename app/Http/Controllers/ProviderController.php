@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\VerificationController;
 use App\Mail\ProviderActivation;
 use App\Mail\ProviderCreation;
 use App\Models\Provider;
@@ -13,8 +14,13 @@ use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use PHPUnit\Exception;
+use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
+use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
+use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
+use PragmaRX\Google2FA\Google2FA;
 
 class ProviderController extends Controller
 {
@@ -73,6 +79,23 @@ class ProviderController extends Controller
             "status" => "error",
             "message" => "No account was found."
         ]);
+
+        $google2fa = new Google2FA();
+        try {
+            $secretKey = $google2fa->generateSecretKey();
+            $check->update(["google2fa_secret" => encrypt($secretKey)]);
+            $qr_code = $google2fa->getQRCodeUrl(
+                \env("APP_NAME"),
+                $check["email"],
+                $secretKey
+            );
+        } catch (IncompatibleWithGoogleAuthenticatorException|InvalidCharactersException|SecretKeyTooShortException $e) {
+            return \response()->json([
+                "status" => "error",
+                "msg" => "Unable to initialize Google authenticator."
+            ]);
+        }
+        $check['qrCode'] = $qr_code;
         return \response()->json([
             "status" => "success",
             "data" => $check

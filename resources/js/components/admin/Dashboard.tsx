@@ -3,6 +3,7 @@ import Chart from 'react-apexcharts'
 import axios from "axios";
 import Progress from "../utils/Progress";
 import BrowserTitle from "../utils/BrowserTitle";
+import StateChart from "./home/StateChart";
 
 interface IProps {
 
@@ -93,6 +94,19 @@ const Dashboard: FC<IProps> = (props: IProps) => {
             <div className="">
                 {!data.totals.length && <Progress/>}
                 <Chart options={stats.options} series={stats.series} type="area" height={350} />
+                {/*<div className="row">*/}
+
+                {/*    <div className="col-lg-6 col-xl-4">*/}
+                {/*        <div className="card">*/}
+                {/*            <div className="card-header">*/}
+                {/*                <h3 className="card-title">Demande par département</h3>*/}
+                {/*            </div>*/}
+                {/*            <div className="card-body">*/}
+                {/*                <StateChart stats={stats}/>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         </div>
     </div>

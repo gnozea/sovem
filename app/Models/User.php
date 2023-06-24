@@ -28,7 +28,8 @@ class User extends Authenticatable
         'password',
         'email_verification_token',
         'email_verified_at',
-        'provider_id'
+        'provider_id',
+        'google2fa_secret'
     ];
 
     /**
@@ -39,6 +40,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'google2fa_secret',
+        "email_verification_token",
     ];
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ServiceController;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,10 +47,17 @@ Route::get('.well-known/pki-validation/{file}', function (){
 Route::prefix("api")->group(function (){
     Route::get("account/check", function (){
         $account = Auth::check() ? Auth::user() : [];
+        if (Auth::check()) $account['mfaCapable'] = Auth::user()['google2fa_secret'] != null;
+        if (Auth::check()) $account['mfa'] = Session::get('mfa');
         $provider = $account && $account['provider_id'] ? \App\Models\Provider::where("id", $account["provider_id"])->first() : null;
         if ($account) $account['provider'] = $provider;
         return $account;
     });
+
+    Route::post("authenticator/verify", [VerificationController::class, "verify_2fa_code"]);
+    Route::get("authenticator/enrollment", [VerificationController::class, "enrollMFA"]);
+    Route::post("authenticator/enrollment", [VerificationController::class, "enrollMFASave"]);
+    Route::post("post-login/otp", [VerificationController::class, "post_login_otp"]);
 
     Route::get("provider/init/{token}", [ProviderController::class, "initAccount"]); //Get pre-created provider account
     Route::post("provider/init/{token}", [ProviderController::class, "initAccountStore"]); //Get pre-created provider account
@@ -66,10 +76,10 @@ Route::prefix("api")->group(function (){
 
     Route::post("start-form", [ServiceController::class, "start_form"]);
 
-    Route::prefix("dashboard")->middleware(["auth"])->group(function (){
-        Route::post('change-password', [\App\Http\Controllers\HomeController::class, "change_password"]);
+    Route::prefix("dashboard")->middleware(["auth", 'verify2fa'])->group(function (){
+        Route::post('change-password', [HomeController::class, "change_password"]);
         Route::get("requests", [RequestController::class, "index"]);
-        Route::get("charts", [\App\Http\Controllers\HomeController::class, "chart"]);
+        Route::get("charts", [HomeController::class, "chart"]);
 
         Route::post("request/release", [RequestController::class, "release"]);
         Route::get("request/{uuid}", [RequestController::class, "show"]);

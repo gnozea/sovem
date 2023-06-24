@@ -53,9 +53,9 @@ const Public:FC<IProps> = (props: IProps) => {
 
 
     const menuItems = [
-        {title: "Akèy", href: "/"},
+        {title: "Akèy", href: "https://www.konektem-m.org"},
         {title: "Swiv dosyew", href: "/service/track"},
-        {title: "Kiyès nou ye", href: "/about-us"},
+        {title: "Kiyès nou ye", href: "https://www.konekte-m.org/about-5"},
     ]
 
     const ServiceTrack = lazy(() => import("../components/public/ServiceTrack"))

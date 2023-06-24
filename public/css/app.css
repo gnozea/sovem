@@ -11455,7 +11455,7 @@ body section.vighor-section {
   }
   body .theme_button_close_icon {
     left: 40% !important;
-    top: -73% !important;
+    top: -76% !important;
   }
   body .menu_mobile_inner {
     overflow: visible !important;
@@ -11464,7 +11464,7 @@ body section.vighor-section {
     display: none !important;
   }
   body div.menu_mobile.menu_mobile_fullscreen.scheme_dark.opened {
-    top: 47px !important;
+    top: 58px !important;
   }
   body div.menu_mobile.menu_mobile_fullscreen.scheme_dark.opened ~ .top_panel.top_panel_custom .sc_layouts_iconed_text_link .trx_addons_icon-menu {
     visibility: hidden;

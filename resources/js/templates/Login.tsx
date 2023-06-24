@@ -12,6 +12,7 @@ const Login: FC<IProps> = (props: IProps) => {
     const [email, setEmail] = useState<string>(),
         [password, setPassword] = useState<string>(),
         [busy, setBusy] = useState<boolean>(),
+        [loginError, setLoginError] = useState<string>(),
         [rememberMe, setRememberMe] = useState<boolean>(false)
 
     const handleSubmit = (e: any) => {
@@ -26,6 +27,9 @@ const Login: FC<IProps> = (props: IProps) => {
         setBusy(true)
         axios.post("/login", form).then((rep: any) => {
             location.reload();
+        }).catch((error: any) => {
+            setLoginError("Adresse email ou mot de passe invalide")
+            setBusy(false)
         })
     }
   return <div className="page">
@@ -35,7 +39,7 @@ const Login: FC<IProps> = (props: IProps) => {
               <div className="row">
                   <div className="col col-login mx-auto">
                       <div className="text-center mb-6">
-                          <img src="https://glcomm-agency.com/wp-content/uploads/2022/05/logo-globocom.jpeg" className="h-6" alt=""/>
+                          <img src="/images/logo.png" className="h-6" alt=""/>
                       </div>
                       <form className="card" onSubmit={handleSubmit} method="post">
                           <div className="card-body p-6">
@@ -53,6 +57,7 @@ const Login: FC<IProps> = (props: IProps) => {
                                   <input type="password" className="form-control" id="password" onChange={(e: any) => setPassword(e.target.value)} defaultValue={password}
                                          placeholder="Password"/>
                               </div>
+                              {loginError && <p className="text-danger">{loginError}</p>}
                               <div className="form-group">
                                   <label className="custom-control custom-checkbox">
                                       <input type="checkbox" defaultChecked={rememberMe} className="custom-control-input" onChange={(e: any) => setRememberMe(e.target.checked)}/>

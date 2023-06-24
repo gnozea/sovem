@@ -91,7 +91,7 @@ body {
         }
         .theme_button_close_icon{
             left: 40%!important;
-            top: -73%!important;
+            top: -76%!important;
         }
         .menu_mobile_inner{
             overflow: visible!important;
@@ -100,7 +100,7 @@ body {
             display: none!important;
         }
         div.menu_mobile.menu_mobile_fullscreen.scheme_dark.opened{ //To be removed if customer want to rollback to previous menu style
-            top: 47px!important;
+            top: 58px!important;
             ~ .top_panel.top_panel_custom .sc_layouts_iconed_text_link .trx_addons_icon-menu{
                 visibility: hidden;
             }
