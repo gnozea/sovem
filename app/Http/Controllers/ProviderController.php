@@ -189,33 +189,68 @@ class ProviderController extends Controller
         $request->validate([
             "specialists.*" => "required|exists:specialities,id"
         ]);
+
+        $specialistsRequest = $request->get('specialists');
+
+        //First check if provider already have those specialities
+        $pr = Provider::with(['provider_specialities' => function($query) use ($specialistsRequest){
+            return $query->whereIn("speciality_id", $specialistsRequest);
+        }])->where("id", $id)->get();
+
+        $alreadyHave = $pr->pluck("provider_specialities")->toArray()[0];
+
+        foreach ($alreadyHave as $have){
+            $key = array_search($have["speciality_id"], $specialistsRequest);
+            if (false !== $key) {
+                if (isset($specialistsRequest[$key])) unset($specialistsRequest[$key]);
+            }
+        }
+
         $specialists = [];
-        foreach ($request->get('specialists') as $specialist){
+        foreach ($specialistsRequest as $specialist){
             $specialists[] = [
               "speciality_id" => $specialist
             ];
         }
+
         $provider = Provider::find($id);
-
-        $create = $provider->provider_specialities()->createMany($specialists);
         $numberText = count($specialists) == 1 ? "une" : count($specialists);
-        try {
-            $spec = [
-                "subject" => "Spécialité ajouté à votre compte",
-                "title" => "Vous avez " . $numberText . " nouvelle spécialité" . (count($specialists) > 1 ? "s" : ""),
-                "button_url" => Env::get("APP_URL") . "/dashboard",
-                "button_text" => "Aller au tableau de bord",
-                "message" => "Un administrateur vient d'ajouter " . count($specialists) . " spécialité" . (count($specialists) > 1 ? "s" : "") . " à votre compte sur " . \env("APP_URL") . ". Desormais vous recevrez des demandes de service. "
-            ];
-            Mail::to($provider['email'])->send(new ProviderActivation($spec));
-        }catch (\Swift_TransportException $exception){
 
+        $ignored = count($request->get('specialists')) - count($specialistsRequest);
+        $status = "success";
+        if (count($specialistsRequest) == 0) {
+            $msg = "Ces services ont déjà été ajoutés.";
+            $status = "error";
+        }elseif (count($specialistsRequest) < 0 && count($specialistsRequest) < $request->get('specialists')) {
+            $msg = "Spécialité(s) ajoutée(s) avec succès.";
+        }elseif (count($specialistsRequest) > 0 && count($specialistsRequest) < $request->get('specialists')) {
+            $msg = "$ignored élement" . ($ignored > 1 ? 's' :'') . " ignoré" . ($ignored > 1 ? 's' :'') . " pour duplication.";
+        }else{
+            $msg = "Vous avez ajouté " . count($specialistsRequest) . " spécalité" . (count($specialistsRequest) > 1 ? "s" : '') . ".";
         }
+
+        $create = null;
+        if ($status == "success") {
+            $create = $provider->provider_specialities()->createMany($specialists);
+            try {
+                $spec = [
+                    "subject" => "Spécialité ajouté à votre compte",
+                    "title" => "Vous avez " . $numberText . " nouvelle spécialité" . (count($specialists) > 1 ? "s" : ""),
+                    "button_url" => Env::get("APP_URL") . "/dashboard",
+                    "button_text" => "Aller au tableau de bord",
+                    "message" => "Un administrateur vient d'ajouter " . count($specialists) . " spécialité" . (count($specialists) > 1 ? "s" : "") . " à votre compte sur " . \env("APP_URL") . ". Desormais vous recevrez des demandes de service. "
+                ];
+                Mail::to($provider['email'])->send(new ProviderActivation($spec));
+            } catch (\Swift_TransportException $exception) {}
+        }
+
         if ($create) return [
-            "status" => "success"
+            "status" => $status,
+            "msg" => $msg
         ];
         return [
-            "status" => "error"
+            "status" => "error",
+            "msg" => $msg
         ];
     }
 

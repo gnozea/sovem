@@ -709,9 +709,9 @@ var AddSpecialist = function AddSpecialist(props) {
     });
     axios__WEBPACK_IMPORTED_MODULE_4___default().post("/api/dashboard/provider/".concat(props.provider.id, "/add-specialist"), form).then(function (rep) {
       if (rep.data.status === "success") {
-        react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success("Vous avez ajout\xE9 ".concat(specialistSelected.length, " sp\xE9calit\xE9").concat(specialistSelected.length > 1 ? "s" : '', "."));
+        react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success(rep.data.msg);
       } else {
-        react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.error("Votre requête n'a pas été effectuée.");
+        react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.error(rep.data.msg);
       }
       setIsLoading(false);
       props.onClose();

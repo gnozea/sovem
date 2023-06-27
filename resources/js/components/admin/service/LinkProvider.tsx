@@ -29,7 +29,11 @@ const LinkProvider: FC<IProps> = (props: IProps) => {
         axios.post("/api/dashboard/service/link-provider", form).then((rep: any) => {
             setLoading(false)
             props.onDone()
-            toast.success("Le nouveau prestataire a été lié.")
+            if (rep.data.status === "success"){
+                toast.success(rep.data.msg)
+            }else{
+                toast.error(rep.data.msg)
+            }
         })
     }
 

@@ -368,7 +368,11 @@ var LinkProvider = function LinkProvider(props) {
     axios__WEBPACK_IMPORTED_MODULE_4___default().post("/api/dashboard/service/link-provider", form).then(function (rep) {
       setLoading(false);
       props.onDone();
-      react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success("Le nouveau prestataire a été lié.");
+      if (rep.data.status === "success") {
+        react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success(rep.data.msg);
+      } else {
+        react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.error(rep.data.msg);
+      }
     });
   };
   var providerSelected = function providerSelected() {

@@ -202,13 +202,51 @@ class ServiceController extends Controller
             "providers.*" => "required|exists:providers,id"
         ]);
 
+        $provider_db = $providerService
+            ->where("service_id", $request->get("service_id"))
+            ->whereIn("provider_id", $request->get("providers"))
+            ->get("provider_id")->toArray();
+        $merge = array_values(call_user_func_array("array_merge_recursive", $provider_db));
+        $provider_db = isset($merge[0]) && is_array($merge[0]) ? $merge[0] : $merge;
+
+        $providerRequest = $request->get("providers");
+
+
+        if (count($provider_db)) foreach ($provider_db as $have){
+            $key = array_search($have, $providerRequest);
+            if (false !== $key) {
+                if (isset($providerRequest[$key])) unset($providerRequest[$key]);
+            }
+        }
+
         $providers = [];
-        foreach ($request->get("providers") as $item){
+        foreach ($providerRequest as $item){
             $providers[] = ["provider_id" => $item, "service_id" => $request->get("service_id"), "created_at" => Carbon::now()];
         }
-        $ps = $providerService->insert($providers);
+
+        $ignored = count($request->get('providers')) - count($providerRequest);
+        $status = "success";
+
+        if (count($providerRequest) == 0) {
+            $msg = "Ces prestataires ont déjà été lié.";
+            $status = "error";
+        }elseif (count($providerRequest) < 0 && count($providerRequest) < $request->get('specialists')) {
+            $msg = "Prestataire(s) lié(s) avec succès.";
+        }elseif (count($providerRequest) > 0 && count($providerRequest) < $request->get('specialists')) {
+            $msg = "$ignored élement" . ($ignored > 1 ? 's' :'') . " ignoré" . ($ignored > 1 ? 's' :'') . " pour duplication.";
+        }else{
+            $msg = "Vous avez lié " . count($providerRequest) . " prestataire" . (count($providerRequest) > 1 ? "s" : '') . ".";
+        }
+
+        $ps = null;
+        if ($status == "success") $ps = $providerService->insert($providers);
+        if ($ps) return [
+            "status" => $status,
+            "msg" => $msg
+        ];
         return [
-            "status" => "success"
+            "status" => "error",
+            "msg" => $msg
         ];
     }
 

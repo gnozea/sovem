@@ -35,9 +35,9 @@ const AddSpecialist: FC<IProps> = (props: IProps) => {
         })
         axios.post(`/api/dashboard/provider/${props.provider.id}/add-specialist`, form).then((rep: any) => {
             if (rep.data.status === "success"){
-                toast.success(`Vous avez ajouté ${specialistSelected.length} spécalité${specialistSelected.length > 1 ? "s" : ''}.`)
+                toast.success(rep.data.msg)
             }else{
-                toast.error("Votre requête n'a pas été effectuée.")
+                toast.error(rep.data.msg)
             }
             setIsLoading(false)
             props.onClose()

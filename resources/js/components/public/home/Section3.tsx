@@ -1,4 +1,5 @@
 import React, {FC} from "react";
+import styled from "styled-components";
 
 interface IProps {
     windowSize: any
@@ -19,9 +20,9 @@ const Section3: FC<IProps> = (props) => {
                     data-element_type="column"
                     data-settings='{"background_background":"classic"}'
                 >
-                    <div className="vighor-column-wrap" style={{ backgroundImage: "/images/1246478597262.png" }}>
+                    <BlackImage className="vighor-column-wrap">
                         <div className="vighor-widget-wrap"></div>
-                    </div>
+                    </BlackImage>
                 </div>
                 <div className="vighor-column vighor-col-50 vighor-top-column vighor-element vighor-element-ebcde17 sc_inner_width_none sc_content_align_inherit sc_layouts_column_icons_position_left"
                     data-id="ebcde17"
@@ -135,3 +136,7 @@ const Section3: FC<IProps> = (props) => {
     </section>
 }
 export default Section3
+
+const BlackImage = styled.div`
+    background-image: url("/images/1246478597262.png")!important;
+`

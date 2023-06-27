@@ -60,12 +60,12 @@ const Add: FC<IProps> = (props: IProps) => {
                 {providers.map((provider: any, index: number) => {
                     return <div className="pt-1 pt-1 pe-1 d-inline-block" key={index}>
                         <span className="tag" key={index}>
-                               {provider?.name} <button type="button" style={{border: "none"}} className="tag-addon"><i className="fe fe-x" onClick={() => {
-                               setProviders((prevState: any) => {
-                                   const all: any = [...prevState]
-                                   all.splice(index, 1)
-                                   return all
-                               })
+                            {provider?.name} <button type="button" style={{border: "none"}} className="tag-addon"><i className="fe fe-x" onClick={() => {
+                           setProviders((prevState: any) => {
+                               const all: any = [...prevState]
+                               all.splice(index, 1)
+                               return all
+                           })
                             setQuery((prevState: any) => {
                                 const all: any = [...prevState]
                                 all.splice(index, 1)
