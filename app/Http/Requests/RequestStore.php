@@ -27,13 +27,18 @@ class RequestStore extends FormRequest
         return [
             "ageRange" => "required|string",
             "your_city" => "required|exists:cities,id",
-            "felon.*" => "required",
             "gender" => "required|string",
-            "incidentLocation" => "required|string",
             "incidentDate" => "required|date_format:Y-m-d|before_or_equal:today",
             "serviceId.*" => "required|exists:services,id",
-            "specialistId.*" => "required",
             "violenceType" => "required",
+            "incidentLocation" => "sometimes|nullable|string",
+            "city.id" => "required|exists:cities,id",
+            "city.department_id" => "required|exists:departments,id",
+            "crimeCity.id" => "required|exists:cities,id",
+            "crimeCity.department_id" => "required|exists:departments,id",
+            "specialistId.*" => "required|exists:specialities,id",
+            "violenceType.*" => "required|in:" . implode(",", ["Vyolans seksyel", "Vyolans Fizik", "Deplasman fòse"]),
+            "felon.*" => "required|in:" . implode(",", ["Yon patenè", "Yon manm fanmi", "Yon otorite", "Yon enkoni"]),
         ];
     }
 

@@ -32,6 +32,11 @@ class HomeController extends Controller
         return view('home');
     }
 
+    /**
+     * @param $filter
+     * @return \Illuminate\Support\Collection
+     * Done
+     */
     function providerChart($filter): \Illuminate\Support\Collection
     {
         return DB::table('requests')
@@ -45,6 +50,11 @@ class HomeController extends Controller
             ->keyBy('period');
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     * Done
+     */
     public function chart(Request $request)
     {
         $filter = $request->has('filter') ? $request->get('filter') : "created_at";
@@ -73,6 +83,85 @@ class HomeController extends Controller
         return [
             'totals' => $totals->toArray(),
             'periods' => $periods->toArray()
+        ];
+    }
+
+    private function providerStateStats($filter, Request $request)
+    {
+        return DB::table("requests", "req")
+            ->select("dept.name", DB::raw('count(req.id) as total'))
+            ->join("departments as dept", "dept.id", "=", "incident_department")
+            ->join("request_claimed as rc", function ($join){
+                $join->on('req.id', '=', 'rc.request_id')
+                    ->where("rc.provider_id", Auth::user()['provider_id']);
+            })
+            ->whereMonth($filter, '>=', date("m"))
+            ->groupBy('dept.name')
+            ->get()
+            ->keyBy('name');
+    }
+
+    public function stateStats(Request $request)
+    {
+        $filter = $request->has('filter') ? $request->get('filter') : "incident_date";
+        $filter = "req." . $filter;
+        if (Auth::user()['provider_id']) $query = $this->providerStateStats($filter, $request);
+        if (!Auth::user()['provider_id']) $query = DB::table("requests", "req")
+            ->selectRaw("count(req.id) as total, dept.name")
+            ->leftJoin("departments as dept", "dept.id", "=", "incident_department")
+            ->whereMonth($filter, '>=', date("m"))
+            ->groupBy('dept.name')
+            ->get()
+            ->keyBy('name');
+
+        return [
+            "status" => "success",
+            "data" => $query
+        ];
+    }
+
+    /**
+     * @param $filter
+     * @param Request $request
+     * @return \Illuminate\Support\Collection
+     * Done
+     */
+    private function providerStatsAge($filter, Request $request)
+    {
+        return DB::table("requests", "req")
+            ->select("age_range AS age", DB::raw('count(req.id) as total'))
+            ->whereMonth($filter, '>=', date("m"))
+            ->join("request_claimed as rc", function ($join){
+                $join->on('req.id', '=', 'rc.request_id')
+                    ->where("rc.provider_id", Auth::user()['provider_id']);
+            })
+            ->groupBy('age')
+            ->get()
+            ->keyBy('age');
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * Done
+     */
+    public function statsAge(Request $request)
+    {
+        $filter = $request->has('filter') ? $request->get('filter') : "incident_date";
+        $filter = "req." . $filter;
+
+        if (Auth::user()['provider_id']) $query = $this->providerStatsAge($filter, $request);
+
+        if (!Auth::user()['provider_id']) $query = DB::table("requests", "req")
+            ->selectRaw("count(req.id) as total, age_range AS age")
+            ->whereMonth($filter, '>=', date("m"))
+            ->groupBy('age')
+            ->get()
+            ->keyBy('age');
+
+        return [
+            "status" => "success",
+            "data" => $query
         ];
     }
 

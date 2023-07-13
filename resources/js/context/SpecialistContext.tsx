@@ -2,7 +2,7 @@ import React, {createContext, FC, useReducer} from "react";
 
 const initialState: any = []
 
-const ServiceContext = createContext(initialState)
+const SpecialistContext = createContext(initialState)
 
 interface IAction {
     type: string,
@@ -18,25 +18,25 @@ interface IProps {
 
 
 const reducer = (state: IState, action: IAction) => {
-    if (action.type === "ADD_SERVICES") { // @ts-ignore
+    if (action.type === "ADD_SPECIALISTS") { // @ts-ignore
         return action.payload
     }
-    if (action.type === "ADD_SERVICE") { // @ts-ignore
+    if (action.type === "ADD_SPECIALIST") { // @ts-ignore
         return [...state, {...action.payload}]
     }
 
     return state
 }
 
-export const ServiceProvider: FC<IProps> = (props: IProps) => {
+export const SpecialistProvider: FC<IProps> = (props: IProps) => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
-    return <ServiceContext.Provider value={{ state, dispatch }}>
+    return <SpecialistContext.Provider value={{ state, dispatch }}>
         {props.children}
-    </ServiceContext.Provider>
+    </SpecialistContext.Provider>
 }
 
-export default ServiceContext
+export default SpecialistContext
 
 
 

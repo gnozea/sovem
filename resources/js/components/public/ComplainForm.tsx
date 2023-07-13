@@ -223,7 +223,8 @@ const ComplainForm: FC<IProps> = (props) => {
     }
 
     const setIncidentLocation = () => {
-        if (!state.selections.incidentLocation) return setAlert("Tanpri, di nou nan ki zòn sa te rive w.")
+        if (!state.selections.crimeCity) return setAlert("Tanpri, di nou nan ki zòn sa te rive w.")
+        // if (!state.selections.incidentLocation) return setAlert("Tanpri, di nou nan ki zòn sa te rive w.")
         setStep((step: number) => {
             return step+1
         })
@@ -296,7 +297,7 @@ const ComplainForm: FC<IProps> = (props) => {
                                                         </h6>
                                                         <h6 className="mt-2" style={{ width: "410px", margin: "0 auto" }}>
                                                             <CopyToClipboard text={submitted?.ticket_number} onCopy={handleCodeCopied}>
-                                                                <span className="vighor-title">{submitted?.ticket_number}
+                                                                <span style={{ fontSize: "2em" }} className="vighor-title pt-1 d-block">{submitted?.ticket_number}
                                                                     <button  style={{
                                                                         display: "flex",
                                                                         padding: "1px 6px",
@@ -309,7 +310,7 @@ const ComplainForm: FC<IProps> = (props) => {
                                                                         border: "none",
                                                                         color: codeCopied ? "#4BB04F" : "#07203C"
                                                                     }}>
-                                                                        {!codeCopied && <span>Klike pou kopye kòd la</span>}
+                                                                        {!codeCopied && <span>Klike pou kopye nimewo a</span>}
                                                                         {codeCopied && <div style={{ fontSize: "1.5em", marginTop: "20px" }}>
                                                                             <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                                                                 <path d="M19.965 8.521C19.988 8.347 20 8.173 20 8c0-2.379-2.143-4.288-4.521-3.965C14.786 2.802 13.466 2 12 2s-2.786.802-3.479 2.035C6.138 3.712 4 5.621 4 8c0 .173.012.347.035.521C2.802 9.215 2 10.535 2 12s.802 2.785 2.035 3.479A3.976 3.976 0 0 0 4 16c0 2.379 2.138 4.283 4.521 3.965C9.214 21.198 10.534 22 12 22s2.786-.802 3.479-2.035C17.857 20.283 20 18.379 20 16c0-.173-.012-.347-.035-.521C21.198 14.785 22 13.465 22 12s-.802-2.785-2.035-3.479zm-9.01 7.895-3.667-3.714 1.424-1.404 2.257 2.286 4.327-4.294 1.408 1.42-5.749 5.706z"></path>
@@ -557,22 +558,22 @@ const ComplainForm: FC<IProps> = (props) => {
                                                       </div>
                                                       <div className="QuestionBody"></div>
                                                   </>
-                                                  {state.selections?.crimeCity?.id && <>
-                                                      <legend>
-                                                          <div className="QuestionText BorderColor pb-0 pt-4">Nan ki zòn oswa lokalite sa te rive?</div>
-                                                      </legend>
-                                                      <div className="QuestionBody">
-                                                          <div className="ChoiceStructure">
-                                                              <div className="dk-speakout-full">
-                                                                  <input autoComplete="pff" name="incident_location"
-                                                                         id="where-this-happen" type="text"
-                                                                         onChange={(e: any) => dispatch({ type: "SET_INCIDENT_LOCATION", payload: e.target.value })}
-                                                                         defaultValue={state.selections.incidentLocation}
-                                                                         placeholder="Ekri non zòn sa te rive w la" className="fill_inited"/>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </>}
+                                                  {/*{state.selections?.crimeCity?.id && <>*/}
+                                                  {/*    <legend>*/}
+                                                  {/*        <div className="QuestionText BorderColor pb-0 pt-4">Nan ki zòn oswa lokalite sa te rive?</div>*/}
+                                                  {/*    </legend>*/}
+                                                  {/*    <div className="QuestionBody">*/}
+                                                  {/*        <div className="ChoiceStructure">*/}
+                                                  {/*            <div className="dk-speakout-full">*/}
+                                                  {/*                <input autoComplete="pff" name="incident_location"*/}
+                                                  {/*                       id="where-this-happen" type="text"*/}
+                                                  {/*                       onChange={(e: any) => dispatch({ type: "SET_INCIDENT_LOCATION", payload: e.target.value })}*/}
+                                                  {/*                       defaultValue={state.selections.incidentLocation}*/}
+                                                  {/*                       placeholder="Ekri non zòn sa te rive w la" className="fill_inited"/>*/}
+                                                  {/*            </div>*/}
+                                                  {/*        </div>*/}
+                                                  {/*    </div>*/}
+                                                  {/*</>}*/}
                                               </>}
 
                                               {step === 7 && <> {/*Question 5*/}

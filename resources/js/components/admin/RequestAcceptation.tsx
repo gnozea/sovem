@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom"
 import { DatePicker } from 'antd';
 import dayjs, {Dayjs} from "dayjs";
+import BrowserTitle from "../utils/BrowserTitle";
 
 
 interface IProps {
@@ -43,6 +44,15 @@ const hours: any = {
     "12_2PM": "12h - 2h PM",
     "2_4PM": "2h - 4h PM"
 }
+
+const onRangeChange = (dates: null | (Dayjs | null)[], dateStrings: string[]) => {
+    if (dates) {
+        console.log('From: ', dates[0], ', to: ', dates[1]);
+        console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
+    } else {
+        console.log('Clear');
+    }
+};
 
 const RequestAcceptation: FC<IProps> = (props: IProps) => {
 
@@ -110,7 +120,7 @@ const RequestAcceptation: FC<IProps> = (props: IProps) => {
     </Popup>
 
     if (claimed) return <Popup onPopupClose={() => navigate("/dashboard/requests")}  options={{closable: true}} closable={true} parentId={12444}>
-        <div className="text-wrap mt-4 mb-4">
+        <div className="text-wrap mt-6 mb-4">
             {requestStatus === 'success' && <div className="success-animation">
                 <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                     <circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
@@ -135,9 +145,13 @@ const RequestAcceptation: FC<IProps> = (props: IProps) => {
                 </h2>
                 <p>Il semble que cette demande ait été supprimée ou qu'un autre fournisseur l'ait déjà récupérée. Nous vous ferons savoir si disponible ou libéré.</p>
             </div>}
+            <div className="text-center mt-3 mb-3">
+                <button type="button" onClick={() => navigate("/dashboard/requests")} className="btn btn-dark btn-sm">Fèmen fenèt la</button>
+            </div>
         </div>
     </Popup>
     return <Popup onPopupClose={(e: any) => navigate("/dashboard/requests")} parentId={12444} options={{closable: false}}>
+        <BrowserTitle title={"Accepter une demande"}/>
         <Wrapper className="text-wrap mt-4 mb-4">
             <Left>
                 <h4 className="mt-0 mb-4">Détails</h4>
@@ -168,7 +182,7 @@ const RequestAcceptation: FC<IProps> = (props: IProps) => {
                             // Can not select days before today and today
                             return current && current.valueOf() < Date.now();
                         }} format={"DD/MM/YYYY"} style={{ width: "100%", display: "block" }} showToday={false} onChange={(date: Dayjs) => setDate(date.format("YYYY-MM-DD"))}
-                                    presets={rangePresets} popupClassName="office-hours" placeholder="Choisir date du rendez-vous." />
+                                    /*presets={rangePresets}*/ popupClassName="office-hours" placeholder="Choisir date du rendez-vous." />
                     </div>
                     <div className="btn-group mt-4" style={{ width: "100%" }}>
                         {Object.keys(hours).map((hr: any, key: number) => <button key={key} onClick={() => setTime(hours[hr])} className={`btn ${time === hours[hr] ? " btn-danger" : "btn-outline-danger"} btn-sm`}>{hours[hr]}</button>)}

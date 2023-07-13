@@ -1,12 +1,13 @@
 import React, {createContext, FC, useReducer} from "react"
 import moment from "moment";
+import {violenceTypes, felons, ageRanges} from "../components/utils/constants"
 
 const initialState: any = {
     services: null,
     specialities: null,
-    violenceTypes: ["Vyolans seksyel", "Vyolans Fizik", "Deplasman fòse"],
-    felon: ["Yon patenè", "Yon manm fanmi", "Yon otorite", "Yon enkoni"],
-    ageRange: ["Mwens ke 12 zan", "12 - 18", "19 - 35", "36 - 49", "50 oswa plis"],
+    violenceTypes: violenceTypes, //["Vyolans seksyel", "Vyolans Fizik", "Deplasman fòse"],
+    felon: felons,//["Yon patenè", "Yon manm fanmi", "Yon otorite", "Yon enkoni"],
+    ageRange: ageRanges,//["Mwens ke 12 zan", "12 - 18", "19 - 35", "36 - 49", "50 oswa plis"],
     genders: ["Fi", "Gason"],
     selections: {
         serviceId: [],

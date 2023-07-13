@@ -328,10 +328,9 @@ var Request = function Request(props) {
     style: {
       width: "173.422px"
     }
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, state.map(function (unclaimed, key) {
-    if (unclaimed.requests.length === 0) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-      key: 0
-    });
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, state.filter(function (claimed) {
+    return claimed.requests.length > 0;
+  }).map(function (unclaimed, key) {
     var specialist = unclaimed.requests.map(function (specialist) {
       return specialist.specialities.name;
     });

@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useState} from "react";
-import moment from "moment/moment";
-import Chart from "react-apexcharts";
+import {default as ApexChart} from "react-apexcharts";
 import Progress from "../../utils/Progress";
 
 interface IProps {
@@ -8,7 +7,7 @@ interface IProps {
     dateType: string
 }
 
-const Form: FC<IProps> = (props: IProps) => {
+const Chart: FC<IProps> = (props: IProps) => {
     const [chart, setChart] = useState<any>()
     useEffect(() => {
         let total: any = [], category: any = []
@@ -19,7 +18,16 @@ const Form: FC<IProps> = (props: IProps) => {
         setChart({
             options: {
                 chart: {
-                    id: "basic-bar"
+                    id: "basic-bar",
+                    dropShadow: {
+                        enabled: true,
+                        enabledOnSeries: undefined,
+                        top: 0,
+                        left: 0,
+                        blur: 3,
+                        color: '#000',
+                        opacity: 0.1
+                    }
                 },
                 xaxis: {
                     categories: category//[1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
@@ -43,7 +51,7 @@ const Form: FC<IProps> = (props: IProps) => {
         <div className="card">
             {/*<div className="card-header">*/}
             {/*</div>*/}
-            <Chart
+            <ApexChart
                 options={chart.options}
                 series={chart.series}
                 type="line" height={300}
@@ -51,4 +59,4 @@ const Form: FC<IProps> = (props: IProps) => {
         </div>
     </div>
 }
-export default Form
+export default Chart

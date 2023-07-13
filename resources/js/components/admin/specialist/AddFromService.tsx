@@ -128,7 +128,8 @@ export const AddFromService: FC<IProps> = (props: IProps) => {
                     </motion.div>}
                 </div>
                 {specialistSelected.length > 0 && chooseExisting && specialistSelectedList()}
-                <label className="form-label">ou <Link to={"#"} onClick={() => setChooseExisting(prevState => !prevState)}>{!chooseExisting ? `choisir existant` : `taper un nouveau`}</Link></label>
+                <label className="form-label">ou <button  type="button" className="btn-link p-0" style={{border: "none", background: "none", outline: "none"}}
+                                                          onClick={() => setChooseExisting(prevState => !prevState)}>{!chooseExisting ? `choisir existant` : `créer un nouveau`}</button></label>
                 {error && <span className="text-danger" style={{fontSize: "13px"}}>{error}</span>}
             </fieldset>
             <div style={{ boxShadow: "rgb(227, 232, 238) 0px -1px inset", width: "100%", height: "1px", marginTop: ".5em", marginBottom: ".5em" }}/>

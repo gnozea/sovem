@@ -1,0 +1,24 @@
+
+.select2-dropdown.select2-dropdown--below{
+    width: max-content;
+}
+
+@media all and (max-width: 500px) {
+    html body.home .select2-dropdown{
+        top: -45px;
+    }
+    html body.home .select2-search--dropdown .select2-search__field{
+        padding: 10px;
+        padding-left: 35px;
+    }
+    html body.home .select2-search--dropdown:after{
+        top: 23px;
+    }
+}
+
+body.report-frame .select2-dropdown.select2-dropdown--below{
+    width: auto!important;
+}
+html body.report-frame .select2-container--default .select2-results > .select2-results__options{
+    width: max-content;
+}

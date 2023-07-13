@@ -1,13 +1,20 @@
 import React, {FC} from "react";
 import {Link} from "react-router-dom";
+import styled from "styled-components";
 
 interface IProps {
 
 }
 
+const Section = styled.section`
+    padding: 10em 0;
+    @media all and (max-width: 768px){
+       padding: 5em 0px;
+    }
+`
 
 export const Banner: FC<IProps> = (props: IProps) => {
-    return <section style={{ backgroundImage: "url(https://human-rights.impacto-patronus.ancorathemes.com/wp-content/uploads/2020/06/post-5-copyright.jpg)", backgroundPosition: "center center", backgroundSize: "cover", padding: "10em 0" }}
+    return <Section style={{ backgroundColor: "#ffd19b", backgroundPosition: "center center", backgroundSize: "cover" }}
         className="vighor-section vighor-top-section vighor-element vighor-element-7e9f4a2 scheme_dark vighor-section-boxed vighor-section-height-default vighor-section-height-default"
         data-id="7e9f4a2" data-element_type="section"
         data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
@@ -44,5 +51,5 @@ export const Banner: FC<IProps> = (props: IProps) => {
                 </div>
             </div>
         </div>
-    </section>
+    </Section>
 }

@@ -34,12 +34,15 @@ const NavSecond: FC<IProps> = (props: IProps) => {
                         </li>}
 
                         {!user.provider_id && <li className="nav-item dropdown">
-                            <span className={`nav-link ${active.match('dashboard/services') ? 'active' : ''}`} data-toggle="dropdown">Services</span>
+                            <span className={`nav-link ${active.match('dashboard/services') || active.match('dashboard/specialists') ? 'active' : ''}`} data-toggle="dropdown">Services</span>
                             <div className="dropdown-menu dropdown-menu-arrow">
                                 <Link to="/dashboard/services" className={`dropdown-item`} onClick={setActiveURL}>Liste des services</Link>
                                 {/*<Link to="/dashboard/specialists" className={`dropdown-item`} onClick={setActiveURL}>Liste des spécialistes</Link>*/}
                             </div>
                         </li>}
+                        <li className="nav-item">
+                            <Link to="/dashboard/reports" className={`nav-link ${active === '/dashboard/reports' ? 'active' : ''}`} onClick={setActiveURL}>Rapport</Link>
+                        </li>
                         {/*{!user.provider_id && <li className="nav-item">*/}
                         {/*    <Link to="/dashboard/services" className={`nav-link ${active === '/dashboard/services' ? 'active' : ''}`} onClick={setActiveURL}>Services</Link>*/}
                         {/*</li>}*/}

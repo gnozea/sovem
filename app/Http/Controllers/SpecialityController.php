@@ -81,6 +81,7 @@ class SpecialityController extends Controller
         ]);
 
 
+
         //1.0 Create new speciality
         $specialist = [];
         if ($request->has("new") && $request->get("new") == "1"):
@@ -88,6 +89,8 @@ class SpecialityController extends Controller
         else: //1.1 or get those selected by user
             $specialist = $request->get("specialist");
         endif;
+
+        //1.1 verify if providers not already have those services
 
         //2. Add service_specialities
         $service_specialities = [];

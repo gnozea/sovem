@@ -2,6 +2,7 @@ import React, {FC} from "react";
 import Popup from "./Popup";
 import styled from "styled-components";
 import BrowserTitle from "./BrowserTitle";
+import {Link} from "react-router-dom";
 
 const PermissionWrapper = styled.div`
     display: flex;
@@ -9,6 +10,7 @@ const PermissionWrapper = styled.div`
     align-items: center;
     justify-content: center;
     height: 100%;
+    margin-top: 10px;
 `
 
 const ImgWrapper = styled.div`
@@ -26,15 +28,15 @@ interface IProps {
 
 
 const Restricted: FC<IProps> = (props: IProps) => {
-    return <Popup onPopupClose={() => {}} parentId={20943} closable={false}>
+    return <Popup onPopupClose={() => {}} options={{closable: false}} parentId={20943} closable={false}>
         <BrowserTitle title="Permission denied"/>
         <PermissionWrapper>
-            <ImgWrapper>
-                <img src="/images/fingerprint-animate.svg" alt=""/>
-            </ImgWrapper>
             <div className="mx-auto text-center">
                 <h2>Accès refusé</h2>
                 <p>Désolé, vous ne disposez pas des autorisations nécessaires pour accéder à cette page.</p>
+            </div>
+            <div className="mt-3 mb-3">
+                <Link to={"/dashboard"} className="btn btn-dark btn-sm">Aller au tableau de bord</Link>
             </div>
         </PermissionWrapper>
     </Popup>

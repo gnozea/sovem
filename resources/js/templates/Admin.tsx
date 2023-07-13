@@ -7,6 +7,9 @@ import Progress from "../components/utils/Progress"
 import {RequestProvider} from "../context/RequestContext";
 import {ProviderProvider} from "../context/ProviderContext";
 import {ServiceProvider} from "../context/ServiceContext";
+import Specialist from "../components/admin/specialist/Specialist";
+import {SpecialistProvider} from "../context/SpecialistContext";
+import Report from "../components/admin/Report";
 
 interface IProps {
     children?: React.ReactNode
@@ -42,6 +45,12 @@ const Admin: FC<IProps> = (props: IProps) => {
                                                 </ServiceProvider> }
                                             />
                                         </Route>
+                                        <Route path="reports" element={<Report/>}/>
+                                        <Route path="specialists" element={
+                                            <SpecialistProvider>
+                                                <Specialist/>
+                                            </SpecialistProvider>
+                                        }/>
                                         <Route path="providers" element={<ProviderProvider>
                                             <Provider/>
                                         </ProviderProvider>}/>

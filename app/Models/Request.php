@@ -27,6 +27,7 @@ class Request extends Model
         "gender",
         "your_city",
         "incident_location",
+        "incident_department",
         "incident_date",
         "violence_type",
         "felon",
@@ -57,6 +58,16 @@ class Request extends Model
     public function city()
     {
         return $this->belongsTo(City::class, "your_city");
+    }
+
+    public function incident_city_location()
+    {
+        return $this->belongsTo(City::class, "incident_city");
+    }
+
+    public function incident_dept_location()
+    {
+        return $this->belongsTo(Department::class, "incident_department");
     }
 
     public function logs()

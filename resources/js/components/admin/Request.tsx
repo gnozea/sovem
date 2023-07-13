@@ -63,6 +63,7 @@ const Request: FC<IProps> = (props: IProps) => {
             setBusy(false)
         })
     }
+
     useEffect(() => {
         getData()
         setBusy(false)
@@ -130,8 +131,7 @@ const Request: FC<IProps> = (props: IProps) => {
                             </thead>
                             <tbody>
 
-                            { state.map((unclaimed: any, key: number) => {
-                                if (unclaimed.requests.length === 0) return <Fragment key={0}></Fragment>
+                            { state.filter((claimed: any) => claimed.requests.length > 0).map((unclaimed: any, key: number) => {
 
                                 let specialist: any = unclaimed.requests.map((specialist: any) => {
                                     return specialist.specialities.name

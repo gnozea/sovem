@@ -5,18 +5,18 @@ import Progress from "../utils/Progress";
 import Popup from "../utils/Popup";
 import {toast} from "react-toastify";
 import MFAForm from "../admin/account/MFAForm";
+import BrowserTitle from "../utils/BrowserTitle";
 
 type IProps = {
 
 }
 
-const CreateProvider: FC<IProps> = (props: IProps) => {
+const ResetPassword: FC<IProps> = (props: IProps) => {
     moment.locale('fr');
     const [details, setDetails] = useState<any>(),
-        [name, setName] = useState<string>(),
-        [authenticatorCode, setAuthenticatorCode] = useState<{ code: string, valid: boolean }>({code: "", valid: false}),
+        email = decodeURI(document.URL.replace(/.*email=([^&]*).*|(.*)/, '$1')),
         [busy, setBusy] = useState<boolean>(),
-        [goToMFA, setGoToMFA] = useState<boolean>(false),
+        [error, setError] = useState<any>({}),
         [password, setPassword] = useState<string>(),
         [passwordConfirm, setPasswordConfirm] = useState<string>(""),
         url = window.location.pathname.split("/").filter((u: any) => {
@@ -24,27 +24,26 @@ const CreateProvider: FC<IProps> = (props: IProps) => {
         }),
         formRef = useRef<any>()
     useEffect(() => {
-        axios.get(`/api/provider/init/${url[url.length-1]}`).then((rep: any) => {
+        axios.get(`/api/reset-password`, {params: {email: email}}).then((rep: any) => {
             if(rep.data.status === "success") {
-                setDetails(rep.data.data);
+                setDetails([]);
             }else {
                 toast.success(rep.data.msg)
             }
+        }).catch(err => {
+            setDetails(null);
         })
     }, [])
 
-    const handleComplete = () => {
-        handleSubmit(formRef.current)
-    }
-
     const handleSubmit = (e: any) => {
-        if (!goToMFA) return setGoToMFA(true)
+        e.preventDefault()
         const form = new FormData()
-        form.append("provider", details.provider_id)
-        form.append("name", name)
+        form.append("email", email)
         form.append("password", password)
+        form.append("password_confirmation", passwordConfirm)
+        form.append("token", url[url.length-1])
         setBusy(true)
-        axios.post(`/api/provider/init/${url[url.length-1]}`, form, {
+        axios.post(`/api/reset-password`, form, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -52,21 +51,25 @@ const CreateProvider: FC<IProps> = (props: IProps) => {
             if (rep.data.status === "success"){
                 setTimeout(() => {
                     window.location.href = "/dashboard"
-                    toast.success("Compte confirmé! Redirection en cours.")
+                    toast.success("Votre mot de passe a été modifié.")
                 }, 3000)
                 return
             }
             toast.error("Compte inexistant ou lien invalide.")
             setBusy(false)
+        }).catch(error => {
+            setError(error.response.data)
+            setBusy(false)
         })
     }
 
     if (details === undefined) return <Popup onPopupClose={() => {}} fullWidth={true} parentId={12748838}>
+        <BrowserTitle title={"Restaurer mot de passe"}/>
         <Progress/>
     </Popup>
 
     if (!details) return <Popup onPopupClose={() => {}} fullWidth={true} parentId={12748838}>
-
+        <BrowserTitle title={"Compte non trouvé"}/>
         <div className="col-12 col-md-8 pb-4 mx-auto">
             <div className="vighor-column-wrap vighor-element-populated">
                 <div className="vighor-widget-wrap">
@@ -86,6 +89,7 @@ const CreateProvider: FC<IProps> = (props: IProps) => {
         {busy && <div style={{position: "absolute", width: "100%", height: "100%",zIndex: "999"}}>
             <Progress style={"skype"} color={"#E89C42"}/>
         </div>}
+        <BrowserTitle title={"Restaurer mot de passe"}/>
             <div className="col-12 col-md-8 pb-4 mx-auto">
                 <div className="position-relative service-form-request-wrap">
                     <section className="vighor-section vighor-top-section vighor-element vighor-element-21b3bff vighor-section-boxed vighor-section-height-default vighor-section-height-default">
@@ -97,47 +101,14 @@ const CreateProvider: FC<IProps> = (props: IProps) => {
                                             <div className="vighor-element vighor-element-ca6ee5d sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer">
                                                 <div className="vighor-widget-container">
                                                     <div className="col-md-10 mx-auto">
-                                                        {!goToMFA && <>
-                                                            {!details?.provider.logo && <div style={{width: "250px", margin: "10px auto"}}>
-                                                            <img src="/images/my-account-animate.svg" alt=""/>
-                                                            </div>}
-                                                            {details?.provider.logo && <div style={{width: "250px", margin: "10px auto"}}>
-                                                                <img src={`/${details.provider.logo}`} alt=""/>
-                                                            </div>}
-                                                        </>}
                                                         <div className="text-center" style={{ margin: "0 40px" }}>
-                                                            <h2 style={{ marginTop: goToMFA ? "1em" : "0" }} className="sc_item_title sc_title_title sc_item_title_style_decoration"><span
-                                                                className="sc_item_title_text">Valider votre compte</span>
+                                                            <h2 style={{ marginTop:  "1em"}} className="sc_item_title sc_title_title sc_item_title_style_decoration"><span
+                                                                className="sc_item_title_text">Restaurer mot de passe</span>
                                                             </h2>
-                                                            {goToMFA && <>
-                                                                <h3 className="sc_item_title sc_title_title sc_item_title_style_decoration" style={{ marginTop: ".5em" }}>
-                                                                    <span className="sc_item_title_text" style={{ fontSize: "1.5rem" }}>Configurer l'authentification à 2 facteurs</span>
-                                                                </h3>
-                                                            </>}
                                                             <div className="mt-3">
-                                                                {!goToMFA && <div className="col-md-7 col-12 mx-auto">
-                                                                    <p className="">Validez votre compte pré-créé par l'administrateur pour accéder au tableau de bord.</p>
-                                                                </div>}
                                                                 <div className="scheme_default text-center">
-                                                                    <form className="" ref={formRef}>
-                                                                        {goToMFA && <MFAForm user_email={details['email']} value={details['qrCode']} _2faCode={(details: any) => setAuthenticatorCode(details)} onVerify={handleComplete}/>}
-                                                                        {!goToMFA && <div className="col-12 col-md-6 mx-auto">
-                                                                            <>
-                                                                                <h6 className="mt-2 text-start mb-0">
-                                                                                    <span className="vighor-title">Votre nom</span>
-                                                                                </h6>
-                                                                                <div className="QuestionBody">
-                                                                                    <div className="ChoiceStructure">
-                                                                                        <div className="dk-speakout-full">
-                                                                                            <input autoComplete="name" required={true} name="name"
-                                                                                                   id="name" type="text"
-                                                                                                   onChange={(e: any) => setName(e.target.value)}
-                                                                                                   placeholder="e.g. Michelot Jean-Claude" className="fill_inited"/>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </>
-                                                                            <>
+                                                                    <form className="" onSubmit={handleSubmit} ref={formRef}>
+                                                                        <div>
                                                                                 <input autoComplete="username" defaultValue={details.email} type="hidden"  />
                                                                                 <h6 className="mt-4 text-start mb-0">
                                                                                     <span className="vighor-title">Mot de passe</span>
@@ -168,19 +139,16 @@ const CreateProvider: FC<IProps> = (props: IProps) => {
                                                                                 {password === passwordConfirm && password?.length < 6 &&
                                                                                     <p className="text-danger">Mot de passe doit être au moins 6 caractères.</p>
                                                                                 }
-                                                                            </>
-                                                                        </div>}
+                                                                                {Object.keys(error).length > 0 &&
+                                                                                    <p className="text-danger text-start">{error.message}</p>
+                                                                                }
+                                                                        </div>
 
                                                                         <div className="dk-speakout-submit-wrap mt-3">
-                                                                            {!goToMFA && <button type="button" disabled={(password !== passwordConfirm || password?.length < 6) || authenticatorCode.valid}
-                                                                                                 className="dk-speakout-submit sc_button_hover_slide_left Question-Next-Button" onClick={() => setGoToMFA(true)}>
-                                                                                <span className="">Etape suivante</span>
-                                                                            </button>}
-                                                                            {goToMFA && <button type="button" className="dk-speakout-submit sc_button_hover_slide_left Question-Next-Button"
-                                                                                                onClick={() => setGoToMFA(false)}
-                                                                            style={{ background: "linear-gradient(to right,#525252 50%,#979797 50%) no-repeat scroll right bottom/210% 100% #6d6d6d" }}>
-                                                                                <span className="">Etape précédente</span>
-                                                                            </button>}
+                                                                            <button disabled={(password !== passwordConfirm || password?.length < 6)}
+                                                                                                 className="dk-speakout-submit sc_button_hover_slide_left Question-Next-Button">
+                                                                                <span className="">Restaurer mot de passe</span>
+                                                                            </button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -200,4 +168,4 @@ const CreateProvider: FC<IProps> = (props: IProps) => {
         </>
 }
 
-export default CreateProvider
+export default ResetPassword

@@ -20,18 +20,21 @@ class CreateRequestsTable extends Migration
             $table->enum("age_range", ["Mwens ke 12 zan", "12 - 18", "19 - 35", "36 - 49", "50 oswa plis"]);
             $table->enum("gender", ["Fi", "Gason"]);
             $table->string("your_city");
-            $table->string("incident_location");
+            $table->string("incident_location")->nullable();
             $table->bigInteger("incident_city")->nullable();
+            $table->bigInteger("incident_department")->nullable();
             $table->date("incident_date")->nullable();
             $table->string("violence_type"); //["Vyolans seksyel", "Vyolans Fizik", "Deplasman fòse"]
-            $table->enum("felon", ["Yon patenè", "Yon manm fanmi", "Yon otorite", "Yon enkoni"]);
+            $table->enum("felon", ["Yon patenè", "Yon manm fanmi", "Yon otorite", "Yon enkoni"]); //Any change, update RequestController @store method
             $table->string("media_path")->nullable();
             $table->enum("status", ['claimed', 'unclaimed', 'solved', 'unsolved']);
             $table->timestamps();
             $table->softDeletes();
         });
         Schema::table("request", function (Blueprint $table){
+            $table->foreign("your_city")->references("id")->on("cities");
             $table->foreign("incident_city")->references("id")->on("cities");
+            $table->foreign("incident_department")->references("id")->on("departments");
         });
     }
 

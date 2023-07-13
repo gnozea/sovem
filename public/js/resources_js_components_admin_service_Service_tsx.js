@@ -993,12 +993,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/BrowserTitle */ "./resources/js/components/utils/BrowserTitle.tsx");
 /* harmony import */ var _utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/form-components/Select2 */ "./resources/js/components/utils/form-components/Select2.tsx");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/dom/motion.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _utils_Progress__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/Progress */ "./resources/js/components/utils/Progress.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
 var __makeTemplateObject = undefined && undefined.__makeTemplateObject || function (cooked, raw) {
   if (Object.defineProperty) {
@@ -1019,7 +1018,6 @@ var __spreadArray = undefined && undefined.__spreadArray || function (to, from, 
   }
   return to.concat(ar || Array.prototype.slice.call(from));
 };
-
 
 
 
@@ -1243,14 +1241,20 @@ var AddFromService = function AddFromService(props) {
     id: "sname"
   }))), specialistSelected.length > 0 && chooseExisting && specialistSelectedList(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
     className: "form-label"
-  }, "ou ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
-    to: "#",
+  }, "ou ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    type: "button",
+    className: "btn-link p-0",
+    style: {
+      border: "none",
+      background: "none",
+      outline: "none"
+    },
     onClick: function onClick() {
       return setChooseExisting(function (prevState) {
         return !prevState;
       });
     }
-  }, !chooseExisting ? "choisir existant" : "taper un nouveau")), error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+  }, !chooseExisting ? "choisir existant" : "cr\xE9er un nouveau")), error && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "text-danger",
     style: {
       fontSize: "13px"
@@ -1285,65 +1289,15 @@ var AddFromService = function AddFromService(props) {
     className: "btn btn-primary btn-sm"
   }, "Enregistrer"))));
 };
-var List = styled_components__WEBPACK_IMPORTED_MODULE_8__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    label{\n        border: ", ";\n        padding: ", ";\n        border-radius: ", ";\n        margin: 0;\n    }\n    .tags{\n        margin: 1rem 0 2rem;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n        font-size: 0.9375rem;\n        max-height: 40rem;\n        overflow: auto;\n        background: #fcfcfc;\n        border-top: none;\n        margin-top: 0!important;\n        border-radius: 0 0 3px 3px;\n        padding: .5rem!important;\n        max-height: 62px;\n        padding-top: 0!important;\n        position: relative;\n        overflow: hidden;\n        &:after{\n            position: absolute;\n            content: \"Voir plus\"\n            font-size: 12px;\n        }\n        &:before{\n            position: absolute;\n            content: \"\"\n            width: 100%;\n            height: 5px;\n            background: \"#000\";\n        }\n    }\n"], ["\n    label{\n        border: ", ";\n        padding: ", ";\n        border-radius: ", ";\n        margin: 0;\n    }\n    .tags{\n        margin: 1rem 0 2rem;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n        font-size: 0.9375rem;\n        max-height: 40rem;\n        overflow: auto;\n        background: #fcfcfc;\n        border-top: none;\n        margin-top: 0!important;\n        border-radius: 0 0 3px 3px;\n        padding: .5rem!important;\n        max-height: 62px;\n        padding-top: 0!important;\n        position: relative;\n        overflow: hidden;\n        &:after{\n            position: absolute;\n            content: \"Voir plus\"\n            font-size: 12px;\n        }\n        &:before{\n            position: absolute;\n            content: \"\"\n            width: 100%;\n            height: 5px;\n            background: \"#000\";\n        }\n    }\n"])), function (props) {
+var List = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    label{\n        border: ", ";\n        padding: ", ";\n        border-radius: ", ";\n        margin: 0;\n    }\n    .tags{\n        margin: 1rem 0 2rem;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n        font-size: 0.9375rem;\n        max-height: 40rem;\n        overflow: auto;\n        background: #fcfcfc;\n        border-top: none;\n        margin-top: 0!important;\n        border-radius: 0 0 3px 3px;\n        padding: .5rem!important;\n        max-height: 62px;\n        padding-top: 0!important;\n        position: relative;\n        overflow: hidden;\n        &:after{\n            position: absolute;\n            content: \"Voir plus\"\n            font-size: 12px;\n        }\n        &:before{\n            position: absolute;\n            content: \"\"\n            width: 100%;\n            height: 5px;\n            background: \"#000\";\n        }\n    }\n"], ["\n    label{\n        border: ", ";\n        padding: ", ";\n        border-radius: ", ";\n        margin: 0;\n    }\n    .tags{\n        margin: 1rem 0 2rem;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n        font-size: 0.9375rem;\n        max-height: 40rem;\n        overflow: auto;\n        background: #fcfcfc;\n        border-top: none;\n        margin-top: 0!important;\n        border-radius: 0 0 3px 3px;\n        padding: .5rem!important;\n        max-height: 62px;\n        padding-top: 0!important;\n        position: relative;\n        overflow: hidden;\n        &:after{\n            position: absolute;\n            content: \"Voir plus\"\n            font-size: 12px;\n        }\n        &:before{\n            position: absolute;\n            content: \"\"\n            width: 100%;\n            height: 5px;\n            background: \"#000\";\n        }\n    }\n"])), function (props) {
   return props.haveItem ? "1px solid rgba(0, 40, 100, 0.12)" : "none";
 }, function (props) {
   return props.haveItem ? ".5rem" : 0;
 }, function (props) {
   return props.haveItem ? "3px 3px 0 0" : 0;
 });
-var Select = (0,styled_components__WEBPACK_IMPORTED_MODULE_8__["default"])(framer_motion__WEBPACK_IMPORTED_MODULE_6__.motion.div)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"], ["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"])));
+var Select = (0,styled_components__WEBPACK_IMPORTED_MODULE_7__["default"])(framer_motion__WEBPACK_IMPORTED_MODULE_6__.motion.div)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"], ["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"])));
 var templateObject_1, templateObject_2;
-
-/***/ }),
-
-/***/ "./resources/js/components/utils/Restricted.tsx":
-/*!******************************************************!*\
-  !*** ./resources/js/components/utils/Restricted.tsx ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Popup */ "./resources/js/components/utils/Popup.tsx");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _BrowserTitle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BrowserTitle */ "./resources/js/components/utils/BrowserTitle.tsx");
-var __makeTemplateObject = undefined && undefined.__makeTemplateObject || function (cooked, raw) {
-  if (Object.defineProperty) {
-    Object.defineProperty(cooked, "raw", {
-      value: raw
-    });
-  } else {
-    cooked.raw = raw;
-  }
-  return cooked;
-};
-
-
-
-
-var PermissionWrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n"], ["\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n"])));
-var ImgWrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    width: 300px;\n"], ["\n    width: 300px;\n"])));
-var BackButton = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    border: none;\n    background: none;\n"], ["\n    border: none;\n    background: none;\n"])));
-var Restricted = function Restricted(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Popup__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    onPopupClose: function onPopupClose() {},
-    parentId: 20943,
-    closable: false
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowserTitle__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    title: "Permission denied"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PermissionWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ImgWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    src: "/images/fingerprint-animate.svg",
-    alt: ""
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "mx-auto text-center"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Acc\xE8s refus\xE9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "D\xE9sol\xE9, vous ne disposez pas des autorisations n\xE9cessaires pour acc\xE9der \xE0 cette page."))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Restricted);
-var templateObject_1, templateObject_2, templateObject_3;
 
 /***/ })
 

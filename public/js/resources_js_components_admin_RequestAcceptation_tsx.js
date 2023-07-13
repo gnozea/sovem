@@ -16,12 +16,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_Progress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/Progress */ "./resources/js/components/utils/Progress.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/date-picker/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/date-picker/index.js");
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/BrowserTitle */ "./resources/js/components/utils/BrowserTitle.tsx");
 var __makeTemplateObject = undefined && undefined.__makeTemplateObject || function (cooked, raw) {
   if (Object.defineProperty) {
     Object.defineProperty(cooked, "raw", {
@@ -50,9 +51,10 @@ var __assign = undefined && undefined.__assign || function () {
 
 
 
-var Left = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    flex-basis: 350px;\n"], ["\n    flex-basis: 350px;\n"])));
-var Right = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    flex: 3;\n"], ["\n    flex: 3;\n"])));
-var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_5__["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    @media all and (min-width: 600px){\n        display: flex;\n    }\n"], ["\n    @media all and (min-width: 600px){\n        display: flex;\n    }\n"])));
+
+var Left = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    flex-basis: 350px;\n"], ["\n    flex-basis: 350px;\n"])));
+var Right = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    flex: 3;\n"], ["\n    flex: 3;\n"])));
+var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    @media all and (min-width: 600px){\n        display: flex;\n    }\n"], ["\n    @media all and (min-width: 600px){\n        display: flex;\n    }\n"])));
 var rangePresets = [{
   label: "Ajourd'hui",
   value: [dayjs__WEBPACK_IMPORTED_MODULE_4___default()(), dayjs__WEBPACK_IMPORTED_MODULE_4___default()()]
@@ -78,6 +80,14 @@ var hours = {
   "12_2PM": "12h - 2h PM",
   "2_4PM": "2h - 4h PM"
 };
+var onRangeChange = function onRangeChange(dates, dateStrings) {
+  if (dates) {
+    console.log('From: ', dates[0], ', to: ', dates[1]);
+    console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
+  } else {
+    console.log('Clear');
+  }
+};
 var RequestAcceptation = function RequestAcceptation(props) {
   var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     services = _a[0],
@@ -98,7 +108,7 @@ var RequestAcceptation = function RequestAcceptation(props) {
     _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     requestStatus = _f[0],
     setRequestStatus = _f[1],
-    navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useNavigate)();
+    navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
   var handleCheck = function handleCheck(e, id, key) {
     var ab = __assign({}, able);
     if (!e.target.checked) delete ab[id];
@@ -162,7 +172,7 @@ var RequestAcceptation = function RequestAcceptation(props) {
     closable: true,
     parentId: 12444
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "text-wrap mt-4 mb-4"
+    className: "text-wrap mt-6 mb-4"
   }, requestStatus === 'success' && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "success-animation"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", {
@@ -200,7 +210,15 @@ var RequestAcceptation = function RequestAcceptation(props) {
     className: "sc_item_title sc_title_title sc_item_title_style_decoration"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "sc_item_title_text"
-  }, "Service", "".concat(claimed.affected === 1 ? "" : "s"), " non accord\xE9", "".concat(claimed.affected === 1 ? "" : "s"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Il semble que cette demande ait \xE9t\xE9 supprim\xE9e ou qu'un autre fournisseur l'ait d\xE9j\xE0 r\xE9cup\xE9r\xE9e. Nous vous ferons savoir si disponible ou lib\xE9r\xE9."))));
+  }, "Service", "".concat(claimed.affected === 1 ? "" : "s"), " non accord\xE9", "".concat(claimed.affected === 1 ? "" : "s"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Il semble que cette demande ait \xE9t\xE9 supprim\xE9e ou qu'un autre fournisseur l'ait d\xE9j\xE0 r\xE9cup\xE9r\xE9e. Nous vous ferons savoir si disponible ou lib\xE9r\xE9.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "text-center mt-3 mb-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    type: "button",
+    onClick: function onClick() {
+      return navigate("/dashboard/requests");
+    },
+    className: "btn btn-dark btn-sm"
+  }, "F\xE8men fen\xE8t la"))));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_1__["default"], {
     onPopupClose: function onPopupClose(e) {
       return navigate("/dashboard/requests");
@@ -209,7 +227,9 @@ var RequestAcceptation = function RequestAcceptation(props) {
     options: {
       closable: false
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Wrapper, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    title: "Accepter une demande"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Wrapper, {
     className: "text-wrap mt-4 mb-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Left, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h4", {
     className: "mt-0 mb-4"
@@ -251,7 +271,7 @@ var RequestAcceptation = function RequestAcceptation(props) {
     style: {
       zIndex: "999999"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(antd__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
     defaultValue: dayjs__WEBPACK_IMPORTED_MODULE_4___default()(),
     disabledDate: function disabledDate(current) {
       return current && current.valueOf() < Date.now();
@@ -265,7 +285,6 @@ var RequestAcceptation = function RequestAcceptation(props) {
     onChange: function onChange(date) {
       return setDate(date.format("YYYY-MM-DD"));
     },
-    presets: rangePresets,
     popupClassName: "office-hours",
     placeholder: "Choisir date du rendez-vous."
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -285,7 +304,7 @@ var RequestAcceptation = function RequestAcceptation(props) {
     className: "card-footer text-right p-1"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "d-flex"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
     to: "/dashboard/requests",
     className: "btn btn-link"
   }, "Annuler"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {

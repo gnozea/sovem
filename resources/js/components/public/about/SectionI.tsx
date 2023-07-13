@@ -93,35 +93,6 @@ export const SectionI: FC<IProps> = (props: IProps) => {
                                                             </div>{" "}
                                                         </div>
                                                     </div>
-                                                    <div
-                                                        className="vighor-element vighor-element-e3652b7 sc_fly_static vighor-widget vighor-widget-spacer"
-                                                        data-id="e3652b7"
-                                                        data-element_type="widget"
-                                                        data-widget_type="spacer.default"
-                                                    >
-                                                        <div className="vighor-widget-container">
-                                                            <div className="vighor-spacer">
-                                                                <div className="vighor-spacer-inner" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
-
-
-
-                                                    <div className="vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer"
-                                                        data-id="c55b0b8"
-                                                        data-element_type="widget"
-                                                        data-widget_type="spacer.default"
-                                                    >
-                                                        <div className="vighor-widget-container">
-                                                            <div className="vighor-spacer">
-                                                                <div className="vighor-spacer-inner" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

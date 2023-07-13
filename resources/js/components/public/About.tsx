@@ -17,6 +17,13 @@ const About: FC<IProps> = (props: IProps) => {
       <BrowserTitle title={"Kiyès nou ye"}/>
       <Banner/>
       <SectionI/>
+        <div className="vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer">
+            <div className="vighor-widget-container">
+                <div className="vighor-spacer">
+                    <div className="vighor-spacer-inner" />
+                </div>
+            </div>
+        </div>
       <SectionII/>
         <div className="vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer">
             <div className="vighor-widget-container">
@@ -42,14 +49,6 @@ const About: FC<IProps> = (props: IProps) => {
             </div>
         </div>
         <SectionV/>
-
-        <div className="vighor-element vighor-element-c55b0b8 sc_height_huge sc_fly_static vighor-widget vighor-widget-spacer">
-            <div className="vighor-widget-container">
-                <div className="vighor-spacer">
-                    <div className="vighor-spacer-inner" />
-                </div>
-            </div>
-        </div>
         <SectionVI/>
   </>
 }

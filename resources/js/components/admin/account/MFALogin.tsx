@@ -41,7 +41,7 @@ const MFALogin: FC<IProps> = (props: IProps) => {
                         <div className="text-center mb-6">
                             <img src="/images/logo.png" className="h-6" alt=""/>
                         </div>
-                        <form className="card" onSubmit={undefined} method="post">
+                        <div>
                             <div className={`card-body ${!user?.mfa ? "p-" : "p-6"}`}>
                                 <div className="card-title text-center">Authentification à 2 Facteurs</div>
                                 {user?.mfaCapable && <>
@@ -62,7 +62,7 @@ const MFALogin: FC<IProps> = (props: IProps) => {
                                         </div>
                                     </div>
                                     <div className="form-footer">
-                                        <button type="submit" className="btn btn-primary btn-block">Confirm code</button>
+                                        <button type="submit" disabled={true} className="btn btn-primary btn-block">Confirm code</button>
                                     </div>
                                     <Link to="#" className="mt-3 d-block" onClick={(e: any) => {
                                         e.preventDefault()
@@ -75,7 +75,7 @@ const MFALogin: FC<IProps> = (props: IProps) => {
                                     <MFAEnrollment/>
                                 </>}
                             </div>
-                        </form>
+                        </div>
                         {/*<div className="text-center text-muted">*/}
                         {/*    Don't have account yet? <a href="./register.html">Sign up</a>*/}
                         {/*</div>*/}

@@ -53,7 +53,7 @@ class RequestController extends Controller
 //                }
             ])
             ->has("requests")
-            ->simplePaginate(15);
+            ->simplePaginate(10);
 
         foreach ($req as $key => $item){
             if (!is_array($req[$key]['violence_type'])) $req[$key]["violence_type"] = json_decode($req[$key]['violence_type']);
@@ -92,15 +92,18 @@ class RequestController extends Controller
 
         $spec["violence_type"] = $request->get('violenceType');
         $spec["uuid"] = $uuid;
+        $recipients = array_unique($recipients);
 
         foreach ($recipients as $recipient) {
             try {
                 Mail::to($recipient)->send(new \App\Mail\Request($spec));
-            }catch (\Swift_TransportException $exception){}
+            }catch (\Exception $exception){
+               //print_r($exception->getFile());
+            }
         }
 
         $latestRequest = Demand::orderBy('created_at','DESC')->first();
-        $hex = hexdec(substr(uniqid(), 0, 5) . "" . ($latestRequest ? (int)$latestRequest['id'] : 0));
+        $hex = hexdec(substr(uniqid(), 0, 3) . "" . ($latestRequest ? (int)$latestRequest['id'] : 0));
         $demand = Demand::create([
             "uuid" =>  $uuid,
             "ticket_number" => $hex,
@@ -108,6 +111,7 @@ class RequestController extends Controller
             "gender" => $request->get("gender"),
             "your_city" => $request->get("city")['id'],
             "incident_city" => $request->get("crimeCity")['id'],
+            "incident_department" => $request->get("crimeCity")['department_id'],
             "incident_location" => $request->get("incidentLocation"),
             "incident_date" => $request->get("incidentDate"),
             "violence_type" => json_encode($request->get("violenceType")),
@@ -219,7 +223,7 @@ class RequestController extends Controller
             "sR.*" => "required|exists:service_requests,id",
             "date" => 'required|date_format:Y-m-d',
             "time" => 'required|string',
-            "provider_id" => 'required|exists:users,id',
+            "provider_id" => 'required|exists:providers,id',
         ]);
 
         $alreadyClaimed = RequestClaimed::where("provider_id", Auth::user()['provider_id'])

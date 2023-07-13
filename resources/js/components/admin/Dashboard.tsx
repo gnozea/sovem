@@ -4,14 +4,17 @@ import axios from "axios";
 import Progress from "../utils/Progress";
 import BrowserTitle from "../utils/BrowserTitle";
 import StateChart from "./home/StateChart";
+import AgeChart from "./home/AgeChart";
 
 interface IProps {
 
 }
 
 const Dashboard: FC<IProps> = (props: IProps) => {
-    const [data, setData] = useState<{totals: [], periods: []}>({totals: [], periods: []})
-    const stats: any = {
+    const [data, setData] = useState<{totals?: [], periods?: []}>({totals: [], periods: []}),
+        [states, setStates] = useState<{}>(),
+        [age, setAge] = useState<{labels: string[], values: any[]}>()
+        const stats: any = {
         series: [/*{
             name: 'series1',
             data: [31, 40, 28, 51, 42, 109, 100]
@@ -57,9 +60,8 @@ const Dashboard: FC<IProps> = (props: IProps) => {
                 },
             },
         },
-
-
     }
+
     const [defaultFilter, setDefaultFilter] = useState<string>("created_at")
 
     useEffect(() => {
@@ -70,8 +72,30 @@ const Dashboard: FC<IProps> = (props: IProps) => {
                 periods: rep.data.periods,
                 totals: rep.data.totals
             })
+        }).then(() => {
+            axios.get("/api/dashboard/state-charts", {
+                params: { filter: "incident_date"}
+            }).then((rep) => {
+                setStates(rep.data.data)
+            })
+        }).then(() => {
+            axios.get("/api/dashboard/charts-age", {
+                params: { filter: "created_at"}
+            }).then((rep) => {
+                let labels: any[] = [],
+                    values: any[] = []
+                Object.values(rep.data.data).map((item: any) => {
+                    labels = [...labels, item.age]
+                    values = [...values, item.total]
+                })
+                setAge({
+                    labels: labels,
+                    values: values
+                })
+            })
         })
     }, [defaultFilter])
+
 
     return <>
         <BrowserTitle title="Tableau de bord"/>
@@ -94,19 +118,22 @@ const Dashboard: FC<IProps> = (props: IProps) => {
             <div className="">
                 {!data.totals.length && <Progress/>}
                 <Chart options={stats.options} series={stats.series} type="area" height={350} />
-                {/*<div className="row">*/}
-
-                {/*    <div className="col-lg-6 col-xl-4">*/}
-                {/*        <div className="card">*/}
-                {/*            <div className="card-header">*/}
-                {/*                <h3 className="card-title">Demande par département</h3>*/}
-                {/*            </div>*/}
-                {/*            <div className="card-body">*/}
-                {/*                <StateChart stats={stats}/>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+            </div>
+        </div>
+        <div className="row">
+            <div className="col-lg-6">
+                <div className="card" style={{minHeight: "400px"}}>
+                    <h3 className="page-title text-center" style={{fontSize: "19px"}}>Incidents par département pour le mois</h3>
+                    {!states || Object.keys(states).length === 0 && <Progress/>}
+                    {states && Object.keys(states).length > 0 && <StateChart stats={states}/>}
+                </div>
+            </div>
+            <div className="col-lg-6">
+                <div className="card" style={{minHeight: "400px"}}>
+                    <h3 className="page-title text-center" style={{fontSize: "19px"}}>Incidents par tranche d'age</h3>
+                    {!age || Object.keys(age).length === 0 && <Progress/>}
+                    {age && Object.keys(age).length > 0 && <AgeChart stats={age}/>}
+                </div>
             </div>
         </div>
     </div>

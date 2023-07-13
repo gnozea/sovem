@@ -24,6 +24,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _providers_AddSpecialist__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./providers/AddSpecialist */ "./resources/js/components/admin/providers/AddSpecialist.tsx");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
 var __assign = undefined && undefined.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -34,6 +35,7 @@ var __assign = undefined && undefined.__assign || function () {
   };
   return __assign.apply(this, arguments);
 };
+
 
 
 
@@ -101,7 +103,19 @@ var Provider = function Provider(props) {
   var setAddSpeciality = function setAddSpeciality(key) {
     setShowAddSpecialist(providers[key]);
   };
-  var handleSendVerificationEmail = function handleSendVerificationEmail(user) {};
+  var handleSendVerificationEmail = function handleSendVerificationEmail(user) {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/dashboard/resend-verification", {
+      email: user
+    }).then(function (rep) {
+      return console.log(rep);
+    });
+  };
+  var handlePasswordReset = function handlePasswordReset(user) {
+    react_toastify__WEBPACK_IMPORTED_MODULE_11__.toast.success("Un lien de restauration à été envoyé.");
+    axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/dashboard/reset-password", {
+      email: user
+    }).then(function (rep) {});
+  };
   if (user.provider_id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Restricted__WEBPACK_IMPORTED_MODULE_5__["default"], null);
   if (busy && (!providers.length || !paginate)) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_3__["default"], null);
   if (!providers.length) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -313,7 +327,14 @@ var Provider = function Provider(props) {
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "dropdown-icon fe fe-lock"
-    }), " D\xE9sactiver"), (rep.status === "inactive" || rep.status === "disabled" || rep.status === "pending") && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    }), " D\xE9sactiver"), rep.status === "active" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "dropdown-item",
+      onClick: function onClick() {
+        return handlePasswordReset(rep.email);
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+      className: "dropdown-icon fe fe-lock"
+    }), " Restaurer password"), (rep.status === "inactive" || rep.status === "disabled" || rep.status === "pending") && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "dropdown-item",
       onClick: function onClick() {
         return handleDisableEnable(key, "enable");
@@ -332,11 +353,11 @@ var Provider = function Provider(props) {
     }), rep.status === "pending" && 1 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "dropdown-item",
       onClick: function onClick() {
-        return handleSendVerificationEmail(rep.id);
+        return handleSendVerificationEmail(rep.email);
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "dropdown-icon fe fe-edit-2"
-    }), " Send verification email"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    }), " Envoyer email verification"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
       href: "",
       className: "dropdown-item"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
@@ -1078,56 +1099,6 @@ var fileTypes = function fileTypes(filesType) {
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DragAndDrop);
 var templateObject_1, templateObject_2, templateObject_3, templateObject_4;
-
-/***/ }),
-
-/***/ "./resources/js/components/utils/Restricted.tsx":
-/*!******************************************************!*\
-  !*** ./resources/js/components/utils/Restricted.tsx ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Popup */ "./resources/js/components/utils/Popup.tsx");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _BrowserTitle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./BrowserTitle */ "./resources/js/components/utils/BrowserTitle.tsx");
-var __makeTemplateObject = undefined && undefined.__makeTemplateObject || function (cooked, raw) {
-  if (Object.defineProperty) {
-    Object.defineProperty(cooked, "raw", {
-      value: raw
-    });
-  } else {
-    cooked.raw = raw;
-  }
-  return cooked;
-};
-
-
-
-
-var PermissionWrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n"], ["\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n"])));
-var ImgWrapper = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    width: 300px;\n"], ["\n    width: 300px;\n"])));
-var BackButton = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    border: none;\n    background: none;\n"], ["\n    border: none;\n    background: none;\n"])));
-var Restricted = function Restricted(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Popup__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    onPopupClose: function onPopupClose() {},
-    parentId: 20943,
-    closable: false
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_BrowserTitle__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    title: "Permission denied"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(PermissionWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(ImgWrapper, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    src: "/images/fingerprint-animate.svg",
-    alt: ""
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "mx-auto text-center"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Acc\xE8s refus\xE9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "D\xE9sol\xE9, vous ne disposez pas des autorisations n\xE9cessaires pour acc\xE9der \xE0 cette page."))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Restricted);
-var templateObject_1, templateObject_2, templateObject_3;
 
 /***/ })
 

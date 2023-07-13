@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Home from "../components/public/Home";
 import About from "../components/public/About";
 import CreateProvider from "../components/public/CreateProvider";
+import ResetPassword from "../components/public/ResetPassword";
 const LoaderWrapper = styled.div`
     position: absolute;
     display: flex;
@@ -53,9 +54,9 @@ const Public:FC<IProps> = (props: IProps) => {
 
 
     const menuItems = [
-        {title: "Akèy", href: "https://www.konektem-m.org"},
+        {title: "Akèy", href: "https://konektemm.org"},
         {title: "Swiv dosyew", href: "/service/track"},
-        {title: "Kiyès nou ye", href: "https://www.konekte-m.org/about-5"},
+        {title: "Kiyès nou ye", href: "https://konektem.org/about-us"},
     ]
 
     const ServiceTrack = lazy(() => import("../components/public/ServiceTrack"))
@@ -91,6 +92,7 @@ const Public:FC<IProps> = (props: IProps) => {
                                                     <Route path="about-us" element={<About/>}/>
                                                     <Route path="service/track" element={<ServiceTrack/>}/>
                                                     <Route path="provider/validate/:token" element={<CreateProvider/>}/>
+                                                    <Route path="password/reset/:token" element={<ResetPassword/>}/>
                                                     <Route path="complain" element={<ServiceFormProvider><ComplainForm/></ServiceFormProvider>}/>
                                                 </Routes>
                                             </Suspense>

@@ -8,12 +8,16 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Middleware\AccountType;
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +58,42 @@ Route::prefix("api")->group(function (){
         return $account;
     });
 
+    Route::post("reset-password", function (Request $request){
+        $email = urldecode($request->get("email"));
+        $request->merge(["email" => $email]);
+        $request->merge(["password_confirmation" => $request->get("password")]);
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET ? \response(['status' => "success", "data" => __($status)]) : \response(['email' => [__($status)]], 422);
+    });
+
+    Route::get("reset-password", function (Request $request){
+        $email = urldecode($request->get("email"));
+        $request->merge(["email" => $email]);
+        $request->validate(['email' => 'required|email|exists:users,email']);
+
+        return [
+          "status" => "success"
+        ];
+    });
+
     Route::post("authenticator/verify", [VerificationController::class, "verify_2fa_code"]);
     Route::get("authenticator/enrollment", [VerificationController::class, "enrollMFA"]);
     Route::post("authenticator/enrollment", [VerificationController::class, "enrollMFASave"]);
@@ -77,9 +117,27 @@ Route::prefix("api")->group(function (){
     Route::post("start-form", [ServiceController::class, "start_form"]);
 
     Route::prefix("dashboard")->middleware(["auth", 'verify2fa'])->group(function (){
+
+        Route::post("reset-password", function (Request $request){
+            $request->validate(['email' => 'required|email|exists:users,email']);
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
+
+            return $status === Password::RESET_LINK_SENT
+                ? ['status' => __($status)]
+                : ['email' => __($status)];
+        });
+
+        Route::get("dept", [ServiceController::class, "dept"]);
+
+        Route::get('reports', [\App\Http\Controllers\ReportController::class, "index"]);
+
         Route::post('change-password', [HomeController::class, "change_password"]);
         Route::get("requests", [RequestController::class, "index"]);
         Route::get("charts", [HomeController::class, "chart"]);
+        Route::get("state-charts", [HomeController::class, "stateStats"]);
+        Route::get("charts-age", [HomeController::class, "statsAge"]);
 
         Route::post("request/release", [RequestController::class, "release"]);
         Route::get("request/{uuid}", [RequestController::class, "show"]);
@@ -105,6 +163,7 @@ Route::prefix("api")->group(function (){
         Route::post("service/link-provider", [ServiceController::class, "link_provider"])->middleware(AccountType::class);
         Route::get("service/{id}/search_specialist", [ServiceController::class, "search_specialist"])->middleware(AccountType::class);
 
+        Route::get("specialists", [SpecialityController::class, "index"])->middleware(AccountType::class);
         Route::get("specialist", [ServiceController::class, "index"])->middleware(AccountType::class);
         Route::post("specialist", [SpecialityController::class, "store"])->middleware(AccountType::class);
         Route::post("specialist/add_from_service", [SpecialityController::class, "add_from_service"])->middleware(AccountType::class);
