@@ -105,9 +105,9 @@ var Provider = function Provider(props) {
   };
   var handleSendVerificationEmail = function handleSendVerificationEmail(user) {
     axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/dashboard/resend-verification", {
-      email: user
+      user: user
     }).then(function (rep) {
-      return console.log(rep);
+      return react_toastify__WEBPACK_IMPORTED_MODULE_11__.toast.success(rep.data.msg);
     });
   };
   var handlePasswordReset = function handlePasswordReset(user) {
@@ -353,11 +353,11 @@ var Provider = function Provider(props) {
     }), rep.status === "pending" && 1 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "dropdown-item",
       onClick: function onClick() {
-        return handleSendVerificationEmail(rep.email);
+        return handleSendVerificationEmail(rep.id);
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "dropdown-icon fe fe-edit-2"
-    }), " Envoyer email verification"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    }), " Renvoyer email verification"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
       href: "",
       className: "dropdown-item"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {

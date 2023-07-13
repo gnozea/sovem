@@ -131,6 +131,8 @@ Route::prefix("api")->group(function (){
 
         Route::get("dept", [ServiceController::class, "dept"]);
 
+        Route::post("resend-verification", [ProviderController::class, "resend_verification"]);
+
         Route::get('reports', [\App\Http\Controllers\ReportController::class, "index"]);
 
         Route::post('change-password', [HomeController::class, "change_password"]);

@@ -65,6 +65,23 @@ class ProviderController extends Controller
         ];
     }
 
+    public function resend_verification(Request $request)
+    {
+        $request->validate([
+            "user" => "required|exists:users,id"
+        ]);
+        $token = User::find($request->get("user"));
+        $spec["email_verification_token"] = $token->email_verification_token;
+
+        try {
+            Mail::to($token->email)->send(new ProviderCreation($spec));
+        }catch (\Swift_TransportException $exception){}
+        return [
+            "status" => "success",
+            "msg" => "Email de vérification a été envoyé."
+        ];
+    }
+
     /**
      * @param $token
      * @return \Illuminate\Http\JsonResponse

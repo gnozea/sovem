@@ -57,7 +57,7 @@ const Provider: FC<IProps> = (props: IProps) => {
     }
 
     const handleSendVerificationEmail = (user: any) => {
-        axios.post("/api/dashboard/resend-verification", {email: user}).then(rep => console.log(rep))
+        axios.post("/api/dashboard/resend-verification", {user: user}).then(rep => toast.success(rep.data.msg))
     }
 
     const handlePasswordReset = (user: any) => {
@@ -164,7 +164,7 @@ const Provider: FC<IProps> = (props: IProps) => {
                                                 <button className="dropdown-item" onClick={() => setAddSpeciality(key)}>
                                                     <i className="dropdown-icon fe fe-git-pull-request"></i> Lier spécialité</button>
                                                 <div className="dropdown-divider"></div>
-                                                {rep.status === "pending" && 1 && <button className="dropdown-item" onClick={() => handleSendVerificationEmail(rep.email)}><i className="dropdown-icon fe fe-edit-2"></i> Envoyer email verification</button>}
+                                                {rep.status === "pending" && 1 && <button className="dropdown-item" onClick={() => handleSendVerificationEmail(rep.id)}><i className="dropdown-icon fe fe-edit-2"></i> Renvoyer email verification</button>}
                                                 <a href="" className="dropdown-item"><i className="dropdown-icon fe fe-trash-2"></i> Supprimer</a>
                                             </div>
                                         </div>
