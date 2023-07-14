@@ -57,7 +57,11 @@ const Provider: FC<IProps> = (props: IProps) => {
     }
 
     const handleSendVerificationEmail = (user: any) => {
-        axios.post("/api/dashboard/resend-verification", {user: user}).then(rep => toast.success(rep.data.msg))
+        setBusy(true)
+        axios.post("/api/dashboard/resend-verification", {user: user}).then(rep => {
+            toast.success(rep.data.msg)
+            setBusy(false)
+        })
     }
 
     const handlePasswordReset = (user: any) => {

@@ -104,10 +104,12 @@ var Provider = function Provider(props) {
     setShowAddSpecialist(providers[key]);
   };
   var handleSendVerificationEmail = function handleSendVerificationEmail(user) {
+    setBusy(true);
     axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/dashboard/resend-verification", {
       user: user
     }).then(function (rep) {
-      return react_toastify__WEBPACK_IMPORTED_MODULE_11__.toast.success(rep.data.msg);
+      react_toastify__WEBPACK_IMPORTED_MODULE_11__.toast.success(rep.data.msg);
+      setBusy(false);
     });
   };
   var handlePasswordReset = function handlePasswordReset(user) {

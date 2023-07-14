@@ -13,9 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/dom/motion.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var _utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/form-components/Select2 */ "./resources/js/components/utils/form-components/Select2.tsx");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 /* harmony import */ var _context_ServiceContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../context/ServiceContext */ "./resources/js/context/ServiceContext.tsx");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
@@ -52,7 +51,6 @@ var __spreadArray = undefined && undefined.__spreadArray || function (to, from, 
   }
   return to.concat(ar || Array.prototype.slice.call(from));
 };
-
 
 
 
@@ -213,26 +211,15 @@ var Add = function Add(props) {
     className: "form-control"
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(List, {
     haveItem: providers.length
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
-    to: "#",
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    style: {
+      cursor: "pointer"
+    },
     className: "form-label",
     onClick: function onClick(e) {
       return setAddProviders(!addProviders);
     }
   }, "Lier \xE0 des prestataires?"), providerSelected()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "form-check mt-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-    onChange: function onChange(e) {
-      return setAddSpecialist(e.target.checked);
-    },
-    defaultChecked: addSpecialist,
-    className: "form-check-input",
-    type: "checkbox",
-    id: "addSpecialist"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
-    className: "form-check-label",
-    htmlFor: "addSpecialist"
-  }, "Ajouter sp\xE9cialiste")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "mt-2 text-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     disabled: name && name.trim() === "",
@@ -288,14 +275,14 @@ var Add = function Add(props) {
   }), providerSelected())));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Add);
-var List = styled_components__WEBPACK_IMPORTED_MODULE_10__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    a{\n        border: ", ";\n        padding: ", ";\n        border-radius: ", ";\n        margin: 0;\n    }\n    .tags{\n        margin: 1rem 0 2rem;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n        font-size: 0.9375rem;\n        max-height: 40rem;\n        overflow: auto;\n        background: #fcfcfc;\n        border-top: none;\n        margin-top: 0!important;\n        border-radius: 0 0 3px 3px;\n        padding: .5rem!important;\n        max-height: 62px;\n        padding-top: 0!important;\n        position: relative;\n        overflow: hidden;\n        &:after{\n            position: absolute;\n            content: \"Voir plus\"\n            font-size: 12px;\n        }\n        &:before{\n            position: absolute;\n            content: \"\"\n            width: 100%;\n            height: 5px;\n            background: \"#000\";\n        }\n    }\n"], ["\n    a{\n        border: ", ";\n        padding: ", ";\n        border-radius: ", ";\n        margin: 0;\n    }\n    .tags{\n        margin: 1rem 0 2rem;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n        font-size: 0.9375rem;\n        max-height: 40rem;\n        overflow: auto;\n        background: #fcfcfc;\n        border-top: none;\n        margin-top: 0!important;\n        border-radius: 0 0 3px 3px;\n        padding: .5rem!important;\n        max-height: 62px;\n        padding-top: 0!important;\n        position: relative;\n        overflow: hidden;\n        &:after{\n            position: absolute;\n            content: \"Voir plus\"\n            font-size: 12px;\n        }\n        &:before{\n            position: absolute;\n            content: \"\"\n            width: 100%;\n            height: 5px;\n            background: \"#000\";\n        }\n    }\n"])), function (props) {
+var List = styled_components__WEBPACK_IMPORTED_MODULE_9__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    a{\n        border: ", ";\n        padding: ", ";\n        border-radius: ", ";\n        margin: 0;\n    }\n    .tags{\n        margin: 1rem 0 2rem;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n        font-size: 0.9375rem;\n        max-height: 40rem;\n        overflow: auto;\n        background: #fcfcfc;\n        border-top: none;\n        margin-top: 0!important;\n        border-radius: 0 0 3px 3px;\n        padding: .5rem!important;\n        max-height: 62px;\n        padding-top: 0!important;\n        position: relative;\n        overflow: hidden;\n        &:after{\n            position: absolute;\n            content: \"Voir plus\"\n            font-size: 12px;\n        }\n        &:before{\n            position: absolute;\n            content: \"\"\n            width: 100%;\n            height: 5px;\n            background: \"#000\";\n        }\n    }\n"], ["\n    a{\n        border: ", ";\n        padding: ", ";\n        border-radius: ", ";\n        margin: 0;\n    }\n    .tags{\n        margin: 1rem 0 2rem;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n        font-size: 0.9375rem;\n        max-height: 40rem;\n        overflow: auto;\n        background: #fcfcfc;\n        border-top: none;\n        margin-top: 0!important;\n        border-radius: 0 0 3px 3px;\n        padding: .5rem!important;\n        max-height: 62px;\n        padding-top: 0!important;\n        position: relative;\n        overflow: hidden;\n        &:after{\n            position: absolute;\n            content: \"Voir plus\"\n            font-size: 12px;\n        }\n        &:before{\n            position: absolute;\n            content: \"\"\n            width: 100%;\n            height: 5px;\n            background: \"#000\";\n        }\n    }\n"])), function (props) {
   return props.haveItem ? "1px solid rgba(0, 40, 100, 0.12)" : "none";
 }, function (props) {
   return props.haveItem ? ".5rem" : 0;
 }, function (props) {
   return props.haveItem ? "3px 3px 0 0" : 0;
 });
-var Select = (0,styled_components__WEBPACK_IMPORTED_MODULE_10__["default"])(framer_motion__WEBPACK_IMPORTED_MODULE_8__.motion.div)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"], ["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"])));
+var Select = (0,styled_components__WEBPACK_IMPORTED_MODULE_9__["default"])(framer_motion__WEBPACK_IMPORTED_MODULE_8__.motion.div)(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"], ["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"])));
 var templateObject_1, templateObject_2;
 
 /***/ }),
@@ -682,9 +669,9 @@ var Service = function Service(props) {
       width: "81px"
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, state.map(function (rep, key) {
-    var specialists = rep.specialists.map(function (spec) {
+    var specialists = rep.specialists ? rep === null || rep === void 0 ? void 0 : rep.specialists.map(function (spec) {
       return spec.name;
-    });
+    }) : [];
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
       key: key,
       role: "row"
@@ -706,9 +693,9 @@ var Service = function Service(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
       "data-bs-toggle": "tooltip",
       "data-bs-placement": "top",
-      className: "".concat(rep.specialists.length === 0 ? "text-danger" : "text-primary"),
+      className: "".concat(rep.specialists && (rep === null || rep === void 0 ? void 0 : rep.specialists.length) === 0 ? "text-danger" : "text-primary"),
       title: specialists.join(", ").replace(/, ([^,]*)$/, ' et $1')
-    }, rep.specialists.length === 0 ? "Pas de spécialiste" : "", rep.specialists.length > 0 ? "".concat(rep.specialists.length, " sp\xE9caliste").concat(rep.specialists.length > 1 ? "s" : '') : "")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+    }, rep.specialists && (rep === null || rep === void 0 ? void 0 : rep.specialists.length) === 0 ? "Pas de spécialiste" : "", rep.specialists && (rep === null || rep === void 0 ? void 0 : rep.specialists.length) > 0 ? "".concat(rep === null || rep === void 0 ? void 0 : rep.specialists.length, " sp\xE9caliste").concat((rep === null || rep === void 0 ? void 0 : rep.specialists.length) > 1 ? "s" : '') : "")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
       className: "text-right"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "item-action dropdown"

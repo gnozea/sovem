@@ -89,7 +89,7 @@ const Service: FC<IProps> = (props: IProps) => {
                         </thead>
                         <tbody>
                         {state.map((rep: any, key: any) => {
-                            const specialists: any = rep.specialists.map((spec: any) => spec.name)
+                            const specialists: any = rep.specialists ? rep?.specialists.map((spec: any) => spec.name) : []
                             return <tr key={key} role="row">
                                 <td className=""><span className="text-muted">{key+1}</span></td>
                                 <td>
@@ -105,9 +105,9 @@ const Service: FC<IProps> = (props: IProps) => {
                                     </span>
                                 </td>
                                 <td className="">
-                                    <span data-bs-toggle="tooltip" data-bs-placement="top" className={`${rep.specialists.length === 0 ? "text-danger" : "text-primary"}`} title={specialists.join(", ").replace(/, ([^,]*)$/, ' et $1')}>
-                                    {rep.specialists.length === 0 ? "Pas de spécialiste" : ""}
-                                    {rep.specialists.length > 0 ? `${rep.specialists.length} spécaliste${rep.specialists.length > 1 ? "s" : ''}` : ""}
+                                    <span data-bs-toggle="tooltip" data-bs-placement="top" className={`${rep.specialists && rep?.specialists.length === 0 ? "text-danger" : "text-primary"}`} title={specialists.join(", ").replace(/, ([^,]*)$/, ' et $1')}>
+                                    {rep.specialists && rep?.specialists.length === 0 ? "Pas de spécialiste" : ""}
+                                    {rep.specialists && rep?.specialists.length > 0 ? `${rep?.specialists.length} spécaliste${rep?.specialists.length > 1 ? "s" : ''}` : ""}
                                     </span>
                                 </td>
                                 <td className="text-right">

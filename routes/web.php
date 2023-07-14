@@ -6,6 +6,7 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SpecialityController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AccountType;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
@@ -117,6 +118,9 @@ Route::prefix("api")->group(function (){
     Route::post("start-form", [ServiceController::class, "start_form"]);
 
     Route::prefix("dashboard")->middleware(["auth", 'verify2fa'])->group(function (){
+
+        Route::get("users", [UserController::class, "index"]);
+        Route::post("users", [UserController::class, "store"]);
 
         Route::post("reset-password", function (Request $request){
             $request->validate(['email' => 'required|email|exists:users,email']);

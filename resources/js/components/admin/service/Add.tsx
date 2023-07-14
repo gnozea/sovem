@@ -100,13 +100,13 @@ const Add: FC<IProps> = (props: IProps) => {
                     </div>
                 </fieldset>
                 <List haveItem={providers.length}>
-                    <Link to="#" className="form-label" onClick={(e: any) => setAddProviders(!addProviders)}>Lier à des prestataires?</Link>
+                    <label style={{cursor: "pointer"}} className="form-label" onClick={(e: any) => setAddProviders(!addProviders)}>Lier à des prestataires?</label>
                     {providerSelected()}
                 </List>
-                <div className="form-check mt-3">
-                    <input onChange={(e: any) => setAddSpecialist(e.target.checked)} defaultChecked={addSpecialist} className="form-check-input" type="checkbox" id="addSpecialist"/>
-                    <label className="form-check-label" htmlFor="addSpecialist">Ajouter spécialiste</label>
-                </div>
+                {/*<div className="form-check mt-3">*/}
+                {/*    <input onChange={(e: any) => setAddSpecialist(e.target.checked)} defaultChecked={addSpecialist} className="form-check-input" type="checkbox" id="addSpecialist"/>*/}
+                {/*    <label className="form-check-label" htmlFor="addSpecialist">Ajouter spécialiste</label>*/}
+                {/*</div>*/}
                 <div className="mt-2 text-center">
                     <button disabled={name && name.trim() === ""} className="btn btn-primary btn-sm">{`Enregistrer${addSpecialist ? " & ajouter spécialiste" : ""}`}</button>
                 </div>

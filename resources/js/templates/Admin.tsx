@@ -10,6 +10,7 @@ import {ServiceProvider} from "../context/ServiceContext";
 import Specialist from "../components/admin/specialist/Specialist";
 import {SpecialistProvider} from "../context/SpecialistContext";
 import Report from "../components/admin/Report";
+import {UserProvider} from "../context/UserContext";
 
 interface IProps {
     children?: React.ReactNode
@@ -22,6 +23,7 @@ const Admin: FC<IProps> = (props: IProps) => {
         Provider = lazy(() => import("../components/admin/Provider")),
         Profile = lazy(() => import("../components/admin/account/Profile")),
         Service = lazy(() => import("../components/admin/service/Service")),
+        Users = lazy(() => import("../components/admin/users/Users")),
         Dashboard = lazy(() => import("../components/admin/Dashboard"))
 
     return <>
@@ -55,6 +57,11 @@ const Admin: FC<IProps> = (props: IProps) => {
                                             <Provider/>
                                         </ProviderProvider>}/>
                                         <Route path="request/accept/:uuid" element={<RequestAcceptation/>}/>
+                                        <Route path="users" element={
+                                            <UserProvider>
+                                                <Users/>
+                                            </UserProvider>
+                                        }/>
                                     </Route>
                                 </Routes>
                             </Suspense>

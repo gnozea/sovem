@@ -16,13 +16,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_Progress__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/Progress */ "./resources/js/components/utils/Progress.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/date-picker/index.js");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ "./node_modules/antd/es/date-picker/index.js");
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! dayjs */ "./node_modules/dayjs/dayjs.min.js");
 /* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/BrowserTitle */ "./resources/js/components/utils/BrowserTitle.tsx");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
 var __makeTemplateObject = undefined && undefined.__makeTemplateObject || function (cooked, raw) {
   if (Object.defineProperty) {
     Object.defineProperty(cooked, "raw", {
@@ -52,9 +53,10 @@ var __assign = undefined && undefined.__assign || function () {
 
 
 
-var Left = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    flex-basis: 350px;\n"], ["\n    flex-basis: 350px;\n"])));
-var Right = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    flex: 3;\n"], ["\n    flex: 3;\n"])));
-var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    @media all and (min-width: 600px){\n        display: flex;\n    }\n"], ["\n    @media all and (min-width: 600px){\n        display: flex;\n    }\n"])));
+
+var Left = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    flex-basis: 350px;\n"], ["\n    flex-basis: 350px;\n"])));
+var Right = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n    flex: 3;\n"], ["\n    flex: 3;\n"])));
+var Wrapper = styled_components__WEBPACK_IMPORTED_MODULE_7__["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n    @media all and (min-width: 600px){\n        display: flex;\n    }\n"], ["\n    @media all and (min-width: 600px){\n        display: flex;\n    }\n"])));
 var rangePresets = [{
   label: "Ajourd'hui",
   value: [dayjs__WEBPACK_IMPORTED_MODULE_4___default()(), dayjs__WEBPACK_IMPORTED_MODULE_4___default()()]
@@ -108,7 +110,7 @@ var RequestAcceptation = function RequestAcceptation(props) {
     _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     requestStatus = _f[0],
     setRequestStatus = _f[1],
-    navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
+    navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useNavigate)();
   var handleCheck = function handleCheck(e, id, key) {
     var ab = __assign({}, able);
     if (!e.target.checked) delete ab[id];
@@ -128,6 +130,11 @@ var RequestAcceptation = function RequestAcceptation(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/dashboard/request/".concat(uuid[uuid.length - 1])).then(function (rep) {
       setServices(rep.data.data);
+    })["catch"](function (error) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_6__.toast.error(error.response.data.msg);
+      setTimeout(function () {
+        navigate("/dashboard/requests");
+      }, 1200);
     });
   }, []);
   if (!services) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_2__["default"], null);
@@ -271,7 +278,7 @@ var RequestAcceptation = function RequestAcceptation(props) {
     style: {
       zIndex: "999999"
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(antd__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(antd__WEBPACK_IMPORTED_MODULE_9__["default"], {
     defaultValue: dayjs__WEBPACK_IMPORTED_MODULE_4___default()(),
     disabledDate: function disabledDate(current) {
       return current && current.valueOf() < Date.now();
@@ -304,7 +311,7 @@ var RequestAcceptation = function RequestAcceptation(props) {
     className: "card-footer text-right p-1"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "d-flex"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Link, {
     to: "/dashboard/requests",
     className: "btn btn-link"
   }, "Annuler"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {

@@ -192,12 +192,23 @@ class RequestController extends Controller
      *
      * @param string $uuid
      * @param Demand $demand
-     * @return array
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|Response
      */
     public function show(string $uuid, Demand $demand)
     {
         $req = $demand->where('uuid', $uuid)
             ->with("city")->first();
+
+        if (!Auth::user()['provider_id']) return \response([
+            "status" => "error",
+            "msg" => "Vous n'êtes pas un prestataire."
+        ], 422);
+
+        if (!$req) return \response([
+            "status" => "error",
+            "msg" => "Cette demande n'a pas été trouvé."
+        ], 422);
+
         $service = ServiceRequest::with("specialities")
             ->where("request_id", $req['id'])
             ->where(function ($query) {

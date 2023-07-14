@@ -41,6 +41,9 @@ const NavSecond: FC<IProps> = (props: IProps) => {
                             </div>
                         </li>}
                         <li className="nav-item">
+                            <Link to="/dashboard/users" className={`nav-link ${active === '/dashboard/users' ? 'active' : ''}`} onClick={setActiveURL}>Utilisateurs</Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to="/dashboard/reports" className={`nav-link ${active === '/dashboard/reports' ? 'active' : ''}`} onClick={setActiveURL}>Rapport</Link>
                         </li>
                         {/*{!user.provider_id && <li className="nav-item">*/}

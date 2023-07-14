@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { DatePicker } from 'antd';
 import dayjs, {Dayjs} from "dayjs";
 import BrowserTitle from "../utils/BrowserTitle";
+import {toast} from "react-toastify";
 
 
 interface IProps {
@@ -93,6 +94,11 @@ const RequestAcceptation: FC<IProps> = (props: IProps) => {
     useEffect(() => {
         axios.get(`/api/dashboard/request/${uuid[uuid.length-1]}`).then((rep: any) => {
             setServices(rep.data.data)
+        }).catch(error => {
+            toast.error(error.response.data.msg)
+            setTimeout(() => {
+                navigate("/dashboard/requests")
+            }, 1200)
         })
     }, [])
 
