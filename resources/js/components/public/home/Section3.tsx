@@ -64,7 +64,7 @@ const Section3: FC<IProps> = (props) => {
                                         </h1>
                                         <div className="sc_item_descr sc_title_descr">
                                             <p>
-                                                Si ou se yon moun ki sibi vyolans ki bezwen èd espesyalis ak lòt asistans, pòtay sa ka konekte ou ak sèvis wap chache a ak tout diskresyon. Pèsòn pap kapab jwenn enfòmasyon pèsonèl ou nan okenn sans.
+                                                Mande èd espesyalis sou sistèm nan lè ou gen difikilte. Lè tout saw eseye yo echwe oswa ou pa gen chwa. Espesyalis nou yo la pou edew e pèsòn pap kapab jwenn enfòmasyon pèsonèl ou nan okenn sans.
                                             </p>
                                         </div>
                                     </div>{" "}

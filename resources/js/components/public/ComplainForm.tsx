@@ -413,8 +413,8 @@ const ComplainForm: FC<IProps> = (props) => {
                                               <h4>Atansyon</h4>
                                               <p>
                                                   Nou se yon enstitisyon endepandan ki fè yon pon ant oumenm ak kèk fonisè swen sikolojik, fizik elatriye.
-                                                  Nou pa responsab travay fonisè sa yo. Travay nou fini lamennm nou fin konekte w ak yon founisè. Ou gen dwa aksepte oswa refize sèvis yon founisè pou nenpòt rezon
-                                                  tankou mank konfyans, kondisyon yo pa nan sans ou pou nou site sayo sèlman.
+                                                  Nou pa responsab travay fonisè sa yo. Travay nou fini lamennm nou fin konekte w ak yon founisè.
+                                                  Ou gen dwa aksepte oswa refize sèvis yon founisè pou nenpòt rezon tankou mank konfyans, kondisyon yo pa nan sans ou pou nou site sayo sèlman.
                                                   <span className="divider-inner d-block mt-3"/>
                                                   Sevis sa pa fèt pou moun ki gen ijans, si w gen yon ijans pou w wè yon pwofesyonèl medikal osinon yon lòt pwofesyonèl, ale nan sant sante oswa lopital ki pi prè w la. Si se pwoblèm sekirite ijan w genyen, ale lapolis.
                                               </p>
@@ -537,7 +537,7 @@ const ComplainForm: FC<IProps> = (props) => {
                                                   </legend>
 
                                                       <div className="ChoiceStructure">
-                                                          <Select2 classes="service-form" multiple={false} onSearch={(e: any) => {}} searchKeys={ { id: 'id', text: ['name'] } } searchUrl={`/api/city/search`}
+                                                          <Select2 classes="service-form" multiple={false} onSearch={(e: any) => {}} searchKeys={ { id: 'id', text: ['name'] } } searchUrl={`/api/city/search?all=true`}
                                                                    selectedValue={state.selections?.city?.id}
                                                                    onSelect={setYourCity}
                                                                    searchable={true} name="teacher_id" placeholder="Ekri non vil ou rete a la." id="city"/>

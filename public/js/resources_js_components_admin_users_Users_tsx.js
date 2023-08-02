@@ -24,6 +24,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment_moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment_moment__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _utils_Popup__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../utils/Popup */ "./resources/js/components/utils/Popup.tsx");
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
+/* harmony import */ var _utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../utils/form-components/Select2 */ "./resources/js/components/utils/form-components/Select2.tsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+var __makeTemplateObject = undefined && undefined.__makeTemplateObject || function (cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, "raw", {
+      value: raw
+    });
+  } else {
+    cooked.raw = raw;
+  }
+  return cooked;
+};
+var __assign = undefined && undefined.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+  };
+  return __assign.apply(this, arguments);
+};
 var __spreadArray = undefined && undefined.__spreadArray || function (to, from, pack) {
   if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
     if (ar || !(i in from)) {
@@ -33,6 +55,8 @@ var __spreadArray = undefined && undefined.__spreadArray || function (to, from, 
   }
   return to.concat(ar || Array.prototype.slice.call(from));
 };
+
+
 
 
 
@@ -61,12 +85,21 @@ var Users = function Users(props) {
     _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     showAdd = _e[0],
     setShowAdd = _e[1],
-    _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
-    loading = _f[0],
-    setLoading = _f[1],
-    _g = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    saving = _g[0],
-    setSaving = _g[1];
+    _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    linkToProvider = _f[0],
+    setLinkToProvider = _f[1],
+    _g = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    showLinkToProviderOption = _g[0],
+    setShowLinkToProviderOption = _g[1],
+    _h = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    loading = _h[0],
+    setLoading = _h[1],
+    _j = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    providerSelected = _j[0],
+    setProviderSelected = _j[1],
+    _k = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    saving = _k[0],
+    setSaving = _k[1];
   var getData = function getData() {
     axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/dashboard/users").then(function (rep) {
       var data = __spreadArray([], rep.data.data, true);
@@ -100,17 +133,36 @@ var Users = function Users(props) {
   var handleAddUser = function handleAddUser(e) {
     e.preventDefault();
     setSaving(true);
-    axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/dashboard/users", {
+    var post = {
       name: name,
       email: email
-    }).then(function (rep) {
+    };
+    if (linkToProvider && providerSelected) post = __assign(__assign({}, post), {
+      provider: providerSelected.id
+    });
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/dashboard/users", post).then(function (rep) {
       react_toastify__WEBPACK_IMPORTED_MODULE_9__.toast.success(rep.data.msg);
       setSaving(false);
       setShowAdd(false);
+      setShowLinkToProviderOption(true);
       getData();
+    })["catch"](function (error) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_9__.toast.error(error.response.data.msg);
+      setSaving(false);
+      setShowAdd(false);
+      setShowLinkToProviderOption(true);
     });
   };
   if (!users.length) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+  function handlePasswordReset(param) {
+    setLoading(true);
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/dashboard/reset-password", {
+      email: param.email
+    }).then(function (rep) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_9__.toast.success("Un lien de restauration à été envoyé.");
+      setLoading(false);
+    });
+  }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "row"
   }, loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -122,7 +174,9 @@ var Users = function Users(props) {
     parentId: 2335
   }, saving && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: handleAddUser
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, providerSelected && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "form-label text-danger"
+  }, "Prestataire: ", providerSelected.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "form-group mb-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
     className: "form-label"
@@ -152,7 +206,37 @@ var Users = function Users(props) {
     className: "form-control"
   }), !uniqueEmail && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "text-danger"
-  }, "Cet email n'est pas disponible.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, "Cet email n'est pas disponible.")), showLinkToProviderOption && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "custom-control custom-checkbox"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    type: "checkbox",
+    onChange: function onChange(e) {
+      setProviderSelected(undefined);
+      setLinkToProvider(e.target.checked);
+    },
+    defaultChecked: linkToProvider,
+    className: "custom-control-input"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "custom-control-label"
+  }, "Lier \xE0 un prestataire?")), linkToProvider && showLinkToProviderOption && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Select, {
+    className: "form-group mb-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    classes: "service-form",
+    multiple: false,
+    selectedValue: undefined,
+    onSearch: function onSearch(e) {},
+    searchKeys: {
+      id: 'id',
+      text: ['name']
+    },
+    searchUrl: '/api/dashboard/provider/search',
+    onSelect: function onSelect(e) {
+      return setProviderSelected(e);
+    },
+    searchable: true,
+    placeholder: "Nom du prestataire",
+    id: "pname"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "mt-2 text-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     disabled: !uniqueEmail,
@@ -187,7 +271,7 @@ var Users = function Users(props) {
     style: {}
   }, "Email"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
     style: {}
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Ajout\xE9 le"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, users.map(function (rep, key) {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null, "Ajout\xE9 le"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, users.map(function (rep, key) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tr", {
       key: key,
       role: "row"
@@ -211,10 +295,44 @@ var Users = function Users(props) {
       title: "".concat(rep.provider ? rep.provider.name : "")
     }, rep.provider ? rep.provider.name_short : ""), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
       className: ""
-    }, rep.created_at ? moment_moment__WEBPACK_IMPORTED_MODULE_7___default()(rep.created_at).format("D MMMM YYYY") : "-----"));
+    }, rep.created_at ? moment_moment__WEBPACK_IMPORTED_MODULE_7___default()(rep.created_at).format("D MMMM YYYY") : "-----"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+      className: "text-right"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "item-action dropdown"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+      href: "",
+      "data-toggle": "dropdown",
+      "data-boundary": "viewport",
+      className: "icon",
+      "aria-expanded": "false"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+      className: "fe fe-more-vertical"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "dropdown-menu dropdown-menu-right",
+      "x-placement": "bottom-center",
+      style: {
+        position: "absolute",
+        transform: "translate3d(15px, 20px, 0px)",
+        top: "0px",
+        left: "0px",
+        willChange: "transform"
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "dropdown-item",
+      onClick: function onClick() {
+        return handlePasswordReset({
+          id: rep.id,
+          email: rep.email
+        });
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+      className: "dropdown-icon fe fe-shield"
+    }), " Restaurer password")))));
   })))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Users);
+var Select = styled_components__WEBPACK_IMPORTED_MODULE_11__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"], ["\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"])));
+var templateObject_1;
 
 /***/ })
 

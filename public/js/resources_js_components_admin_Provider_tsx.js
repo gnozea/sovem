@@ -113,10 +113,11 @@ var Provider = function Provider(props) {
     });
   };
   var handlePasswordReset = function handlePasswordReset(user) {
-    react_toastify__WEBPACK_IMPORTED_MODULE_11__.toast.success("Un lien de restauration à été envoyé.");
     axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/dashboard/reset-password", {
       email: user
-    }).then(function (rep) {});
+    }).then(function (rep) {
+      return react_toastify__WEBPACK_IMPORTED_MODULE_11__.toast.success("Un lien de restauration à été envoyé.");
+    });
   };
   if (user.provider_id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Restricted__WEBPACK_IMPORTED_MODULE_5__["default"], null);
   if (busy && (!providers.length || !paginate)) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_3__["default"], null);
@@ -310,12 +311,7 @@ var Provider = function Provider(props) {
         left: "0px",
         willChange: "transform"
       }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-      href: "",
-      className: "dropdown-item"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-      className: "dropdown-icon fe fe-layers"
-    }), " Details "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "dropdown-item",
       onClick: function onClick() {
         return setShowEdit(key);
@@ -335,8 +331,8 @@ var Provider = function Provider(props) {
         return handlePasswordReset(rep.email);
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-      className: "dropdown-icon fe fe-lock"
-    }), " Restaurer password"), (rep.status === "inactive" || rep.status === "disabled" || rep.status === "pending") && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "dropdown-icon fe fe-shield"
+    }), " Restaurer password"), (rep.status === "inactive" || rep.status === "disabled") && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "dropdown-item",
       onClick: function onClick() {
         return handleDisableEnable(key, "enable");
@@ -350,21 +346,16 @@ var Provider = function Provider(props) {
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "dropdown-icon fe fe-git-pull-request"
-    }), " Lier sp\xE9cialit\xE9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    }), " Lier sp\xE9cialit\xE9"), rep.status === "pending" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "dropdown-divider"
-    }), rep.status === "pending" && 1 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "dropdown-item",
       onClick: function onClick() {
         return handleSendVerificationEmail(rep.id);
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "dropdown-icon fe fe-edit-2"
-    }), " Renvoyer email verification"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
-      href: "",
-      className: "dropdown-item"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
-      className: "dropdown-icon fe fe-trash-2"
-    }), " Supprimer")))));
+    }), " Renvoyer email verification"))))));
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "dataTables_paginate paging_simple_numbers",
     id: "DataTables_Table_0_paginate"
@@ -836,6 +827,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
 /* harmony import */ var _context_ProviderContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../context/ProviderContext */ "./resources/js/context/ProviderContext.tsx");
 /* harmony import */ var _utils_Progress__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../utils/Progress */ "./resources/js/components/utils/Progress.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_9__);
+
 
 
 
@@ -851,11 +845,18 @@ var Edit = function Edit(props) {
     providers = _a.providers,
     dispatch = _a.dispatch,
     _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
-    busy = _b[0],
-    setBusy = _b[1];
+    email = _b[0],
+    setEmail = _b[1],
+    _c = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    uniqueEmail = _c[0],
+    setUniqueEmail = _c[1],
+    _d = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    busy = _d[0],
+    setBusy = _d[1];
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     var form = new FormData(e.target);
+    if (email && email.trim().length) form.append("email", email);
     form.append("_method", "PUT");
     setBusy(true);
     axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/dashboard/provider/".concat(providers[props.provider].id), form).then(function (rep) {
@@ -869,6 +870,23 @@ var Edit = function Edit(props) {
       react_toastify__WEBPACK_IMPORTED_MODULE_6__.toast.success("Vos données ont été mis à jours!");
       setBusy(false);
       props.onClose();
+    });
+  };
+  var checkEmail = function checkEmail(e) {
+    if (e.target.value.trim() === "") return;
+    setUniqueEmail(true);
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get("/api/dashboard/checkByEmail", {
+      params: {
+        email: e.target.value
+      }
+    }).then(function (rep) {
+      var _a, _b;
+      if (((_a = rep.data) === null || _a === void 0 ? void 0 : _a.status) && ((_b = rep.data) === null || _b === void 0 ? void 0 : _b.status) === "error" && rep.data.data.email !== providers[props.provider].email) {
+        setEmail(undefined);
+        setUniqueEmail(false);
+      } else {
+        setEmail(e.target.value.trim());
+      }
     });
   };
   if (user.provider_id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Restricted__WEBPACK_IMPORTED_MODULE_4__["default"], null);
@@ -918,18 +936,22 @@ var Edit = function Edit(props) {
   }, "*")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_input_mask__WEBPACK_IMPORTED_MODULE_2___default()), {
     type: "email",
     name: "email",
+    onChange: (0,lodash__WEBPACK_IMPORTED_MODULE_9__.debounce)(checkEmail, 1500),
     placeholder: "e.g. email@vighor.com",
     required: true,
     className: "form-control",
-    defaultValue: providers[props.provider].email,
+    defaultValue: email ? email : providers[props.provider].email,
     mask: ""
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }), !uniqueEmail && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "text-danger"
+  }, "Cet email n'est pas disponible.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "form-group mb-0"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
     className: "form-label"
   }, "Phone number"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement((react_input_mask__WEBPACK_IMPORTED_MODULE_2___default()), {
     type: "tel",
     name: "phone",
+    disabled: !uniqueEmail,
     required: true,
     mask: "9999-9999",
     maskPlaceholder: null,

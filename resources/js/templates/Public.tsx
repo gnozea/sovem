@@ -54,7 +54,7 @@ const Public:FC<IProps> = (props: IProps) => {
 
 
     const menuItems = [
-        {title: "Akèy", href: "https://konektemm.org"},
+        {title: "Akèy", href: "https://konektem.org"},
         {title: "Swiv dosyew", href: "/service/track"},
         {title: "Kiyès nou ye", href: "https://konektem.org/about-us"},
     ]

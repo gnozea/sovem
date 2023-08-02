@@ -33,15 +33,15 @@ export const SectionV: FC<IProps> = (props: IProps) => {
                                         <div className="vighor-widget-container">
                                             <div id="trx_sc_title_850374424" className="sc_title sc_title_decoration">
                                                 <h1 className="sc_item_title sc_title_title sc_align_center sc_item_title_style_decoration sc_item_title_tag">
-                                                    <span className="sc_item_title_text">Kijan sit la fonksyone?</span>
+                                                    <span className="sc_item_title_text">Kijan pòtay la fonksyone?</span>
                                                 </h1>
                                                 <div className="sc_item_descr sc_title_descr sc_align_center">
-                                                    <p style={{ textAlign: "left" }}>
-                                                        Lè yon itilizatè konekte sou sit la, lap jis klike sou onglè MANDE YON SEVIS. Epi, lap swiv tout etap yo nan reponn kesyon ki korespon n ak sitiyasyon l.
-                                                        Lè moun nan fin soumèt demand lan, lap resevwa yon nimewo tikè ki se nimero referans kap pèmèt yo fè swivi dosye li a.
-                                                        Moun ki mande sèvis la dwe toujou konsève  nimewo tikè a ki se nimewo dosye kap pèmèt kominikasyon fèt ant li menm ak founisè sèvis ki vle reponn ak bezwen li an.
-                                                        Nan fòm demann sèvis la, se sèlman kesyon ki esansyèl pou evalye ki kalite sèvis viktim nan ap chèche ke nou poze. Ni moun ki mande sèvis la ni repondè a pa gen opòtinite pou poze plis kesyon ke sa ki disponib sou pòtay la.
-                                                    </p>
+                                                    <ol className="trx_addons_list_dot text-start">
+                                                        <li>Lè w rive sou pòtay la, klike sou onglè MANDE YON SEVIS epi swiv tout etap yo pandan w ap reponn kesyon ki koresponn ak sitiyasyon w. </li>
+                                                        <li>Lè w fin soumèt demand lan,  wap resevwa yon nimewo tikè ki se nimewo referans k ap pèmèt yo fè swivi dosye w la.</li>
+                                                        <li>Ou dwe toujou konsève nimewo tikè a paske se nimewo sa a k ap pèmèt ou kominike ak founisè sèvis ki vle reponn ou an.</li>
+                                                        <li>Nan fòm demann sèvis la, se sèlman kesyon ki esansyèl pou evalye ki kalite sèvis viktim nan ap chèche ke nou poze. Ni moun ki mande sèvis la ni repondè a pa ka pou poze plis kesyon ke sa ki disponib sou pòtay la.</li>
+                                                    </ol>
                                                 </div>
                                             </div>
                                         </div>

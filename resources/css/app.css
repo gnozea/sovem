@@ -22,3 +22,8 @@ body.report-frame .select2-dropdown.select2-dropdown--below{
 html body.report-frame .select2-container--default .select2-results > .select2-results__options{
     width: max-content;
 }
+
+body .highcharts-contextmenu hr{
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+}

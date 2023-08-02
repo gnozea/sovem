@@ -65,8 +65,7 @@ const Provider: FC<IProps> = (props: IProps) => {
     }
 
     const handlePasswordReset = (user: any) => {
-        toast.success("Un lien de restauration à été envoyé.")
-        axios.post("/api/dashboard/reset-password", {email: user}).then(rep => {})
+        axios.post("/api/dashboard/reset-password", {email: user}).then(rep => toast.success("Un lien de restauration à été envoyé."))
     }
 
     if (user.provider_id) return <Restricted/>
@@ -160,16 +159,18 @@ const Provider: FC<IProps> = (props: IProps) => {
                                             <a href="" data-toggle="dropdown" data-boundary="viewport" className="icon" aria-expanded="false"><i className="fe fe-more-vertical"></i></a>
                                             <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-center"
                                                  style={{position: "absolute", transform: "translate3d(15px, 20px, 0px)", top: "0px", left: "0px", willChange: "transform"}}>
-                                                <a href="" className="dropdown-item"><i className="dropdown-icon fe fe-layers"></i> Details </a>
+                                                {/*<a href="" className="dropdown-item"><i className="dropdown-icon fe fe-layers"></i> Details </a>*/}
                                                 <button className="dropdown-item" onClick={() => setShowEdit(key)}><i className="dropdown-icon fe fe-edit-2"></i> Modifier</button>
                                                 {rep.status === "active" && <button className="dropdown-item" onClick={() => handleDisableEnable(key, "disable")}><i className="dropdown-icon fe fe-lock"></i> Désactiver</button>}
-                                                {rep.status === "active" && <button className="dropdown-item" onClick={() => handlePasswordReset(rep.email)}><i className="dropdown-icon fe fe-lock"></i> Restaurer password</button>}
-                                                {(rep.status === "inactive" || rep.status === "disabled" || rep.status === "pending") && <button className="dropdown-item" onClick={() => handleDisableEnable(key, "enable")}><i className="dropdown-icon fe fe-lock"></i> Activer</button>}
+                                                {rep.status === "active" && <button className="dropdown-item" onClick={() => handlePasswordReset(rep.email)}><i className="dropdown-icon fe fe-shield"></i> Restaurer password</button>}
+                                                {(rep.status === "inactive" || rep.status === "disabled") && <button className="dropdown-item" onClick={() => handleDisableEnable(key, "enable")}><i className="dropdown-icon fe fe-lock"></i> Activer</button>}
                                                 <button className="dropdown-item" onClick={() => setAddSpeciality(key)}>
                                                     <i className="dropdown-icon fe fe-git-pull-request"></i> Lier spécialité</button>
-                                                <div className="dropdown-divider"></div>
-                                                {rep.status === "pending" && 1 && <button className="dropdown-item" onClick={() => handleSendVerificationEmail(rep.id)}><i className="dropdown-icon fe fe-edit-2"></i> Renvoyer email verification</button>}
-                                                <a href="" className="dropdown-item"><i className="dropdown-icon fe fe-trash-2"></i> Supprimer</a>
+                                                {rep.status === "pending" && <>
+                                                    <div className="dropdown-divider"></div>
+                                                    <button className="dropdown-item" onClick={() => handleSendVerificationEmail(rep.id)}><i className="dropdown-icon fe fe-edit-2"></i> Renvoyer email verification</button>
+                                                </>}
+                                                {/*<button className="dropdown-item"><i className="dropdown-icon fe fe-trash-2"></i> Supprimer</button>*/}
                                             </div>
                                         </div>
                                     </td>

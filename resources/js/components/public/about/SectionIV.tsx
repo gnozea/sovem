@@ -43,9 +43,9 @@ export const SectionIV: FC<IProps> = (props: IProps) => {
 
                                                     <div className="sc_item_descr sc_title_descr sc_align_center">
                                                         <ul className="trx_addons_list_dot text-start">
-                                                            <li>Asire ke moun ki viktim vyolans yo gen aksè ak yon kat jewografik òganizasyon gratis yo, enstitisyon prive ak piblik ki bay sèvis ak moum ki sibi zak vyolans nan depatman Lwès Ayiti; </li>
+                                                            <li>Asire ke moun ki viktim vyolans yo gen aksè ak yon kat jewografik òganizasyon gratis yo, enstitisyon prive ak piblik ki bay sèvis ak moum ki sibi zak vyolans nan depatman Lwès Ayiti;</li>
                                                             <li>Fasilite kominikasyon moun ki viktim yo ak enstitisyon kap bay swen yo;</li>
-                                                            <li>Bay yon mwayen pou dokimante rapò vyolans ki chita sou kadejak nan depatman Lwès peyi dayiti. </li>
+                                                            <li>Bay yon mwayen pou dokimante rapò vyolans ki chita sou kadejak nan depatman Lwès peyi dayiti.</li>
                                                         </ul>
                                                     </div>
 

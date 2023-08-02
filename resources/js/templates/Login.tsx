@@ -1,7 +1,9 @@
 import React, {FC, useState} from "react";
 import axios from "axios";
-import { redirect } from "react-router-dom";
+import {Link, redirect} from "react-router-dom";
 import Progress from "../components/utils/Progress";
+import Popup from "../components/utils/Popup";
+import {toast} from "react-toastify";
 
 type IProps = {
 
@@ -13,7 +15,8 @@ const Login: FC<IProps> = (props: IProps) => {
         [password, setPassword] = useState<string>(),
         [busy, setBusy] = useState<boolean>(),
         [loginError, setLoginError] = useState<string>(),
-        [rememberMe, setRememberMe] = useState<boolean>(false)
+        [rememberMe, setRememberMe] = useState<boolean>(false),
+        [showPasswordReset, setShowPasswordReset] = useState<boolean>()
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
@@ -32,8 +35,32 @@ const Login: FC<IProps> = (props: IProps) => {
             setBusy(false)
         })
     }
-  return <div className="page">
+
+    function handleReset(e: any) {
+        e.preventDefault()
+        setBusy(true)
+        setShowPasswordReset(false)
+        axios.post("/api/login/reset-password", {email: email}).then(rep => {
+            toast.success("Un lien de restauration à été envoyé.")
+            setBusy(false)
+        }).catch((err) => setBusy(false))
+    }
+
+    return <div className="page">
       {busy && <Progress/>}
+      {showPasswordReset && <Popup onPopupClose={() => setShowPasswordReset(false)} isSmall={true} parentId={2000}>
+          <div className="card-title">Restaurer mot de passe</div>
+          <form onSubmit={handleReset}>
+              <div className="form-group">
+                  <label className="form-label">Adresse email</label>
+                  <input type="email" className="form-control" id="reset-email" name={"resetEmail"} onChange={(e: any) => setEmail(e.target.value)} defaultValue={email}
+                         aria-describedby="emailHelp" placeholder="Email"/>
+              </div>
+              <div className="form-footer">
+                  <button type="submit" className="btn btn-primary btn-block">Restaurer</button>
+              </div>
+          </form>
+      </Popup>}
       <div className="page-single">
           <div className="container">
               <div className="row">
@@ -52,7 +79,10 @@ const Login: FC<IProps> = (props: IProps) => {
                               <div className="form-group">
                                   <label className="form-label">
                                       Mot de passe
-                                      <a href="" className="float-right small">Mot de passe oublié</a>
+                                      <Link to="#" onClick={(e) => {
+                                          e.preventDefault()
+                                          setShowPasswordReset(true)
+                                      }} className="float-right small">Mot de passe oublié</Link>
                                   </label>
                                   <input type="password" className="form-control" id="password" onChange={(e: any) => setPassword(e.target.value)} defaultValue={password}
                                          placeholder="Password"/>

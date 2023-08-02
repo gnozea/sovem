@@ -85,7 +85,7 @@ export const SectionI: FC<IProps> = (props: IProps) => {
                                                                         <div className="sc_item_button sc_button_wrap sc_item_button sc_item_button_default sc_promo_button"
                                                                         >
                                                                             <p>
-                                                                                KONEKTEM se yon Platfom ki kreye nan lide pou konekte moun ki viktim zak vyolans akoz yo se yon fanm oubyen yon gason tankou,  vyolans seksyèl ak fizik, eksplwatasyon, ak  enstitisyon ki bay divès sèvis tankou : swen sikososyal ak medikal, ak sipo ekonomik. Se yon potay entè-aktif ki fasilite moun ki pa gen gwo konesans nan zafè enfomatif itilize li san pwoblèm.
+                                                                                KONEKTEM se yon Platfom ki kreye nan lide pou pèmet moun ki viktim zak vyolans yo jwenn kontak pi fasil ak enstitisyon oswa espesyalis ki ka ede yo. Fanm kou gason  ki viktim zak, tankou vyolans seksyèl ak fizik, eksplwatasyon, kapab itilize platfòm sa a pou mande swen sikososyal ak medikal, ak sipo ekonomik. Se yon potay entèraktif ki fasilite moun ki pa gen gwo konesans nan zafè enfomatif itilize li san pwoblèm.
                                                                             </p>
                                                                         </div>
                                                                     </div>

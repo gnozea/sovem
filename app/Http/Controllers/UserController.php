@@ -50,34 +50,35 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        //Max user is 3
         $request->validate([
             "name" => "required|string",
            "email" => "required|string|unique:users,email"
         ]);
-        User::create([
+
+        $data = [
             "name" => $request->get("name"),
             "email" => $request->get("email"),
             "password" => Hash::make(Str::random(10))
-        ]);
+        ];
+
+        //Check how many users has provider on file
+        if ($request->has("provider")){
+            $users = User::where("provider_id", $request->get("provider"))->get();
+
+            if ($users->count() >= 3) return response(["status" => "error", "msg" => "Vous avez atteint le maximun de 3 utilisateurs par compte"], 422);
+            $data["provider_id"] = $request->get("provider");
+        }
+
+        User::create($data);
 
         $status = Password::sendResetLink(
             $request->only('email')
         );
 
-//        try {
-//            $spec = [
-//                "subject" => "Nouveau compte crée",
-//                "title" => "Un nouveau compte vous a été crée",
-//                "button_url" => Env::get("APP_URL") . "/dashboard",
-//                "button_text" => "Aller au tableau de bord",
-//                "message" => "Un nouveau compte a été créé pour vous par votre administrateur sur le portail konektem. Suivez ce lien pour créer un nouveau mot de passe pour accéder au compte."
-//            ];
-//            Mail::to($request->get("email"))->send(new ProviderActivation($spec));
-//        } catch (\Swift_TransportException $exception) {}
-
         return response([
            'status' => 'success',
-           'msg' => "Utilisateur ajouté."
+           'msg' => "Utilisateur ajouté, un email a été envoyé à " . $request->get("email")
         ]);
     }
 

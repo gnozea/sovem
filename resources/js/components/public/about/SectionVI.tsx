@@ -53,16 +53,19 @@ export const SectionVI: FC<IProps> = (props: IProps) => {
                                                                     <div className="sc_promo_text_inner trx_addons_inline_835092385">
                                                                         <h2 className="sc_item_title sc_promo_title sc_item_title_style_with_line sc_item_title_tag trx_addons_inline_1758223025">
                                                                             <span className="sc_item_title_text">
-                                                                                Apre demand lan fin soumèt
+                                                                                Lè ou fin soumèt demand lan
                                                                             </span>
                                                                         </h2>
                                                                         <div className="sc_item_button sc_button_wrap sc_item_button sc_item_button_default sc_promo_button"
                                                                         >
                                                                             <p>
-                                                                                Aprè moun nan fin soumèt yon demann sèvis,  founisè ki enskri yo ap resevwa yon alèt nan yon sistèm otomatik ki entegre nan pòtay la. Òganizasyon oubyen enstitisyon prive ak piblik ki vle satisfè bezwen an, ap gen opsyon pou afiche yon repons ak sèvis nimewo tikè ki se nimero referans viktim nan.
+                                                                                Lè ou soumèt yon demann sèvis, founisè ki enskri yo ap resevwa yon alèt nan yon sistèm otomatik ki entegre nan pòtay la. Òganizasyon oubyen enstitisyon prive ak piblik ki vle satisfè bezwen an, ap gen opsyon pou afiche yon repons ak sèvis nimewo tikè ki se nimero referans viktim nan.
                                                                             </p>
                                                                             <p>
-                                                                                Moun ki mande sèvis la sèvis la dwe tyeke pòtay la pou wè si gen yon repons ak demand li a. Sit entènèt itilize yon kat jeyografik ki lokalize tout founisè sèvis yo, ki gen ladan, founisè swen sante sèksyèl, sikologik ak fizik. Platfòm nan pa bay okenn aksè pou gen entèraksyon ant demandè ak repondè a ki ale pi lwen ke enfomasyon ki figire nan  fòm aplikasyon an. Gen posibilite pou 3 founisè reponn ak demand lan. Men, se viktim nan kap chwazi kiyès nan yo ki pou bal sèvis.
+                                                                                Moun ki mande sèvis la sèvis la dwe tyeke pòtay la pou wè si gen yon repons ak demand li a.
+                                                                            </p>
+                                                                            <p>
+                                                                                Pòtay la itilize yon kat jeyografik ki lokalize tout founisè sèvis yo. Ladan l genyen founisè swen sante sèksyèl, sikologik ak fizik. Platfòm nan pa bay okenn aksè pou gen entèraksyon ant demandè ak repondè a ki ale pi lwen ke enfomasyon ki figire nan fòm aplikasyon an. Gen posibilite pou 3 founisè reponn ak demand lan. Men, se viktim nan kap chwazi kiyès nan yo ki pou bal sèvis.
                                                                             </p>
                                                                         </div>
                                                                     </div>

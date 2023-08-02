@@ -59,6 +59,17 @@ Route::prefix("api")->group(function (){
         return $account;
     });
 
+    Route::post("login/reset-password", function (Request $request){
+        $request->validate(['email' => 'required|email|exists:users,email']);
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? ['status' => __($status)]
+            : ['email' => __($status)];
+    });
+
     Route::post("reset-password", function (Request $request){
         $email = urldecode($request->get("email"));
         $request->merge(["email" => $email]);
@@ -153,6 +164,7 @@ Route::prefix("api")->group(function (){
             $check = User::where("email", $request->get('email'))->first();
             if ($check) return [
                 "status" => "error",
+                "data" => $check,
                 "message" => "Email already exists!"
             ];
         });

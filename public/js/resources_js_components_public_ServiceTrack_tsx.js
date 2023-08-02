@@ -486,7 +486,7 @@ var ServiceTrack = function ServiceTrack(props) {
     className: "sc_item_title_text"
   }, "Swiv dosye w la")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "mt-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Antre nimewo dosye ou a nan f\xF2mil\xE8 ki anba a pouw ka gade tout d\xE8nye aktivite ki f\xE8t nan dosye ou a."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", null, "Antre nimewo dosye ou a nan f\xF2mil\xE8 ki anba a pouw ka gade tout d\xE8nye aktivite ki f\xE8t nan dosye w la."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "scheme_default text-center"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: ""

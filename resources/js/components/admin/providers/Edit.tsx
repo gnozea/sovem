@@ -7,6 +7,7 @@ import AccountContext from "../../../context/AccountContext";
 import {toast} from "react-toastify";
 import ProviderContext from "../../../context/ProviderContext";
 import Progress from "../../utils/Progress";
+import {debounce} from "lodash";
 
 
 interface IProps {
@@ -19,11 +20,15 @@ interface IProps {
 const Edit: FC<IProps> = (props: IProps) => {
     const {user} = useContext(AccountContext),
         {providers, dispatch} = useContext(ProviderContext),
+        [email, setEmail] = useState<string>(),
+        [uniqueEmail, setUniqueEmail] = useState<boolean>(true),
         [busy, setBusy] = useState<boolean>()
     const handleSubmit = (e: any) => {
         e.preventDefault()
 
         const form = new FormData(e.target)
+
+        if (email && email.trim().length) form.append("email", email)
 
         form.append("_method", "PUT")
         setBusy(true)
@@ -32,6 +37,23 @@ const Edit: FC<IProps> = (props: IProps) => {
             toast.success("Vos données ont été mis à jours!")
             setBusy(false)
             props.onClose()
+        })
+    }
+
+    const checkEmail = (e: any) => {
+        if (e.target.value.trim() === "") return
+        setUniqueEmail(true)
+        axios.get("/api/dashboard/checkByEmail", {
+            params: {
+                email: e.target.value
+            }
+        }).then((rep) => {
+            if (rep.data?.status && rep.data?.status === "error" && rep.data.data.email !== providers[props.provider].email) {
+                setEmail(undefined)
+                setUniqueEmail(false)
+            }else{
+                setEmail(e.target.value.trim())
+            }
         })
     }
 
@@ -50,11 +72,12 @@ const Edit: FC<IProps> = (props: IProps) => {
               </div>
               <div className="form-group mb-2">
                   <label className="form-label">Email<span className="form-required">*</span></label>
-                  <InputMask type="email" name="email" placeholder="e.g. email@vighor.com" required={true} className="form-control" defaultValue={providers[props.provider].email} mask=""/>
+                  <InputMask type="email" name="email" onChange={debounce(checkEmail, 1500)} placeholder="e.g. email@vighor.com" required={true} className="form-control" defaultValue={email ? email : providers[props.provider].email} mask=""/>
+                  {!uniqueEmail && <span className="text-danger">Cet email n'est pas disponible.</span>}
               </div>
               <div className="form-group mb-0">
                   <label className="form-label">Phone number</label>
-                  <InputMask type="tel" name="phone" required={true} mask="9999-9999" maskPlaceholder={null} placeholder="e.g. 3700-0000" className="form-control" defaultValue={providers[props.provider].phone}/>
+                  <InputMask type="tel" name="phone" disabled={!uniqueEmail} required={true} mask="9999-9999" maskPlaceholder={null} placeholder="e.g. 3700-0000" className="form-control" defaultValue={providers[props.provider].phone}/>
               </div>
           </fieldset>
           <div className="card-footer text-right p-0 pt-2 mt-2">

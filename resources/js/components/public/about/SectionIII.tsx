@@ -42,7 +42,15 @@ export const SectionIII: FC<IProps> = (props: IProps) => {
                                                 </h1>
                                                 <div className="sc_item_descr sc_title_descr sc_align_center">
                                                     <p style={{ textAlign: "left" }}>
-                                                        Daprè konsta ki fèt, moun ki sibi zak vyolans nan kominote majinalize yo, pa souvan gen aksè ak swen ke yo merite pou plizyè rezon, tankou pa gen sèvis sa yo nan kominote yap viv la, oswa yo pa gen mwayen finansye pou peye sèvis yo, ou byen tou, yo pa konnen ki pòt pou yo frape pou jwenn sèvis ke yo merite. Nan sans sa, platfòm sa sèvi yon pon ant viktim yo ak enstitisyon ki bay sèvis yo nan alantou yo oswa nan depatman lwès la.
+                                                        Daprè konsta ki fèt, moun ki sibi zak vyolans nan kominote majinalize yo pa souvan gen aksè ak swen yo merite. Gen plizyè rezon ki lakoz sa :
+                                                    </p>
+                                                    <ul className="trx_addons_list_dot text-start">
+                                                        <li>pa gen sèvis sa yo nan kominote yap viv la</li>
+                                                        <li>pa gen mwayen finansye pou peye sèvis yo</li>
+                                                        <li>po pa konnen ki pòt pou yo frape pou jwenn sèvis ke yo merite.</li>
+                                                    </ul>
+                                                    <p style={{ textAlign: "left" }}>
+                                                        Nan sans sa, platfòm sa sèvi yon pon ant viktim yo ak enstitisyon ki bay sèvis yo nan alantou yo oswa nan depatman lwès la.
                                                     </p>
                                                     <p style={{ textAlign: "left" }}>
                                                         Platfòm sa kreye nan kad yon pwojè ki pote non: Sipò pou ranfòse sistèm sante mantal nan Site Solèy, nan peyi dAyiti nan lide pou ankouraje moun ki viktim zak vyolans gen aksè ak swen ke yo merite. Pwojè sa jwenn finansman Oni-fanm nan kad yon patenarya ak Rapha Entènasyonal.

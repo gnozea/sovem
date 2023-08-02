@@ -93,8 +93,8 @@ const Slide: FC<IProps> = (props: IProps) => {
                                             <img src="/images/slide-1-009.png" alt=""/>
                                             <motion.div variants={container} initial="hidden" animate="visible" className="sl-parallax-wrap scheme_default">
                                                 <motion.div className="slide-slogan" variants={item}>
-                                                    <h2 className="mb-4" style={{ color: "#fff" }}>Ou se yon viktim <span
-                                                        className="d-block font-weight-bold">oswa, ou te asiste?</span>
+                                                    <h2 className="mb-4" style={{ color: "#fff" }}>Ou se yon viktim oswa<span
+                                                        className="d-block font-weight-bold">ou te asiste zak vyolans?</span>
                                                     </h2>
                                                     <a href="/complain" className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left sc_button_hover_slide_left">
                                                             <span className="sc_button_text">
@@ -119,21 +119,21 @@ const Slide: FC<IProps> = (props: IProps) => {
                                                 </motion.div>
                                             </motion.div>
                                         </div>
-                                        <div className="slide-inner">
-                                            <img src="https://helpline.impacto-patronus.ancorathemes.com/wp-content/uploads/2021/06/slide1-copyright.jpg" alt=""/>
-                                            <motion.div variants={container} initial="hidden" animate="visible" className="sl-parallax-wrap scheme_default">
-                                                <motion.div className="slide-slogan" variants={item}>
-                                                    <h2 className="mb-4" style={{ color: "#fff" }}>Ou viktim de abi<span
-                                                        className="d-block font-weight-bold">nan men yon moun?</span>
-                                                    </h2>
-                                                    <a href="/complain" className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left sc_button_hover_slide_left">
-                                                            <span className="sc_button_text">
-                                                                <span className="sc_button_title">Mande yon sèvis</span>
-                                                            </span>
-                                                    </a>
-                                                </motion.div>
-                                            </motion.div>
-                                        </div>
+                                        {/*<div className="slide-inner">*/}
+                                        {/*    <img src="https://helpline.impacto-patronus.ancorathemes.com/wp-content/uploads/2021/06/slide1-copyright.jpg" alt=""/>*/}
+                                        {/*    <motion.div variants={container} initial="hidden" animate="visible" className="sl-parallax-wrap scheme_default">*/}
+                                        {/*        <motion.div className="slide-slogan" variants={item}>*/}
+                                        {/*            <h2 className="mb-4" style={{ color: "#fff" }}>Ou viktim de abi<span*/}
+                                        {/*                className="d-block font-weight-bold">nan men yon moun?</span>*/}
+                                        {/*            </h2>*/}
+                                        {/*            <a href="/complain" className="sc_button sc_button_default sc_button_size_normal sc_button_icon_left sc_button_hover_slide_left">*/}
+                                        {/*                    <span className="sc_button_text">*/}
+                                        {/*                        <span className="sc_button_title">Mande yon sèvis</span>*/}
+                                        {/*                    </span>*/}
+                                        {/*            </a>*/}
+                                        {/*        </motion.div>*/}
+                                        {/*    </motion.div>*/}
+                                        {/*</div>*/}
                                     </Slider>
                                 </div>
                             </div>

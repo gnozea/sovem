@@ -84,7 +84,7 @@ const ServiceTrack: FC<IProps> = (props: IProps) => {
                                                                 className="sc_item_title_text">Swiv dosye w la</span>
                                                             </h2>
                                                             <div className="mt-3">
-                                                                <p>Antre nimewo dosye ou a nan fòmilè ki anba a pouw ka gade tout dènye aktivite ki fèt nan dosye ou a.</p>
+                                                                <p>Antre nimewo dosye ou a nan fòmilè ki anba a pouw ka gade tout dènye aktivite ki fèt nan dosye w la.</p>
                                                                 <div className="scheme_default text-center">
                                                                     <div className="">
                                                                         <div className="col-12 col-md-6 mx-auto">
