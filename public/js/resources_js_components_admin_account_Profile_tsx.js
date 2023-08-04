@@ -83,6 +83,17 @@ var Profile = function Profile(props) {
       return react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.error('votre mot de passe n\'a pas été changé.');
     });
   };
+  var handleMFAReset = function handleMFAReset() {
+    setShowBusy(true);
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/dashboard/reset-mfa").then(function (rep) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.success(rep.data.msg);
+      setShowBusy(false);
+      if (rep.data.refresh) location.reload();
+    })["catch"](function (err) {
+      setShowBusy(false);
+      react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.error(err.response.data.msg);
+    });
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "my-3 my-md-5"
   }, showBusy && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -120,14 +131,21 @@ var Profile = function Profile(props) {
     }
   }, !(user === null || user === void 0 ? void 0 : user.provider) ? "Administrateur" : user.provider.name_short), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     className: "mb-4"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "btn-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     className: "btn btn-outline-primary btn-sm",
     onClick: function onClick() {
       return setShowPassWordEditor(!showPassWordEditor);
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
     className: "fa fa-pencil"
-  }), " Changer mot de passe"))))), showPassWordEditor && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }), " Changer mot de passe"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    className: "btn btn-outline-primary btn-sm",
+    onClick: handleMFAReset
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "fa fa-qrcode"
+  }), " Restaurer MFA")))))), showPassWordEditor && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_5__["default"], {
     onPopupClose: function onPopupClose() {
       return setShowPassWordEditor(false);
     },

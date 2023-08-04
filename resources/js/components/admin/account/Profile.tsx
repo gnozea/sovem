@@ -49,6 +49,18 @@ const Profile: FC<IProps> = (props: IProps) => {
         })
     }
 
+    const handleMFAReset = () => {
+        setShowBusy(true)
+        axios.post("/api/dashboard/reset-mfa").then(rep => {
+            toast.success(rep.data.msg)
+            setShowBusy(false)
+            if (rep.data.refresh) location.reload()
+        }).catch((err) => {
+            setShowBusy(false)
+            toast.error(err.response.data.msg)
+        })
+    }
+
     return <div className="my-3 my-md-5">
         {showBusy && <Progress/>}
         <div className="container">
@@ -61,9 +73,14 @@ const Profile: FC<IProps> = (props: IProps) => {
                             <h4 className="mb-3" style={{ fontWeight: "400" }}>{user.email}</h4>
                             <h5 className="mb-3" style={{ fontWeight: "400" }}>{!user?.provider ? "Administrateur" : user.provider.name_short}</h5>
                             <p className="mb-4"></p>
-                            <button className="btn btn-outline-primary btn-sm" onClick={() => setShowPassWordEditor(!showPassWordEditor)}>
-                                <span className="fa fa-pencil"></span> Changer mot de passe
-                            </button>
+                            <div className="btn-group">
+                                <button className="btn btn-outline-primary btn-sm" onClick={() => setShowPassWordEditor(!showPassWordEditor)}>
+                                    <span className="fa fa-pencil"></span> Changer mot de passe
+                                </button>
+                                <button className="btn btn-outline-primary btn-sm" onClick={handleMFAReset}>
+                                    <span className="fa fa-qrcode"></span> Restaurer MFA
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

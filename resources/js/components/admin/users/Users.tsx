@@ -41,6 +41,7 @@ const Users: FC<IProps> = (props: IProps) => {
     }
 
     useEffect(() => {
+        if(user.provider_id) return
         getData()
     }, [])
 
@@ -78,6 +79,8 @@ const Users: FC<IProps> = (props: IProps) => {
             setShowLinkToProviderOption(true)
         })
     }
+
+    // if (user.provider_id) return <Restricted/>
     if (!users.length) return <Progress/>
 
     function handlePasswordReset(param: {id: any; email: any}) {
@@ -85,6 +88,18 @@ const Users: FC<IProps> = (props: IProps) => {
         axios.post("/api/dashboard/reset-password", {email: param.email}).then(rep => {
             toast.success("Un lien de restauration à été envoyé.")
             setLoading(false)
+        })
+    }
+
+    function handleMFAReset(id: any) {
+        setLoading(true)
+        axios.post("/api/dashboard/reset-mfa", {id: id}).then(rep => {
+            toast.success(rep.data.msg)
+            setLoading(false)
+            if (rep.data.refresh) location.reload()
+        }).catch((err) => {
+            setLoading(false)
+            toast.error(err.response.data.msg)
         })
     }
 
@@ -179,6 +194,9 @@ const Users: FC<IProps> = (props: IProps) => {
                                              style={{position: "absolute", transform: "translate3d(15px, 20px, 0px)", top: "0px", left: "0px", willChange: "transform"}}>
                                             <button className="dropdown-item" onClick={() => handlePasswordReset({id: rep.id, email: rep.email})}>
                                                 <i className="dropdown-icon fe fe-shield"></i> Restaurer password
+                                            </button>
+                                            <button className="dropdown-item" onClick={() => handleMFAReset(rep.id)}>
+                                                <i className="dropdown-icon fa fa-qrcode"></i> Restaurer MFA
                                             </button>
                                 {/*            /!*<a href="" className="dropdown-item"><i className="dropdown-icon fe fe-layers"></i> Details </a>*!/*/}
                                 {/*            <button disabled={!rep.provider} className="dropdown-item" onClick={() => {*/}

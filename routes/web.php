@@ -133,6 +133,34 @@ Route::prefix("api")->group(function (){
         Route::get("users", [UserController::class, "index"]);
         Route::post("users", [UserController::class, "store"]);
 
+        Route::post("reset-mfa", function (Request $request){
+            if (!$request->has("id") && !Auth::id()) \response(["msg" => "Something went wrong."], 422);
+            $id = $request->has("id") ? $request->get("id") : Auth::id();
+            $user = User::find($id);
+            if (!$user['google2fa_secret']) return \response(["msg" => "Ce compte n'a pas de MFA actif."], 422);
+            $user['google2fa_secret'] = null;
+            $user->save();
+
+            $data = [
+                "refresh" => false,
+                "msg" => "Le MFA a été reinitialisé."
+            ];
+
+            if (($request->has("id") && $request->get('id') === Auth::id()) || !$request->has('id')) {
+                Auth::logout();
+
+                $request->session()->invalidate();
+
+                $request->session()->regenerateToken();
+
+                Auth::loginUsingId($id);
+
+                $data['refresh'] = true;
+                $data['msg'] = "Votre MFA a été réinitialisé";
+            }
+            return \response($data);
+        });
+
         Route::post("reset-password", function (Request $request){
             $request->validate(['email' => 'required|email|exists:users,email']);
             $status = Password::sendResetLink(

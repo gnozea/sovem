@@ -111,6 +111,7 @@ var Users = function Users(props) {
     });
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (user.provider_id) return;
     getData();
   }, []);
   var checkEmail = function checkEmail(e) {
@@ -161,6 +162,19 @@ var Users = function Users(props) {
     }).then(function (rep) {
       react_toastify__WEBPACK_IMPORTED_MODULE_9__.toast.success("Un lien de restauration à été envoyé.");
       setLoading(false);
+    });
+  }
+  function handleMFAReset(id) {
+    setLoading(true);
+    axios__WEBPACK_IMPORTED_MODULE_3___default().post("/api/dashboard/reset-mfa", {
+      id: id
+    }).then(function (rep) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_9__.toast.success(rep.data.msg);
+      setLoading(false);
+      if (rep.data.refresh) location.reload();
+    })["catch"](function (err) {
+      setLoading(false);
+      react_toastify__WEBPACK_IMPORTED_MODULE_9__.toast.error(err.response.data.msg);
     });
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -327,7 +341,14 @@ var Users = function Users(props) {
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "dropdown-icon fe fe-shield"
-    }), " Restaurer password")))));
+    }), " Restaurer password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "dropdown-item",
+      onClick: function onClick() {
+        return handleMFAReset(rep.id);
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+      className: "dropdown-icon fa fa-qrcode"
+    }), " Restaurer MFA")))));
   })))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Users);
