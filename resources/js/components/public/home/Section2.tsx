@@ -139,12 +139,11 @@ const Section2: FC<IProps> = (props) => {
                                                                         <div className="sc_icons_item sc_icons_item_linked">
                                                                             <div className="sc_icons_item_details">
                                                                                 <h4 className="sc_icons_item_title">
-                                                                                    <span>Ki objektif pòtay sa a</span>
+                                                                                    <span>Ki objektif sit sa a</span>
                                                                                 </h4>
                                                                                 <div className="sc_icons_item_description">
                                                                                     <span>
-                                                                                      Pòtay sa a reyalize nan objektif pou ede moun ki viktim vyolans yo antre an kontak byen fasil ak
-                                                                                        òganizasyon oswa enstitisyon ki ka ede yo. Ou ka itilize sèvis sa a gratis.
+                                                                                      Asire ke moun ki viktim vyolans yo gen aksè ak yon kat jewografik òganizasyon gratis yo, enstitisyon prive ak piblik ki bay sèvis ak moum ki sibi zak vyolans nan depatman Lwès Ayiti.
                                                                                     </span>
                                                                                 </div>
                                                                                 <Link className="sc_icons_item_link" to={{
@@ -158,10 +157,10 @@ const Section2: FC<IProps> = (props) => {
                                                                         <div className="sc_icons_item sc_icons_item_linked">
                                                                             <div className="sc_icons_item_details">
                                                                                 <h4 className="sc_icons_item_title">
-                                                                                    <span>Kijan pòtay la fonksyone?</span>
+                                                                                    <span>Kijan sit la fonksyone?</span>
                                                                                 </h4>
                                                                                 <div className="sc_icons_item_description">
-                                                                                    <span>Lè w konekte sou pòtay la, jis klike sou onglè MANDE YON SEVIS. Epi swiv tout etap pandan w ap reponn kesyon ki korespon n ak sitiyasyon w lan.
+                                                                                    <span>Lè w rive sou sit la, klike sou onglè <b>MANDE YON SEVIS</b> epi swiv tout etap yo pandan w’ap reponn kesyon ki koresponn ak sitiyasyon w.
                                                                                     </span>
                                                                                 </div>
                                                                                 <Link to="/about-us" className="sc_icons_item_link">
@@ -174,10 +173,10 @@ const Section2: FC<IProps> = (props) => {
                                                                         <div className="sc_icons_item sc_icons_item_linked">
                                                                             <div className="sc_icons_item_details">
                                                                                 <h4 className="sc_icons_item_title">
-                                                                                    <span>Apre demand lan fin soumèt</span>
+                                                                                    <span>Lè ou fin soumèt demand lan</span>
                                                                                 </h4>
                                                                                 <div className="sc_icons_item_description">
-                                                                                    <span>Aprè ou fin soumèt yon demann, òganizasyon oswa espesyalis ki ka ede w yo ap resevwa yon alèt nan yon sistèm otomatik ki entegre nan pòtay la. Ou ka suive evolisyon dosye w la byen fasil sou lyen sa a: suive dosye w.</span>
+                                                                                    <span>Lè ou soumèt yon demann sèvis, founisè ki enskri yo ap resevwa yon alèt nan yon sistèm otomatik ki entegre nan sit la.</span>
                                                                                 </div>
                                                                                 <Link
                                                                                     to="/about-us"

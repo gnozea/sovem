@@ -43,13 +43,28 @@ export const SectionII: FC<IProps> = (props: IProps) => {
                                                 </h1>
                                                 <div className="sc_item_descr sc_title_descr sc_align_center">
                                                     <ul className="trx_addons_list_dot text-start">
-                                                        <li>Platfòm sa ebèje yon mekanis katografi ak referesman ki chita sou yon fòmil : itilizatè-zanmitay.</li>
-                                                        <li>Pòtay la pèmèt itilizatè yo itilize yon fòmilè ki bay plizyè opsyon pou sinyale nati sèvis yap chache a.</li>
-                                                        <li>Se yon demach ki totalman anonim. Pa gen pèson ki ka retrase moun ki mande sèvis la, menm antite kap jere sit la ak enstitisyon kap bay sèvis la.</li>
-                                                        <li>Sistèm referansman ki ebèje sou sit wèb sa itilize yon systèm biyè kote chak itilizatè resevwa yon nimero tikè ki inik. Niméro sa se sèl lyen ki konekte demandè à ak fonisè sèvis la.</li>
-                                                        <li>Pòtay la gen yon katografi entè-aktif ki pèmèt itilizatè yo wè ki kote fonisè sèvis yo lokalize.</li>
-                                                        <li>Katografi a endike ki tip sèvis ki disponib ak ki kote chak fonisè sèvis yo ye.</li>
-                                                        <li>Pòtay sa oubyen antite kap jere li a, pa bay okenn sèvis. Wòl li se konekte moun kap chache sèvis ak enstitisyon kap bay sèvis yo. Pòtay la oubyen antite kap jere li a, pa gen okenn responsabilite nan sa ki gen a wè ak sak ki gen rapò ak itilizasyon sit la ou byen kalite swen sèvis ki bay yo.</li>
+                                                        <li>Sit sa ebèje yon sit referansman ki fasil pou itilize.</li>
+                                                        <li>Sit sa pa pou itilizasyon moun ki gen ijans, men se pou fanm ak
+                                                            gason ki viktim vyolans ki jwenn yon asistans, premye swen deja ki
+                                                            bezwen yon asistans siplemantè.</li>
+                                                        <li>Antite kap jere sit la pa responsab si yon moun eseye itilize sit la pou
+                                                            chache asistans pou ijans. Nan tout ka ijans kontakte sèvis ijans yo.</li>
+                                                        <li>Sit la pèmèt itilizatè yo ranpli yon fòmilè ki bay plizyè opsyon pou
+                                                            sinyale ki kalite sèvis yap chache a.</li>
+                                                        <li>Se yon demach ki totalman anonim. Pa gen pèson ki ka retrase moun
+                                                            ki mande sèvis la, menm antite kap jere sit la ak enstitisyon kap bay
+                                                            sèvis yo.</li>
+                                                        <li>Sit referansman sa itilize yon sistèm kote chak itilizatè resevwa yon
+                                                            nimewo tikè ki inik. Nimewo sa se sèl lyen ki konekte demandè a ak
+                                                            founisè sèvis la atravè sit la.</li>
+                                                        <li>Sit la gen yon katografi entèraktif ki pèmèt itilizatè yo wè ki kote
+                                                            founisè sèvis yo lokalize.</li>
+                                                        <li>Katografi a endike ki tip sèvis ki disponib ak ki kote chak founisè
+                                                            sèvis yo ye.</li>
+                                                        <li>Sit sa oubyen antite kap jere li a, pa bay okenn sèvis. Wòl li se
+                                                            konekte moun kap chache sèvis ak enstitisyon ki di yap bay sèvis yo.</li>
+                                                        <li>Sit la oubyen antite kap jere li a, pa gen okenn rapò ak kalite swen
+                                                            sèvis ki bay yo.</li>
                                                     </ul>
                                                 </div>
                                             </div>

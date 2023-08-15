@@ -59,13 +59,13 @@ export const SectionVI: FC<IProps> = (props: IProps) => {
                                                                         <div className="sc_item_button sc_button_wrap sc_item_button sc_item_button_default sc_promo_button"
                                                                         >
                                                                             <p>
-                                                                                Lè ou soumèt yon demann sèvis, founisè ki enskri yo ap resevwa yon alèt nan yon sistèm otomatik ki entegre nan pòtay la. Òganizasyon oubyen enstitisyon prive ak piblik ki vle satisfè bezwen an, ap gen opsyon pou afiche yon repons ak sèvis nimewo tikè ki se nimero referans viktim nan.
+                                                                                Lè ou soumèt yon demann sèvis, founisè ki enskri yo ap resevwa yon alèt nan yon sistèm otomatik ki entegre nan sit la. Òganizasyon oubyen enstitisyon prive ak piblik ki vle satisfè bezwen an, ap gen opsyon pou afiche yon repons ak sèvis nimewo tikè ki se nimero referans viktim nan.
                                                                             </p>
                                                                             <p>
-                                                                                Moun ki mande sèvis la sèvis la dwe tyeke pòtay la pou wè si gen yon repons ak demand li a.
+                                                                                Moun ki mande sèvis la dwe tyeke sit la pou wè si gen yon repons ak demand li a.
                                                                             </p>
                                                                             <p>
-                                                                                Pòtay la itilize yon kat jeyografik ki lokalize tout founisè sèvis yo. Ladan l genyen founisè swen sante sèksyèl, sikologik ak fizik. Platfòm nan pa bay okenn aksè pou gen entèraksyon ant demandè ak repondè a ki ale pi lwen ke enfomasyon ki figire nan fòm aplikasyon an. Gen posibilite pou 3 founisè reponn ak demand lan. Men, se viktim nan kap chwazi kiyès nan yo ki pou bal sèvis.
+                                                                                Sit la itilize yon kat jewografik ki lokalize tout founisè sèvis yo. Ladan li genyen founisè swen sante sèksyèl, sikolojik ak fizik. Platfòm nan pa bay okenn aksè pou gen entèraksyon ant demandè ak repondè a ki ale pi lwen ke enfomasyon ki figire nan fòm aplikasyon an. Gen posibilite pou twa (3) founisè reponn ak demand lan. Men, se viktim nan kap chwazi kiyès nan yo ki pou bal sèvis.
                                                                             </p>
                                                                         </div>
                                                                     </div>

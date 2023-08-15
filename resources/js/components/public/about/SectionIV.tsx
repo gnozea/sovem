@@ -36,16 +36,20 @@ export const SectionIV: FC<IProps> = (props: IProps) => {
                                         <div className="vighor-widget-container">
                                             <div id="trx_sc_title_850374424" className="sc_title sc_title_decoration">
                                                 <h1 className="sc_item_title sc_title_title sc_align_center sc_item_title_style_decoration sc_item_title_tag">
-                                                    <span className="sc_item_title_text">Ki objektif pòtay sa a</span>
+                                                    <span className="sc_item_title_text">Ki objektif sit sa a</span>
                                                 </h1>
                                                 <div className="sc_item_descr sc_title_descr sc_align_center">
-                                                    <p style={{ textAlign: "center" }}>Pòtay sa a reyalize nan objektif sa yo: </p>
+                                                    <p style={{ textAlign: "center" }}>Sit sa a reyalize nan objektif sa yo:</p>
 
                                                     <div className="sc_item_descr sc_title_descr sc_align_center">
                                                         <ul className="trx_addons_list_dot text-start">
-                                                            <li>Asire ke moun ki viktim vyolans yo gen aksè ak yon kat jewografik òganizasyon gratis yo, enstitisyon prive ak piblik ki bay sèvis ak moum ki sibi zak vyolans nan depatman Lwès Ayiti;</li>
-                                                            <li>Fasilite kominikasyon moun ki viktim yo ak enstitisyon kap bay swen yo;</li>
-                                                            <li>Bay yon mwayen pou dokimante rapò vyolans ki chita sou kadejak nan depatman Lwès peyi dayiti.</li>
+                                                            <li>Asire ke moun ki viktim vyolans yo gen aksè ak yon kat jewografik
+                                                                òganizasyon gratis yo, enstitisyon prive ak piblik ki bay sèvis ak moum
+                                                                ki sibi zak vyolans nan depatman Lwès Ayiti.</li>
+                                                            <li>Fasilite kominikasyon moun ki viktim yo ak enstitisyon kap bay swen
+                                                                yo.</li>
+                                                            <li>-Bay yon mwayen pou dokimante rapò vyolans ki chita sou kadejak nan
+                                                                depatman Lwès peyi Ayiti.</li>
                                                         </ul>
                                                     </div>
 

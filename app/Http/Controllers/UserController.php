@@ -26,7 +26,7 @@ class UserController extends Controller
 
         if (Auth::user()['provider_id']) $users->where("provider_id", Auth::user()['provider_id']);
 
-//        $users->where("id", "<>", Auth::user()['id']);
+        $users->where("id", "<>", Auth::user()['id']);
 
         return response([
             "status" => "success",
