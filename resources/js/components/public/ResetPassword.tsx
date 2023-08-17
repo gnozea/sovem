@@ -16,7 +16,7 @@ const ResetPassword: FC<IProps> = (props: IProps) => {
     const [details, setDetails] = useState<any>(),
         email = decodeURI(document.URL.replace(/.*email=([^&]*).*|(.*)/, '$1')),
         [busy, setBusy] = useState<boolean>(),
-        [error, setError] = useState<any>({}),
+        [error, setError] = useState<any>(undefinedgit ),
         [password, setPassword] = useState<string>(),
         [passwordConfirm, setPasswordConfirm] = useState<string>(""),
         url = window.location.pathname.split("/").filter((u: any) => {
@@ -58,7 +58,7 @@ const ResetPassword: FC<IProps> = (props: IProps) => {
             toast.error("Compte inexistant ou lien invalide.")
             setBusy(false)
         }).catch(error => {
-            setError(error.response.data)
+            setError("Compte inexistant ou lien invalide.")
             setBusy(false)
         })
     }
@@ -139,8 +139,8 @@ const ResetPassword: FC<IProps> = (props: IProps) => {
                                                                                 {password === passwordConfirm && password?.length < 6 &&
                                                                                     <p className="text-danger">Mot de passe doit être au moins 6 caractères.</p>
                                                                                 }
-                                                                                {Object.keys(error).length > 0 &&
-                                                                                    <p className="text-danger text-start">{error.message}</p>
+                                                                                {error &&
+                                                                                    <p className="text-danger text-start">{error}</p>
                                                                                 }
                                                                         </div>
 
