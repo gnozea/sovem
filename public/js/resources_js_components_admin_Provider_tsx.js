@@ -25,6 +25,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _providers_AddSpecialist__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./providers/AddSpecialist */ "./resources/js/components/admin/providers/AddSpecialist.tsx");
 /* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
+/* harmony import */ var _providers_AddressChange__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./providers/AddressChange */ "./resources/js/components/admin/providers/AddressChange.tsx");
 var __assign = undefined && undefined.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -35,6 +36,7 @@ var __assign = undefined && undefined.__assign || function () {
   };
   return __assign.apply(this, arguments);
 };
+
 
 
 
@@ -65,14 +67,17 @@ var Provider = function Provider(props) {
     busy = _c[0],
     setBusy = _c[1],
     _d = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
-    showEdit = _d[0],
-    setShowEdit = _d[1],
+    addressChange = _d[0],
+    setAddressChange = _d[1],
     _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
-    showAddSpecialist = _e[0],
-    setShowAddSpecialist = _e[1],
+    showEdit = _e[0],
+    setShowEdit = _e[1],
     _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
-    showAdd = _f[0],
-    setShowAdd = _f[1];
+    showAddSpecialist = _f[0],
+    setShowAddSpecialist = _f[1],
+    _g = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    showAdd = _g[0],
+    setShowAdd = _g[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios__WEBPACK_IMPORTED_MODULE_2___default().get("/api/dashboard/providers").then(function (rep) {
       var data = __assign({}, rep.data);
@@ -150,6 +155,11 @@ var Provider = function Provider(props) {
     provider: showEdit,
     onClose: function onClose() {
       return setShowEdit(undefined);
+    }
+  }), addressChange !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_providers_AddressChange__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    provider: addressChange,
+    onClose: function onClose() {
+      return setAddressChange(undefined);
     }
   }), showAddSpecialist && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_providers_AddSpecialist__WEBPACK_IMPORTED_MODULE_10__["default"], {
     provider: showAddSpecialist,
@@ -325,7 +335,16 @@ var Provider = function Provider(props) {
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
       className: "dropdown-icon fe fe-lock"
-    }), " D\xE9sactiver"), rep.status === "active" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    }), " D\xE9sactiver"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      className: "dropdown-item",
+      onClick: function onClick() {
+        return setAddressChange(__assign(__assign({}, rep), {
+          index: key
+        }));
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("i", {
+      className: "dropdown-icon fe fe-home"
+    }), " Changer l'adresse"), rep.status === "active" && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "dropdown-item",
       onClick: function onClick() {
         return handlePasswordReset(rep.email);
@@ -803,6 +822,127 @@ var AddSpecialist = function AddSpecialist(props) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddSpecialist);
 var Select = styled_components__WEBPACK_IMPORTED_MODULE_6__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n    margin-top: 30px;\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"], ["\n    margin-top: 30px;\n    .select2.select2-container{\n        width: 100%!important;\n        border: 1px solid rgba(0, 40, 100, 0.12);\n    }\n    .select2-selection__arrow{\n        top: 4px!important;\n    }\n    .select2-selection.select2-selection--single{\n        padding: 0!important;\n    }\n"])));
 var templateObject_1;
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/providers/AddressChange.tsx":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/admin/providers/AddressChange.tsx ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _utils_Popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/Popup */ "./resources/js/components/utils/Popup.tsx");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _utils_Restricted__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/Restricted */ "./resources/js/components/utils/Restricted.tsx");
+/* harmony import */ var _context_AccountContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../context/AccountContext */ "./resources/js/context/AccountContext.tsx");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
+/* harmony import */ var _context_ProviderContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../context/ProviderContext */ "./resources/js/context/ProviderContext.tsx");
+/* harmony import */ var _utils_Progress__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../utils/Progress */ "./resources/js/components/utils/Progress.js");
+/* harmony import */ var _utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../utils/form-components/Select2 */ "./resources/js/components/utils/form-components/Select2.tsx");
+
+
+
+
+
+
+
+
+
+var AddressChange = function AddressChange(props) {
+  var user = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_AccountContext__WEBPACK_IMPORTED_MODULE_4__["default"]).user,
+    _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_ProviderContext__WEBPACK_IMPORTED_MODULE_6__["default"]),
+    providers = _a.providers,
+    dispatch = _a.dispatch,
+    _b = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    busy = _b[0],
+    setBusy = _b[1];
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    var form = new FormData(e.target);
+    form.append("_method", "PUT");
+    setBusy(true);
+    axios__WEBPACK_IMPORTED_MODULE_2___default().post("/api/dashboard/provider/".concat(props.provider.id, "/change-address"), form).then(function (rep) {
+      dispatch({
+        type: "EDIT_PROVIDER",
+        payload: {
+          index: props.provider.index,
+          update: rep.data.update
+        }
+      });
+      react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success("Vos données ont été mis à jours!");
+      setBusy(false);
+      props.onClose();
+    })["catch"](function (error) {
+      react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.error(error.response.data.message);
+      setBusy(false);
+      props.onClose();
+    });
+  };
+  if (user.provider_id) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Restricted__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Popup__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    onPopupClose: function onPopupClose() {
+      return typeof props.onClose === "function" ? props.onClose() : undefined;
+    },
+    title: "Changement d'adresse",
+    isSmall: true,
+    parentId: "24634sgs"
+  }, busy && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_7__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+    action: "",
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("fieldset", {
+    className: "mt-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "form-group mb-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "form-label"
+  }, "Adresse", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "form-required"
+  }, "*")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+    type: "text",
+    name: "address_line_1",
+    required: true,
+    placeholder: "Nom du prestataire",
+    defaultValue: props.provider.address_line_1,
+    className: "form-control"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("fieldset", {
+    className: "mt-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "form-group mb-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+    className: "form-label"
+  }, "Ville", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+    className: "form-required"
+  }, "*")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_form_components_Select2__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    classes: "dashboard-select2",
+    multiple: false,
+    onSearch: function onSearch(e) {},
+    searchKeys: {
+      id: 'id',
+      text: ['name']
+    },
+    searchUrl: "/api/city/search?all=true",
+    selectedValue: undefined,
+    onSelect: undefined,
+    searchable: true,
+    name: "city",
+    placeholder: "e.g. Delmas",
+    id: "city"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "card-footer text-right p-0 pt-2 mt-2"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "d-flex"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    type: "submit",
+    className: "btn btn-primary ml-auto"
+  }, "Mettre \xE0 jour")))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddressChange);
 
 /***/ }),
 

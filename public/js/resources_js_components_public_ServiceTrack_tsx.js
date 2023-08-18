@@ -369,6 +369,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ConfirmProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ConfirmProvider */ "./resources/js/components/public/ConfirmProvider.tsx");
 /* harmony import */ var _DisplayTrack__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DisplayTrack */ "./resources/js/components/public/DisplayTrack.tsx");
 /* harmony import */ var _DisplayConfirmed__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DisplayConfirmed */ "./resources/js/components/public/DisplayConfirmed.tsx");
+/* harmony import */ var _utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/BrowserTitle */ "./resources/js/components/utils/BrowserTitle.tsx");
 var __assign = undefined && undefined.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -379,6 +380,7 @@ var __assign = undefined && undefined.__assign || function () {
   };
   return __assign.apply(this, arguments);
 };
+
 
 
 
@@ -409,14 +411,17 @@ var ServiceTrack = function ServiceTrack(props) {
     showPopup = _d[0],
     setShowPopup = _d[1],
     _e = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
-    showConfirmProvider = _e[0],
-    setShowConfirmProvider = _e[1],
+    errorMsg = _e[0],
+    setErrorMsg = _e[1],
     _f = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
-    canNext = _f[0],
-    setCanNext = _f[1],
-    _g = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
-    current = _g[0],
-    setCurrent = _g[1];
+    showConfirmProvider = _f[0],
+    setShowConfirmProvider = _f[1],
+    _g = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    canNext = _g[0],
+    setCanNext = _g[1],
+    _h = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
+    current = _h[0],
+    setCurrent = _h[1];
   var getData = function getData() {
     axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/track/".concat(tracking)).then(function (rep) {
       setConfirmed(rep.data.data.confirmed);
@@ -424,6 +429,8 @@ var ServiceTrack = function ServiceTrack(props) {
       delete data['confirmed'];
       setResults(data);
       setShowPopup(true);
+    })["catch"](function (error) {
+      setErrorMsg(error.response.data.msg);
     });
   };
   var handleTrack = function handleTrack(e) {
@@ -448,7 +455,9 @@ var ServiceTrack = function ServiceTrack(props) {
       getData();
     });
   };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    title: "Verifye eta deman ou"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "col-12 col-md-8 pb-4 mx-auto"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "position-relative service-form-request-wrap"
@@ -508,11 +517,14 @@ var ServiceTrack = function ServiceTrack(props) {
     id: "folderN",
     type: "text",
     onChange: function onChange(e) {
-      return setTracking(e.target.value);
+      setTracking(e.target.value);
+      setErrorMsg(undefined);
     },
     placeholder: "Mete nimewo dosye w la",
     className: "fill_inited"
-  }))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }))))), errorMsg && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    className: "mt-2 mb-2 text-danger"
+  }, errorMsg), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "dk-speakout-submit-wrap mt-3"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
     disabled: !tracking,

@@ -198,6 +198,7 @@ Route::prefix("api")->group(function (){
         });
         Route::get("providers", [ProviderController::class, "index"])->middleware(AccountType::class);
         Route::post("provider/{id}/disable", [ProviderController::class, "disable"])->middleware(AccountType::class);
+        Route::put("provider/{id}/change-address", [ProviderController::class, "change_address"])->middleware(AccountType::class);
         Route::post("provider/{id}/activate", [ProviderController::class, "activate"])->middleware(AccountType::class);
         Route::put("provider/{id}", [ProviderController::class, "update"])->middleware(AccountType::class);
         Route::post("provider", [ProviderController::class, "store"])->middleware(AccountType::class);

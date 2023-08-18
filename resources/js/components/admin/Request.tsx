@@ -6,7 +6,7 @@ import RequestContext from "../../context/RequestContext";
 import Moment from "react-moment";
 import moment from "moment";
 import AccountContext from "../../context/AccountContext";
-import {keys} from "lodash";
+import _, {keys} from "lodash";
 import {toast} from "react-toastify";
 import Release from "./providers/Release";
 import RequestDetails from "../RequestDetails";
@@ -116,17 +116,18 @@ const Request: FC<IProps> = (props: IProps) => {
                                         colSpan={1} aria-label="Created: activate to sort column ascending"
                                         style={{ width: "102.812px" }}>Date rendez-vouz
                                     </th>
-                                    <th className="sorting" tabIndex={0} aria-controls="DataTables_Table_0" rowSpan={1}
-                                        colSpan={1} aria-label="Status: activate to sort column ascending"
+                                    <th className="no-sorting" tabIndex={0} rowSpan={1}
                                         style={{ width: "146.297px" }}>Statut
                                     </th>
-                                    <th className="sorting" tabIndex={0} aria-controls="DataTables_Table_0" rowSpan={1}
-                                        colSpan={1} aria-label="Price: activate to sort column ascending"
+                                    <th className="" tabIndex={0} rowSpan={1}
                                         style={{ width: "53.5547px" }}>Spécialist
                                     </th>
-                                    <th className="" tabIndex={0} aria-controls="DataTables_Table_0" rowSpan={1}
-                                        colSpan={1} aria-label=": activate to sort column ascending"
-                                        style={{ width: "173.422px" }}></th>
+                                    <th className="no-sorting" tabIndex={0} rowSpan={1}
+                                        colSpan={1}
+                                        style={{ width: "146.297px" }}>Date demande
+                                    </th>
+                                    <th className="" tabIndex={0} rowSpan={1}
+                                        style={{ width: "22px" }}></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -157,8 +158,12 @@ const Request: FC<IProps> = (props: IProps) => {
                                         <span className={`text-${`primary`}`}>{status.join(', ')}</span>
                                     </td>
                                     <td className="">
-                                        <span data-toggle="tooltip" title={specialist.join(", ").replace(/, ([^,]*)$/, ' et $1')}>{specialist.join(", ")}</span>
+                                        <span data-toggle="tooltip" title={specialist.join(", ").replace(/, ([^,]*)$/, ' et $1')}>{_.truncate(specialist.join(", "), {
+                                            'length': 25,
+                                            'separator': ' '
+                                        })}</span>
                                     </td>
+                                    <td>{moment(unclaimed.created_at).format("D MMMM YYYY")}</td>
                                     <td className="text-right">
                                         <div className="item-action dropdown">
                                             <a href="" data-toggle="dropdown" data-boundary="viewport" className="icon" aria-expanded="false"><i className="fe fe-more-vertical"></i></a>

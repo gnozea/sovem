@@ -6,6 +6,7 @@ import moment from "moment/moment";
 import ConfirmProvider from "./ConfirmProvider";
 import DisplayTrack from "./DisplayTrack";
 import DisplayConfirmed from "./DisplayConfirmed";
+import BrowserTitle from "../utils/BrowserTitle";
 
 const calendarStrings = {
     lastDay : '[Yè v`] LT',
@@ -26,6 +27,7 @@ const ServiceTrack: FC<IProps> = (props: IProps) => {
         [results, setResults] = useState<any>(),
         [confirmed, setConfirmed] = useState<any>([]),
         [showPopup, setShowPopup] = useState<any>(),
+        [errorMsg, setErrorMsg] = useState<string>(),
         [showConfirmProvider, setShowConfirmProvider] = useState<boolean>(),
         [canNext, setCanNext] = useState<boolean>(),
         [current, setCurrent] = useState<number>(0)
@@ -37,6 +39,8 @@ const ServiceTrack: FC<IProps> = (props: IProps) => {
             delete data['confirmed']
             setResults(data)
             setShowPopup(true)
+        }).catch((error) => {
+            setErrorMsg(error.response.data.msg)
         })
     }
     const handleTrack = (e: any) => {
@@ -65,6 +69,7 @@ const ServiceTrack: FC<IProps> = (props: IProps) => {
     }
 
     return <>
+        <BrowserTitle title={"Verifye eta deman ou"}/>
             <div className="col-12 col-md-8 pb-4 mx-auto">
                 <div className="position-relative service-form-request-wrap">
                     <section className="vighor-section vighor-top-section vighor-element vighor-element-21b3bff vighor-section-boxed vighor-section-height-default vighor-section-height-default">
@@ -97,12 +102,16 @@ const ServiceTrack: FC<IProps> = (props: IProps) => {
                                                                                         <div className="dk-speakout-full">
                                                                                             <input autoComplete="off" name="DS~NO~990"
                                                                                                    id="folderN" type="text"
-                                                                                                   onChange={(e: any) => setTracking(e.target.value)}
+                                                                                                   onChange={(e: any) => {
+                                                                                                       setTracking(e.target.value)
+                                                                                                       setErrorMsg(undefined)
+                                                                                                   }}
                                                                                                    placeholder="Mete nimewo dosye w la" className="fill_inited"/>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </>
+                                                                            {errorMsg && <p className="mt-2 mb-2 text-danger">{errorMsg}</p>}
                                                                             <div className="dk-speakout-submit-wrap mt-3">
                                                                                 <button disabled={!tracking} onClick={handleTrack} className="dk-speakout-submit sc_button_hover_slide_left Question-Next-Button">
                                                                                     <span className="">Verifye eta demand lan</span>

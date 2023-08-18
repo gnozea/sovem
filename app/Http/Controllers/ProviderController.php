@@ -65,6 +65,23 @@ class ProviderController extends Controller
         ];
     }
 
+    public function change_address($id, Request $request){
+        $request->validate([
+            "address_line_1" => "required|string",
+            "city" => "required|exists:cities,id"
+        ]);
+        $provider = Provider::find($id);
+        $provider->update([
+            'address_line_1' => $request->get("address_line_1"),
+            'city' => $request->get("city"),
+        ]);
+        return [
+            "status" => "success",
+            "msg" => "Vos données ont été mis à jours.",
+            "update" => $provider
+        ];
+    }
+
     public function resend_verification(Request $request)
     {
         $request->validate([

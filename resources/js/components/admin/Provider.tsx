@@ -11,6 +11,7 @@ import _ from "lodash";
 import Popup from "../utils/Popup";
 import AddSpecialist from "./providers/AddSpecialist";
 import {toast} from "react-toastify";
+import AddressChange from "./providers/AddressChange";
 
 interface IProps {
 
@@ -27,6 +28,7 @@ const Provider: FC<IProps> = (props: IProps) => {
         {user} = useContext(AccountContext),
         {providers, dispatch} = useContext(ProviderContext),
         [busy, setBusy] = useState<boolean>(true),
+        [addressChange, setAddressChange] = useState<any>(),
         [showEdit, setShowEdit] = useState<any>(),
         [showAddSpecialist, setShowAddSpecialist] = useState<any>(),
         [showAdd, setShowAdd] = useState<boolean>()
@@ -71,6 +73,7 @@ const Provider: FC<IProps> = (props: IProps) => {
     if (user.provider_id) return <Restricted/>
     if (busy && (!providers.length || !paginate)) return <Progress/>
 
+
     if (!providers.length) return <div className="row" style={{ height: "100vh", alignItems: "center" }}>
         {showAdd && <Add onClose={() => setShowAdd(undefined)}/>}
         <div className="col-12" style={{ textAlign: "center" }}>
@@ -82,6 +85,7 @@ const Provider: FC<IProps> = (props: IProps) => {
         <BrowserTitle title="Prestataires"/>
         {busy && <Progress/>}
         {showEdit !== undefined && <Edit provider={showEdit} onClose={() => setShowEdit(undefined)}/>}
+        {addressChange !== undefined && <AddressChange provider={addressChange} onClose={() => setAddressChange(undefined)}/>}
         {showAddSpecialist && <AddSpecialist provider={showAddSpecialist} onClose={() => setShowAddSpecialist(undefined)} service={showAddSpecialist}/>}
         {showAdd && <Add onClose={() => setShowAdd(undefined)}/>}
         <div className="col-12">
@@ -162,6 +166,7 @@ const Provider: FC<IProps> = (props: IProps) => {
                                                 {/*<a href="" className="dropdown-item"><i className="dropdown-icon fe fe-layers"></i> Details </a>*/}
                                                 <button className="dropdown-item" onClick={() => setShowEdit(key)}><i className="dropdown-icon fe fe-edit-2"></i> Modifier</button>
                                                 {rep.status === "active" && <button className="dropdown-item" onClick={() => handleDisableEnable(key, "disable")}><i className="dropdown-icon fe fe-lock"></i> Désactiver</button>}
+                                                <button className="dropdown-item" onClick={() => setAddressChange({...rep, index: key})}><i className="dropdown-icon fe fe-home"></i> Changer l'adresse</button>
                                                 {rep.status === "active" && <button className="dropdown-item" onClick={() => handlePasswordReset(rep.email)}><i className="dropdown-icon fe fe-shield"></i> Restaurer password</button>}
                                                 {(rep.status === "inactive" || rep.status === "disabled") && <button className="dropdown-item" onClick={() => handleDisableEnable(key, "enable")}><i className="dropdown-icon fe fe-lock"></i> Activer</button>}
                                                 <button className="dropdown-item" onClick={() => setAddSpeciality(key)}>

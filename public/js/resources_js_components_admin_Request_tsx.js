@@ -107,8 +107,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _context_AccountContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../context/AccountContext */ "./resources/js/context/AccountContext.tsx");
-/* harmony import */ var _providers_Release__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./providers/Release */ "./resources/js/components/admin/providers/Release.tsx");
-/* harmony import */ var _RequestDetails__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../RequestDetails */ "./resources/js/components/RequestDetails.tsx");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _providers_Release__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./providers/Release */ "./resources/js/components/admin/providers/Release.tsx");
+/* harmony import */ var _RequestDetails__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../RequestDetails */ "./resources/js/components/RequestDetails.tsx");
 var __assign = undefined && undefined.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -119,6 +121,7 @@ var __assign = undefined && undefined.__assign || function () {
   };
   return __assign.apply(this, arguments);
 };
+
 
 
 
@@ -209,12 +212,12 @@ var Request = function Request(props) {
     className: "row position-relative"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_2__["default"], {
     title: "Demandes de services"
-  }), busy && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_1__["default"], null), showDetail && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RequestDetails__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }), busy && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_utils_Progress__WEBPACK_IMPORTED_MODULE_1__["default"], null), showDetail && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RequestDetails__WEBPACK_IMPORTED_MODULE_9__["default"], {
     item: showDetail,
     onClose: function onClose() {
       return setShowDetail(undefined);
     }
-  }), showRelease !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_providers_Release__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }), showRelease !== undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_providers_Release__WEBPACK_IMPORTED_MODULE_8__["default"], {
     item: showRelease,
     onClose: function onClose() {
       return setShowRelease(undefined);
@@ -299,34 +302,33 @@ var Request = function Request(props) {
       width: "102.812px"
     }
   }, "Date rendez-vouz"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
-    className: "sorting",
+    className: "no-sorting",
     tabIndex: 0,
-    "aria-controls": "DataTables_Table_0",
     rowSpan: 1,
-    colSpan: 1,
-    "aria-label": "Status: activate to sort column ascending",
     style: {
       width: "146.297px"
     }
   }, "Statut"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
-    className: "sorting",
+    className: "",
     tabIndex: 0,
-    "aria-controls": "DataTables_Table_0",
     rowSpan: 1,
-    colSpan: 1,
-    "aria-label": "Price: activate to sort column ascending",
     style: {
       width: "53.5547px"
     }
   }, "Sp\xE9cialist"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
-    className: "",
+    className: "no-sorting",
     tabIndex: 0,
-    "aria-controls": "DataTables_Table_0",
     rowSpan: 1,
     colSpan: 1,
-    "aria-label": ": activate to sort column ascending",
     style: {
-      width: "173.422px"
+      width: "146.297px"
+    }
+  }, "Date demande"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("th", {
+    className: "",
+    tabIndex: 0,
+    rowSpan: 1,
+    style: {
+      width: "22px"
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("tbody", null, state.filter(function (claimed) {
     return claimed.requests.length > 0;
@@ -364,7 +366,10 @@ var Request = function Request(props) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
       "data-toggle": "tooltip",
       title: specialist.join(", ").replace(/, ([^,]*)$/, ' et $1')
-    }, specialist.join(", "))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
+    }, lodash__WEBPACK_IMPORTED_MODULE_7___default().truncate(specialist.join(", "), {
+      'length': 25,
+      'separator': ' '
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", null, moment__WEBPACK_IMPORTED_MODULE_5___default()(unclaimed.created_at).format("D MMMM YYYY")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("td", {
       className: "text-right"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "item-action dropdown"

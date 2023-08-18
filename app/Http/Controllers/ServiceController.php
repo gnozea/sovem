@@ -110,6 +110,11 @@ class ServiceController extends Controller
                 }
             ])->first();
 
+        if (!isset($request['logs'])) return response([
+            "status" => "error",
+            "msg" => "Nimero demand sa a pa egziste."
+        ], 422);
+
         $toGroup = $request['logs']->groupBy("speciality_id");
         unset($request['logs']);
 
