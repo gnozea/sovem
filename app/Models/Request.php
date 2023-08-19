@@ -60,6 +60,11 @@ class Request extends Model
         return $this->belongsTo(City::class, "your_city");
     }
 
+    public function incident_city()
+    {
+        return $this->belongsTo(City::class, "incident_city");
+    }
+
     public function incident_city_location()
     {
         return $this->belongsTo(City::class, "incident_city");

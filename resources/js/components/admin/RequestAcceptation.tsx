@@ -166,8 +166,17 @@ const RequestAcceptation: FC<IProps> = (props: IProps) => {
                     {services.request.violence_type.map((request: any, key: number) => <li key={key}>{request}</li>)}
                 </ul>
                 <p style={{ lineHeight: '.8' }}>
-                    <strong>Lieu d'incident</strong>: {services.request.incident_location}
+                    <strong>Lieu d'incident</strong>: {`${services.request.incident_city.name.trim()}, ${services.request.incident_city.zip}`}
                 </p>
+
+                <p style={{ lineHeight: '.8' }}>
+                    <strong>Sex</strong>: {services.request.gender.toLowerCase() === "Fi" ? "Femme" : "Homme"}
+                </p>
+
+                <p style={{ lineHeight: '.8' }}>
+                    <strong>groupe d'age</strong>: entre  <b className=""><u>{services.request.age_range.replace("-", "et")}</u></b> ans
+                </p>
+
                 <p className="mt-3" style={{ lineHeight: '.8' }}>
                     <strong>Lieu de résidence</strong>: {`${services.request.city.name.trim()}, ${services.request.city.zip}`}
                 </p>

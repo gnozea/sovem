@@ -10,6 +10,8 @@ class CreateServiceRequestsTable extends Migration
      * Run the migrations.
      *
      * @return void
+     * This is where we store how many providers have claimed the request (up to 3)
+     * When the victim has decided which provider to go with, we update the provider_id field with that provider
      */
     public function up()
     {

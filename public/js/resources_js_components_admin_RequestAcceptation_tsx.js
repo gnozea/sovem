@@ -248,7 +248,17 @@ var RequestAcceptation = function RequestAcceptation(props) {
     style: {
       lineHeight: '.8'
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "Lieu d'incident"), ": ", services.request.incident_location), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "Lieu d'incident"), ": ", "".concat(services.request.incident_city.name.trim(), ", ").concat(services.request.incident_city.zip)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    style: {
+      lineHeight: '.8'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "Sex"), ": ", services.request.gender.toLowerCase() === "Fi" ? "Femme" : "Homme"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+    style: {
+      lineHeight: '.8'
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "groupe d'age"), ": entre  ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("b", {
+    className: ""
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("u", null, services.request.age_range.replace("-", "et"))), " ans"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     className: "mt-3",
     style: {
       lineHeight: '.8'

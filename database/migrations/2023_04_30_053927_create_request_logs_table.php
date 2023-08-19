@@ -10,6 +10,7 @@ class CreateRequestLogsTable extends Migration
      * Run the migrations.
      *
      * @return void
+     * This is where victim accepts or declines a provider service after provider claimed it in sevice request
      */
     public function up()
     {

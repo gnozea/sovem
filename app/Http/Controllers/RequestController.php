@@ -47,12 +47,12 @@ class RequestController extends Controller
                         ->with("specialities", "provider");
                     return $query->with(["specialities", "provider"]);
                 },
-//                "logs" => function($query) use ($provider){
-//                    if ($provider) return $query->where("provider_id", $provider)->where("decision", "accepted");
-//                    return $query->where("decision", "accepted");
-//                }
             ])
-            ->has("requests")
+            ->orderBy("created_at", 'desc')
+            ->whereHas("requests", function ($query) use ($request, $provider){
+                if ($provider) return $query->where("provider_id", $provider);
+                return null;
+            })
             ->simplePaginate(10);
 
         foreach ($req as $key => $item){
@@ -63,6 +63,11 @@ class RequestController extends Controller
             "status" => "success",
             $req
         ];
+    }
+
+    public function index_provider(Request $request)
+    {
+//        $req = RequestClaimed::with()
     }
 
     /**
@@ -197,7 +202,9 @@ class RequestController extends Controller
     public function show(string $uuid, Demand $demand)
     {
         $req = $demand->where('uuid', $uuid)
-            ->with("city")->first();
+            ->with("city")
+            ->with("incident_city")
+            ->first();
 
         if (!Auth::user()['provider_id']) return \response([
             "status" => "error",

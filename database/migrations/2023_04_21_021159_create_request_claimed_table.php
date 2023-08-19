@@ -10,6 +10,7 @@ class CreateRequestClaimedTable extends Migration
      * Run the migrations.
      *
      * @return void
+     * This is where claimed request schedule is set
      */
     public function up()
     {
