@@ -123,7 +123,7 @@ const ServiceTrack: FC<IProps> = (props: IProps) => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {(results?.services.length === 0 && confirmed.length === 0) && <Popup onPopupClose={() => setShowPopup(false)} parentId={1900}>
+                                                    {(results?.services.length === 0 && confirmed.length === 0 && showPopup) && <Popup onPopupClose={() => setShowPopup(false)} parentId={1900}>
                                                             <div className="results-set mt-4 text-center">
                                                                 <div style={{ width: "200px", margin: "0 auto" }}>
                                                                     <img src="/images/novelist-writing-animate.svg" alt=""/>

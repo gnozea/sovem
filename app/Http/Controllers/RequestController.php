@@ -99,16 +99,10 @@ class RequestController extends Controller
         $spec["uuid"] = $uuid;
         $recipients = array_unique($recipients);
 
-        foreach ($recipients as $recipient) {
-            try {
-                Mail::to($recipient)->send(new \App\Mail\Request($spec));
-            }catch (\Exception $exception){
-               //print_r($exception->getFile());
-            }
-        }
-
         $latestRequest = Demand::orderBy('created_at','DESC')->first();
-        $hex = hexdec(substr(uniqid(), 0, 3) . "" . ($latestRequest ? (int)$latestRequest['id'] : 0));
+
+        $number = hexdec(uniqid());
+        $hex = substr($number, strlen($number)-3, strlen($number)) . "" . ($latestRequest ? (int)$latestRequest['id']+1 : 0);
         $demand = Demand::create([
             "uuid" =>  $uuid,
             "ticket_number" => $hex,
@@ -134,6 +128,15 @@ class RequestController extends Controller
             }
             $demand->requests()->createMany($requests);
         }
+
+        foreach ($recipients as $recipient) {
+            try {
+                Mail::to($recipient)->send(new \App\Mail\Request($spec));
+            }catch (\Exception $exception){
+               //print_r($exception->getFile());
+            }
+        }
+
         return [
             "status" => "success",
             "data" => [
