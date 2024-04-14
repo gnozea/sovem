@@ -1,4 +1,5 @@
 window._ = require('lodash');
+import {ClientJS} from 'clientjs'
 
 
 /**
@@ -17,9 +18,11 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+const clientJs = new ClientJS()
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.params = {'fingerprint': clientJs.getFingerprint()}
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

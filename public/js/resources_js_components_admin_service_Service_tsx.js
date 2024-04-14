@@ -487,6 +487,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Add__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Add */ "./resources/js/components/admin/service/Add.tsx");
 /* harmony import */ var _specialist_AddFromService__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../specialist/AddFromService */ "./resources/js/components/admin/specialist/AddFromService.tsx");
 /* harmony import */ var _LinkProvider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./LinkProvider */ "./resources/js/components/admin/service/LinkProvider.tsx");
+var __assign = undefined && undefined.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+  };
+  return __assign.apply(this, arguments);
+};
 var __spreadArray = undefined && undefined.__spreadArray || function (to, from, pack) {
   if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
     if (ar || !(i in from)) {
@@ -574,7 +584,7 @@ var Service = function Service(props) {
     isSmall: true,
     parentId: "2455n",
     children: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_LinkProvider__WEBPACK_IMPORTED_MODULE_11__["default"], {
-      service: showLinkProvider,
+      service: __assign({}, showLinkProvider),
       onDone: function onDone() {
         setReload(true);
         setShowLinkProvider(false);
@@ -588,7 +598,7 @@ var Service = function Service(props) {
     isSmall: true,
     parentId: "2437n",
     children: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_specialist_AddFromService__WEBPACK_IMPORTED_MODULE_10__.AddFromService, {
-      service: showAddSpecialist,
+      service: __assign({}, showAddSpecialist),
       onBack: function onBack() {
         setReload(true);
         setShowAddSpecialist(false);
@@ -757,7 +767,7 @@ var Service = function Service(props) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Add": () => (/* binding */ Add)
+/* harmony export */   Add: () => (/* binding */ Add)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/BrowserTitle */ "./resources/js/components/utils/BrowserTitle.tsx");
@@ -975,7 +985,7 @@ var templateObject_1, templateObject_2;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AddFromService": () => (/* binding */ AddFromService)
+/* harmony export */   AddFromService: () => (/* binding */ AddFromService)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _utils_BrowserTitle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/BrowserTitle */ "./resources/js/components/utils/BrowserTitle.tsx");

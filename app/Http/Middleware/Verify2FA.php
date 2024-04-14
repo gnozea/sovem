@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 
 class Verify2FA
 {
@@ -18,7 +17,9 @@ class Verify2FA
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && (!Session::has("mfa") || !Session::get("mfa"))) {
+        $user = Auth::id();
+
+        if(Auth::check() && (!apcu_exists("user-$user-mfa") || apcu_fetch("user-$user-mfa") != Auth::user()['google2fa_secret'] )) {
             abort(403);
         }
         return $next($request);

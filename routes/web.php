@@ -50,10 +50,15 @@ Route::get('.well-known/pki-validation/{file}', function (){
 });
 
 Route::prefix("api")->group(function (){
-    Route::get("account/check", function (){
+    Route::get("account/check", function (Request $request){
+        $user = $request->get("fingerprint");
         $account = Auth::check() ? Auth::user() : [];
-        if (Auth::check()) $account['mfaCapable'] = Auth::user()['google2fa_secret'] != null;
-        if (Auth::check()) $account['mfa'] = Session::get('mfa');
+        if (Auth::check()) $account["mfaCapable"] = Auth::user()['google2fa_secret'] != null;
+        if (Auth::check()) $account['mfa'] = apcu_fetch("$user-mfa");
+        if (Auth::check() && Auth::user()['google2fa_secret'] != null) {
+            $accountId = Auth::id();
+            apcu_store("user-$accountId-mfa", Auth::user()['google2fa_secret']);
+        }
         $provider = $account && $account['provider_id'] ? \App\Models\Provider::where("id", $account["provider_id"])->first() : null;
         if ($account) $account['provider'] = $provider;
         return $account;
@@ -140,6 +145,9 @@ Route::prefix("api")->group(function (){
             if (!$user['google2fa_secret']) return \response(["msg" => "Ce compte n'a pas de MFA actif."], 422);
             $user['google2fa_secret'] = null;
             $user->save();
+            $fingerprint = $request->get("fingerprint");
+            apcu_delete("$fingerprint-mfa");
+            apcu_delete("user-$id-mfa");
 
             $data = [
                 "refresh" => false,

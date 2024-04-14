@@ -252,7 +252,7 @@ var RequestAcceptation = function RequestAcceptation(props) {
     style: {
       lineHeight: '.8'
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "Sex"), ": ", services.request.gender.toLowerCase() === "Fi" ? "Femme" : "Homme"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "Sex"), ": ", services.request.gender.toLowerCase() === "fi" ? "Femme" : "Homme"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     style: {
       lineHeight: '.8'
     }

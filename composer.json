@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "pragmarx/google2fa-laravel": "^2.1",
-        "webpatser/laravel-uuid": "^3.0"
+        "webpatser/laravel-uuid": "^3.0",
+      "ext-apcu": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

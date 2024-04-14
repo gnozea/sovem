@@ -39,10 +39,10 @@ const MFALogin: FC<IProps> = (props: IProps) => {
                 <div className="row">
                     <div className="col col-login mx-auto" style={{maxWidth: !user?.mfa ? "28em" : "24em"}}>
                         <div className="text-center mb-6">
-                            <img src="/images/logo.png" className="h-6" alt=""/>
+                            <img src="/images/logo.png" className="h-8" alt=""/>
                         </div>
                         <div>
-                            <div className={`card-body ${!user?.mfa ? "p-" : "p-6"}`}>
+                            <div className={`card-body`}>
                                 <div className="card-title text-center">Authentification à 2 Facteurs</div>
                                 {user?.mfaCapable && <>
                                     <div className="form-group">

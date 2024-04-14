@@ -43,12 +43,12 @@ const Service: FC<IProps> = (props: IProps) => {
         </div>
     </div>
     return <div className="row">
-        {showLinkProvider && <Popup onPopupClose={() => {setShowLinkProvider(undefined)}} isSmall={true} parentId={"2455n"} children={<LinkProvider service={...showLinkProvider} onDone={() => {
+        {showLinkProvider && <Popup onPopupClose={() => {setShowLinkProvider(undefined)}} isSmall={true} parentId={"2455n"} children={<LinkProvider service={{...showLinkProvider}} onDone={() => {
             setReload(true)
             setShowLinkProvider(false)
             setLoading(false)
         }}/>}/>}
-        {showAddSpecialist && <Popup onPopupClose={() => {setShowAddSpecialist(undefined)}} isSmall={true} parentId={"2437n"} children={<AddFromService service={...showAddSpecialist} onBack={() => {
+        {showAddSpecialist && <Popup onPopupClose={() => {setShowAddSpecialist(undefined)}} isSmall={true} parentId={"2437n"} children={<AddFromService service={{...showAddSpecialist}} onBack={() => {
             setReload(true)
             setShowAddSpecialist(false)
         }}/>}/>}

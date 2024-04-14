@@ -8,7 +8,6 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
 use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
 use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
@@ -81,18 +80,25 @@ class VerificationController extends Controller
     public function post_login_otp(Request $request): array
     {
         $status = $this->verify_2fa_code($request);
-        if($status['status'] === "success") Session::put('mfa', true);
+        $user = $request->get("fingerprint");
+        $accountId = Auth::id();
+        if($status['status'] === "success") {
+            apcu_store("$user-mfa", true);
+            apcu_store("user-$accountId-mfa", Auth::user()['google2fa_secret']);
+        }
         return $status;
     }
 
-    public function enrollMFA()
+    public function enrollMFA(Request $request)
     {
+        $user = $request->get("fingerprint");
+        if ($request->has("regenerate") && $request->get("regenerate")) apcu_delete("$user-mfaEnroll");
         $mfa = new Google2FA();
         try {
-            $secretKey = $mfa->generateSecretKey();
-            Session::put("mfaEnroll", encrypt($secretKey));
+            $secretKey = !apcu_exists("$user-mfaEnroll") ? $mfa->generateSecretKey() : decrypt(apcu_fetch("$user-mfaEnroll"));
+            if (!apcu_exists("$user-mfaEnroll")) apcu_store("$user-mfaEnroll", encrypt($secretKey));
             $qr_code = $mfa->getQRCodeUrl(
-                \env("APP_NAME"),
+                \env("APP_ENV") != "local" ? \env("APP_NAME") : \env("APP_NAME_LOCAL"),
                 Auth::user()["email"],
                 $secretKey
             );
@@ -102,7 +108,7 @@ class VerificationController extends Controller
                 "msg" => "Unable to initialize Google authenticator."
             ]);
         }
-        return \response()->json([
+        GetQRCode: return \response()->json([
             "status" => "success",
             "data" => $qr_code
         ]);
@@ -113,21 +119,33 @@ class VerificationController extends Controller
      * @throws SecretKeyTooShortException
      * @throws InvalidCharactersException
      */
-    public function enrollMFASave(Request $request): array
+    public function enrollMFASave(Request $request)
     {
+        if (!$request->has("fingerprint")) return response([
+            "msg" => "We could not identify your browser",
+            "type" => "browser"
+        ], 422);
+
         $google2fa = new Google2FA();
-            $isValid = $google2fa->verify($request->get("code"), decrypt(Session::get('mfaEnroll')));
-            if ($isValid) {
-                User::find(Auth::id())->update(["google2fa_secret" => Session::get('mfaEnroll')]);
-                Session::put('mfa', true);
-                return [
-                    "status" => "success",
-                    "msg" => "Code is valid"
-                ];
-            }
-            return [
-                "status" => "error",
-                "msg" => "Code is not valid"
-            ];
+        $user = $request->get("fingerprint");
+        $accountId = Auth::id();
+
+        $isValid = $google2fa->verify($request->get("code"), decrypt(apcu_fetch("$user-mfaEnroll")));
+
+        if ($isValid) {
+            User::find(Auth::id())->update(["google2fa_secret" => apcu_fetch("$user-mfaEnroll")]);
+            apcu_store("$user-mfa", true);
+            apcu_store("user-$accountId-mfa", encrypt(apcu_fetch("$user-mfaEnroll")));
+
+            apcu_delete("$user-mfaEnroll");
+            apcu_delete("user-$accountId-mfa");
+            return response([
+                "msg" => "Redirection en cours.",
+                "status" => "success"
+            ]);
+        }
+        return response([
+            "msg" => "Ce code n'est pas valide."
+        ], 422);
     }
 }

@@ -170,7 +170,7 @@ const RequestAcceptation: FC<IProps> = (props: IProps) => {
                 </p>
 
                 <p style={{ lineHeight: '.8' }}>
-                    <strong>Sex</strong>: {services.request.gender.toLowerCase() === "Fi" ? "Femme" : "Homme"}
+                    <strong>Sex</strong>: {services.request.gender.toLowerCase() === "fi" ? "Femme" : "Homme"}
                 </p>
 
                 <p style={{ lineHeight: '.8' }}>
