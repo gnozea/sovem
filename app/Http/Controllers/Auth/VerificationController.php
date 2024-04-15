@@ -61,7 +61,7 @@ class VerificationController extends Controller
         $secret = $request->has("email") ? (User::where("email", $request->get("email"))->first())["google2fa_secret"] : Auth::user()['google2fa_secret'];
 
         $google2fa = new Google2FA();
-        $isValid = $google2fa->verify($request->get("code"), $secret);
+        $isValid = $google2fa->verify($request->get("code"), decrypt($secret));
         if ($isValid) return [
             "status" => "success",
             "msg" => "Code is valid"
@@ -95,8 +95,8 @@ class VerificationController extends Controller
         if ($request->has("regenerate") && $request->get("regenerate")) apcu_delete("$user-mfaEnroll");
         $mfa = new Google2FA();
         try {
-            $secretKey = !apcu_exists("$user-mfaEnroll") ? $mfa->generateSecretKey() : apcu_fetch("$user-mfaEnroll");
-            if (!apcu_exists("$user-mfaEnroll")) apcu_store("$user-mfaEnroll", $secretKey);
+            $secretKey = !apcu_exists("$user-mfaEnroll") ? $mfa->generateSecretKey() : decrypt(apcu_fetch("$user-mfaEnroll"));
+            if (!apcu_exists("$user-mfaEnroll")) apcu_store("$user-mfaEnroll", encrypt($secretKey));
             $qr_code = $mfa->getQRCodeUrl(
                 \env("APP_ENV") != "local" ? \env("APP_NAME") : \env("APP_NAME_LOCAL"),
                 Auth::user()["email"],
@@ -130,12 +130,12 @@ class VerificationController extends Controller
         $user = $request->get("fingerprint");
         $accountId = Auth::id();
 
-        $isValid = $google2fa->verifyKey(apcu_fetch("$user-mfaEnroll"), $request->get("code"));
+        $isValid = $google2fa->verifyKey(decrypt(apcu_fetch("$user-mfaEnroll")), $request->get("code"));
 
         if ($isValid) {
             User::find(Auth::id())->update(["google2fa_secret" => apcu_fetch("$user-mfaEnroll")]);
             apcu_store("$user-mfa", true);
-            apcu_store("user-$accountId-mfa", apcu_fetch("$user-mfaEnroll"));
+            apcu_store("user-$accountId-mfa", encrypt(apcu_fetch("$user-mfaEnroll")));
 
             apcu_delete("$user-mfaEnroll");
             apcu_delete("user-$accountId-mfa");
