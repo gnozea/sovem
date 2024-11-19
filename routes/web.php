@@ -35,36 +35,37 @@ use Illuminate\Support\Str;
 //    return view('welcome');
 //});
 
-Route::view('/{path?}', 'layouts.app')->where('path','^(?!api|auth|uploads).*$');;
+Route::view('/{path?}', 'layouts.app')->where('path', '^(?!api|auth|uploads).*$');;
 
 Auth::routes();
-Route::get('.well-known/pki-validation/{file}', function (){
+Route::get('.well-known/pki-validation/{file}', function () {
     $file = "B8B9FF6FF29AA92FC0AF414DB4262150.txt";
-    $file= public_path() . "/$file";
+    $file = public_path() . "/$file";
 
     $headers = [
         'Content-Type' => 'application/txt',
     ];
 
-     return response()->download($file, "$file", $headers);
+    return response()->download($file, "$file", $headers);
 });
 
-Route::prefix("api")->group(function (){
-    Route::get("account/check", function (Request $request){
-        $user = $request->get("fingerprint");
+Route::prefix("api")->group(function () {
+    Route::get("account/check", function (Request $request) {
+        $cache = app("Phpfastcache");
+        $user = Auth::id();
         $account = Auth::check() ? Auth::user() : [];
         if (Auth::check()) $account["mfaCapable"] = Auth::user()['google2fa_secret'] != null;
-        if (Auth::check()) $account['mfa'] = apcu_fetch("$user-mfa");
+        if (Auth::check()) $account['mfa'] = $cache->get("$user-mfa");
         if (Auth::check() && Auth::user()['google2fa_secret'] != null) {
             $accountId = Auth::id();
-            apcu_store("user-$accountId-mfa", Auth::user()['google2fa_secret']);
+            $cache->set("user-$accountId-mfa", Auth::user()['google2fa_secret']);
         }
         $provider = $account && $account['provider_id'] ? \App\Models\Provider::where("id", $account["provider_id"])->first() : null;
         if ($account) $account['provider'] = $provider;
         return $account;
     });
 
-    Route::post("login/reset-password", function (Request $request){
+    Route::post("login/reset-password", function (Request $request) {
         $request->validate(['email' => 'required|email|exists:users,email']);
         $status = Password::sendResetLink(
             $request->only('email')
@@ -75,7 +76,7 @@ Route::prefix("api")->group(function (){
             : ['email' => __($status)];
     });
 
-    Route::post("reset-password", function (Request $request){
+    Route::post("reset-password", function (Request $request) {
         $email = urldecode($request->get("email"));
         $request->merge(["email" => $email]);
         $request->merge(["password_confirmation" => $request->get("password")]);
@@ -101,13 +102,13 @@ Route::prefix("api")->group(function (){
         return $status === Password::PASSWORD_RESET ? \response(['status' => "success", "data" => __($status)]) : \response(['email' => [__($status)]], 422);
     });
 
-    Route::get("reset-password", function (Request $request){
+    Route::get("reset-password", function (Request $request) {
         $email = urldecode($request->get("email"));
         $request->merge(["email" => $email]);
         $request->validate(['email' => 'required|email|exists:users,email']);
 
         return [
-          "status" => "success"
+            "status" => "success"
         ];
     });
 
@@ -133,21 +134,22 @@ Route::prefix("api")->group(function (){
 
     Route::post("start-form", [ServiceController::class, "start_form"]);
 
-    Route::prefix("dashboard")->middleware(["auth", 'verify2fa'])->group(function (){
+    Route::prefix("dashboard")->middleware(["auth", /*'verify2fa'*/])->group(function () {
 
         Route::get("users", [UserController::class, "index"]);
         Route::post("users", [UserController::class, "store"]);
 
-        Route::post("reset-mfa", function (Request $request){
+        Route::post("reset-mfa", function (Request $request) {
+            $cache = app("Phpfastcache");
             if (!$request->has("id") && !Auth::id()) \response(["msg" => "Something went wrong."], 422);
             $id = $request->has("id") ? $request->get("id") : Auth::id();
             $user = User::find($id);
             if (!$user['google2fa_secret']) return \response(["msg" => "Ce compte n'a pas de MFA actif."], 422);
             $user['google2fa_secret'] = null;
             $user->save();
-            $fingerprint = $request->get("fingerprint");
-            apcu_delete("$fingerprint-mfa");
-            apcu_delete("user-$id-mfa");
+            $fingerprint = Auth::id();
+            $cache->delete("$fingerprint-mfa");
+            $cache->delete("user-$id-mfa");
 
             $data = [
                 "refresh" => false,
@@ -169,7 +171,7 @@ Route::prefix("api")->group(function (){
             return \response($data);
         });
 
-        Route::post("reset-password", function (Request $request){
+        Route::post("reset-password", function (Request $request) {
             $request->validate(['email' => 'required|email|exists:users,email']);
             $status = Password::sendResetLink(
                 $request->only('email')
@@ -196,7 +198,7 @@ Route::prefix("api")->group(function (){
         Route::get("request/{uuid}", [RequestController::class, "show"]);
         Route::post("request/{uuid}", [RequestController::class, "accept"]);
 
-        Route::get("checkByEmail", function (Request $request){
+        Route::get("checkByEmail", function (Request $request) {
             $check = User::where("email", $request->get('email'))->first();
             if ($check) return [
                 "status" => "error",
@@ -228,8 +230,7 @@ Route::prefix("api")->group(function (){
 
 
 /************************ ROUTE FOR ALL DOMAIN RELATED UPLOADS ****************************/
-Route::get('uploads/{params?}', function ($filename)
-{
+Route::get('uploads/{params?}', function ($filename) {
     define('DS', DIRECTORY_SEPARATOR);
 
     $path = storage_path() . DS .  'app' . DS . 'public' . DS . 'uploads' . DS . $filename;

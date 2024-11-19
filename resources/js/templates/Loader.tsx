@@ -1,4 +1,4 @@
-import React, {FC, useContext, useEffect} from "react";
+import React, { FC, useContext, useEffect } from "react";
 import axios from "axios";
 import Public from "./Public";
 import Login from "./Login";
@@ -18,11 +18,11 @@ const Loader: FC<IProps> = (props: IProps) => {
     useEffect(() => {
         dispatch({ type: "SET_ACCOUNT", payload: props.account })
     }, [])
-    if (url.indexOf('dashboard') === -1) return <Public/>
-    if (!Object.keys(props.account).length) return <Login/>
-    if (Object.keys(props.account).length && (!props.account?.mfa || !props.account?.mfaCapable)) return <MFALogin/>
+    if (url.indexOf('dashboard') === -1) return <Public />
+    if (!Object.keys(props.account).length) return <Login />
+    // if (Object.keys(props.account).length && (!props.account?.mfa || !props.account?.mfaCapable)) return <MFALogin />
     axios.defaults.params = {}
     axios.defaults.params['provider_id'] = props.account.provider_id
-    return <Admin/>
+    return <Admin />
 }
 export default Loader

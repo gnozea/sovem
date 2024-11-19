@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Cache;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +19,8 @@ class Verify2FA
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::id();
-
-        if(Auth::check() && (!apcu_exists("user-$user-mfa") || apcu_fetch("user-$user-mfa") != Auth::user()['google2fa_secret'] )) {
+        print_r(Cache::getStore());
+        if (Auth::check() && (Cache::get("user-$user-mfa") != Auth::user()['google2fa_secret'])) {
             abort(403);
         }
         return $next($request);

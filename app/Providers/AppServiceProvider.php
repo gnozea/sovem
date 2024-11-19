@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Phpfastcache\Helper\Psr16Adapter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Register Phpfastcache as a singleton
+        $this->app->singleton('Phpfastcache', function () {
+            return new Psr16Adapter('Files');
+        });
     }
 
     /**

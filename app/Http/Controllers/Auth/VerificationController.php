@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Cache;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,8 @@ use PragmaRX\Google2FA\Google2FA;
 
 class VerificationController extends Controller
 {
+    private $cache = null;
+
     /*
     |--------------------------------------------------------------------------
     | Email Verification Controller
@@ -58,10 +61,14 @@ class VerificationController extends Controller
             "code" => "required|string",
             "email" => "sometimes|exists:users,email"
         ]);
-        $secret = $request->has("email") ? (User::where("email", $request->get("email"))->first())["google2fa_secret"] : Auth::user()['google2fa_secret'];
 
+        $user = User::where("email", $request->get("email"))->first();
+
+        $secret = $request->has("email") ? $user["google2fa_secret"] : Auth::user()['google2fa_secret'];
         $google2fa = new Google2FA();
-        $isValid = $google2fa->verify($request->get("code"), decrypt($secret));
+        $window = 8;
+        print_r(strlen($secret));
+        $isValid = $google2fa->verifyKeyNewer($request->get("code"), $secret, $window);
         if ($isValid) return [
             "status" => "success",
             "msg" => "Code is valid"
@@ -80,35 +87,36 @@ class VerificationController extends Controller
     public function post_login_otp(Request $request): array
     {
         $status = $this->verify_2fa_code($request);
-        $user = $request->get("fingerprint");
+        $user = Auth::id();
         $accountId = Auth::id();
-        if($status['status'] === "success") {
-            apcu_store("$user-mfa", true);
-            apcu_store("user-$accountId-mfa", Auth::user()['google2fa_secret']);
+        if ($status['status'] === "success") {
+            Cache::set("$user-mfa", true);
+            Cache::set("user-$accountId-mfa", Auth::user()['google2fa_secret']);
         }
         return $status;
     }
 
     public function enrollMFA(Request $request)
     {
-        $user = $request->get("fingerprint");
-        if ($request->has("regenerate") && $request->get("regenerate")) apcu_delete("$user-mfaEnroll");
+        $user = Auth::id();
+        if ($request->has("regenerate") && $request->get("regenerate")) Cache::delete("$user-mfaEnroll");
         $mfa = new Google2FA();
         try {
-            $secretKey = !apcu_exists("$user-mfaEnroll") ? $mfa->generateSecretKey() : decrypt(apcu_fetch("$user-mfaEnroll"));
-            if (!apcu_exists("$user-mfaEnroll")) apcu_store("$user-mfaEnroll", encrypt($secretKey));
+            $secretKey = !Cache::has("$user-mfaEnroll") ? $mfa->generateSecretKey(32) : Cache::get("$user-mfaEnroll");
+            if (!Cache::has("$user-mfaEnroll")) Cache::set("$user-mfaEnroll", $secretKey);
             $qr_code = $mfa->getQRCodeUrl(
                 \env("APP_ENV") != "local" ? \env("APP_NAME") : \env("APP_NAME_LOCAL"),
                 Auth::user()["email"],
                 $secretKey
             );
-        } catch (IncompatibleWithGoogleAuthenticatorException|InvalidCharactersException|SecretKeyTooShortException $e) {
+        } catch (IncompatibleWithGoogleAuthenticatorException | InvalidCharactersException | SecretKeyTooShortException $e) {
             return \response()->json([
                 "status" => "error",
                 "msg" => "Unable to initialize Google authenticator."
             ]);
         }
-        GetQRCode: return \response()->json([
+        GetQRCode:
+        return \response()->json([
             "status" => "success",
             "data" => $qr_code
         ]);
@@ -127,18 +135,18 @@ class VerificationController extends Controller
         ], 422);
 
         $google2fa = new Google2FA();
-        $user = $request->get("fingerprint");
+        $user = Auth::id();
         $accountId = Auth::id();
-
-        $isValid = $google2fa->verifyKey(decrypt(apcu_fetch("$user-mfaEnroll")), $request->get("code"));
+        //print_r(Cache::get("$user-mfaEnroll"));
+        $isValid = $google2fa->verifyKey(Cache::get("$user-mfaEnroll"), $request->get("code"));
 
         if ($isValid) {
-            User::find(Auth::id())->update(["google2fa_secret" => apcu_fetch("$user-mfaEnroll")]);
-            apcu_store("$user-mfa", true);
-            apcu_store("user-$accountId-mfa", encrypt(apcu_fetch("$user-mfaEnroll")));
+            User::find(Auth::id())->update(["google2fa_secret" => Cache::get("$user-mfaEnroll")]);
+            Cache::set("$user-mfa", true);
+            Cache::set("user-$accountId-mfa", Cache::get("$user-mfaEnroll"));
 
-            apcu_delete("$user-mfaEnroll");
-            apcu_delete("user-$accountId-mfa");
+            Cache::delete("$user-mfaEnroll");
+            Cache::delete("user-$accountId-mfa");
             return response([
                 "msg" => "Redirection en cours.",
                 "status" => "success"
