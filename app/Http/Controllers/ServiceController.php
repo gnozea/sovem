@@ -104,8 +104,9 @@ class ServiceController extends Controller
             ->with([
                 "logs"  => function ($query) {
                     return $query->with(["service", "provider", 'specialist'])
-                        ->where("decision", "accepted")
-                        ->orWhere("decision", null)
+                        ->where(function ($q) {
+                            $q->where("decision", "accepted")->orWhere("decision", null);
+                        })
                         ->orderBy("created_at", "DESC")->orderBy("id", "DESC");
                 }
             ])->first();

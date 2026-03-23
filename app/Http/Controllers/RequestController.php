@@ -114,7 +114,8 @@ class RequestController extends Controller
             "incident_location" => $request->get("incidentLocation"),
             "incident_date" => $request->get("incidentDate"),
             "violence_type" => json_encode($request->get("violenceType")),
-            "felon" => $request->get("felon")[0]
+            "felon" => $request->get("felon")[0],
+            "status" => "unclaimed"
         ]);
 
         if ($demand){
@@ -238,7 +239,7 @@ class RequestController extends Controller
 
     public function accept($id, Request $request, ServiceRequest $serviceRequest)
     {
-        $request->request->add(['provider_id', Auth::user()["provider_id"]]);
+        $request->merge(['provider_id' => Auth::user()["provider_id"]]);
         $request->validate([
             //"request_id" => "required|exists:requests,id",
             "sR.*" => "required|exists:service_requests,id",
@@ -265,16 +266,18 @@ class RequestController extends Controller
 
         //Add code if one of services was previously claimed and trying to claim alongside of another.
 
-        $found = $get = $serviceRequest->where("request_id", $id)
+        $found = $serviceRequest->where("request_id", $id)
             ->whereIn("id", $free)
             ->where("status", "<>", "claimed")
             ->where("claim_amount", "<", 3)
             ->where("status", "<>", "solved");
-        if (!$get->get()) return [
+
+        $foundRecords = $found->get();
+        if (!$foundRecords->count()) return [
             "status" => 'error',
             "data" =>
                 [
-                    "updated" => $found
+                    "updated" => $foundRecords
                 ]
         ];
 
@@ -285,7 +288,7 @@ class RequestController extends Controller
 
         if ($updating) {
             $data = [];
-            foreach ($found->get() as $item) {
+            foreach ($foundRecords as $item) {
                 $data[] = [
                     "request_id" => $id,
                     "service_request_id" => $item['id'],
