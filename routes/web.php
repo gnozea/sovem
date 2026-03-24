@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
@@ -51,14 +52,13 @@ Route::get('.well-known/pki-validation/{file}', function () {
 
 Route::prefix("api")->group(function () {
     Route::get("account/check", function (Request $request) {
-        $cache = app("Phpfastcache");
         $user = Auth::id();
         $account = Auth::check() ? Auth::user() : [];
         if (Auth::check()) $account["mfaCapable"] = Auth::user()['google2fa_secret'] != null;
-        if (Auth::check()) $account['mfa'] = $cache->get("$user-mfa");
+        if (Auth::check()) $account['mfa'] = Cache::get("$user-mfa");
         if (Auth::check() && Auth::user()['google2fa_secret'] != null) {
             $accountId = Auth::id();
-            $cache->set("user-$accountId-mfa", Auth::user()['google2fa_secret']);
+            Cache::put("user-$accountId-mfa", Auth::user()['google2fa_secret']);
         }
         $provider = $account && $account['provider_id'] ? \App\Models\Provider::where("id", $account["provider_id"])->first() : null;
         if ($account) $account['provider'] = $provider;
@@ -140,7 +140,6 @@ Route::prefix("api")->group(function () {
         Route::post("users", [UserController::class, "store"]);
 
         Route::post("reset-mfa", function (Request $request) {
-            $cache = app("Phpfastcache");
             if (!$request->has("id") && !Auth::id()) \response(["msg" => "Something went wrong."], 422);
             $id = $request->has("id") ? $request->get("id") : Auth::id();
             $user = User::find($id);
@@ -148,8 +147,8 @@ Route::prefix("api")->group(function () {
             $user['google2fa_secret'] = null;
             $user->save();
             $fingerprint = Auth::id();
-            $cache->delete("$fingerprint-mfa");
-            $cache->delete("user-$id-mfa");
+            Cache::forget("$fingerprint-mfa");
+            Cache::forget("user-$id-mfa");
 
             $data = [
                 "refresh" => false,

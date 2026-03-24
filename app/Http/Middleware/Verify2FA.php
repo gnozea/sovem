@@ -19,7 +19,6 @@ class Verify2FA
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::id();
-        print_r(Cache::getStore());
         if (Auth::check() && (Cache::get("user-$user-mfa") != Auth::user()['google2fa_secret'])) {
             abort(403);
         }
