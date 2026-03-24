@@ -339,12 +339,22 @@ class ProviderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Provider  $provider
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     * @return array
      */
-    public function destroy(Provider $provider)
+    public function destroy($id)
     {
-        //
+        $provider = Provider::find($id);
+
+        if (!$provider) return response(["status" => "error", "msg" => "Prestataire introuvable."], 404);
+
+        // Remove linked users, specialities and services before deleting the provider
+        User::where("provider_id", $id)->delete();
+        $provider->provider_specialities()->delete();
+        $provider->services()->delete();
+        $provider->delete();
+
+        return ["status" => "success", "msg" => "Prestataire supprimé."];
     }
 
     /**

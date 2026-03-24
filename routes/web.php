@@ -138,6 +138,7 @@ Route::prefix("api")->group(function () {
 
         Route::get("users", [UserController::class, "index"]);
         Route::post("users", [UserController::class, "store"]);
+        Route::delete("user/{id}", [UserController::class, "destroy"])->middleware(AccountType::class);
 
         Route::post("reset-mfa", function (Request $request) {
             if (!$request->has("id") && !Auth::id()) \response(["msg" => "Something went wrong."], 422);
@@ -206,6 +207,7 @@ Route::prefix("api")->group(function () {
             ];
         });
         Route::get("providers", [ProviderController::class, "index"])->middleware(AccountType::class);
+        Route::delete("provider/{id}", [ProviderController::class, "destroy"])->middleware(AccountType::class);
         Route::post("provider/{id}/disable", [ProviderController::class, "disable"])->middleware(AccountType::class);
         Route::put("provider/{id}/change-address", [ProviderController::class, "change_address"])->middleware(AccountType::class);
         Route::post("provider/{id}/activate", [ProviderController::class, "activate"])->middleware(AccountType::class);

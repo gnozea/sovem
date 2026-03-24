@@ -134,6 +134,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ($id == Auth::user()['id']) return response(["status" => "error", "msg" => "Vous ne pouvez pas supprimer votre propre compte."], 422);
+
+        $user = User::find($id);
+
+        if (!$user) return response(["status" => "error", "msg" => "Utilisateur introuvable."], 404);
+
+        $user->delete();
+
+        return ["status" => "success", "msg" => "Utilisateur supprimé."];
     }
 }
