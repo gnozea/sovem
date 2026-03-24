@@ -21,6 +21,9 @@ const reducer = (state: IState, action: IAction) => {
     if (action.type === "ADD_USERS") { // @ts-ignore
         return [ ...action.payload ]
     }
+    if (action.type === "REMOVE_USER") { // @ts-ignore
+        return (state as any[]).filter((_: any, i: number) => i !== action.payload)
+    }
     return state
 }
 

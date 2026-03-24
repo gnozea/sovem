@@ -70,6 +70,20 @@ const Provider: FC<IProps> = (props: IProps) => {
         axios.post("/api/dashboard/reset-password", {email: user}).then(rep => toast.success("Un lien de restauration à été envoyé."))
     }
 
+    const handleDelete = (key: any) => {
+        if (!window.confirm("Êtes-vous sûr de vouloir supprimer ce prestataire? Tous ses utilisateurs et spécialités seront supprimés. Cette action est irréversible.")) return
+        const provider = providers[key]
+        setBusy(true)
+        axios.delete(`/api/dashboard/provider/${provider.id}`).then(() => {
+            dispatch({type: "REMOVE_PROVIDER", payload: key})
+            setBusy(false)
+            toast.success("Prestataire supprimé.")
+        }).catch(() => {
+            setBusy(false)
+            toast.error("Erreur lors de la suppression.")
+        })
+    }
+
     if (user.provider_id) return <Restricted/>
     if (busy && (!providers.length || !paginate)) return <Progress/>
 
@@ -175,7 +189,8 @@ const Provider: FC<IProps> = (props: IProps) => {
                                                     <div className="dropdown-divider"></div>
                                                     <button className="dropdown-item" onClick={() => handleSendVerificationEmail(rep.id)}><i className="dropdown-icon fe fe-edit-2"></i> Renvoyer email verification</button>
                                                 </>}
-                                                {/*<button className="dropdown-item"><i className="dropdown-icon fe fe-trash-2"></i> Supprimer</button>*/}
+                                                <div className="dropdown-divider"></div>
+                                                <button className="dropdown-item text-danger" onClick={() => handleDelete(key)}><i className="dropdown-icon fe fe-trash-2"></i> Supprimer</button>
                                             </div>
                                         </div>
                                     </td>

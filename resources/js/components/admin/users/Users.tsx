@@ -103,6 +103,19 @@ const Users: FC<IProps> = (props: IProps) => {
         })
     }
 
+    function handleDelete(key: number, id: any) {
+        if (!window.confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur? Cette action est irréversible.")) return
+        setLoading(true)
+        axios.delete(`/api/dashboard/user/${id}`).then(() => {
+            dispatch({type: "REMOVE_USER", payload: key})
+            setLoading(false)
+            toast.success("Utilisateur supprimé.")
+        }).catch((err) => {
+            setLoading(false)
+            toast.error(err.response?.data?.msg ?? "Erreur lors de la suppression.")
+        })
+    }
+
     return <div className="row">
         {loading && <Progress/>}
         <BrowserTitle title={"Utilisateurs"}/>
@@ -197,6 +210,10 @@ const Users: FC<IProps> = (props: IProps) => {
                                             </button>
                                             <button className="dropdown-item" onClick={() => handleMFAReset(rep.id)}>
                                                 <i className="dropdown-icon fa fa-qrcode"></i> Restaurer MFA
+                                            </button>
+                                            <div className="dropdown-divider"></div>
+                                            <button className="dropdown-item text-danger" onClick={() => handleDelete(key, rep.id)}>
+                                                <i className="dropdown-icon fe fe-trash-2"></i> Supprimer
                                             </button>
                                 {/*            /!*<a href="" className="dropdown-item"><i className="dropdown-icon fe fe-layers"></i> Details </a>*!/*/}
                                 {/*            <button disabled={!rep.provider} className="dropdown-item" onClick={() => {*/}

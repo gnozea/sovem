@@ -39,6 +39,10 @@ const reducer = (state: IState, action: IAction) => {
         providers[action.payload.index] = {...providers[action.payload.index], ...action.payload.update}
         return providers
     }
+    if (action.type === "REMOVE_PROVIDER") {
+        // @ts-ignore
+        return (state as any[]).filter((_: any, i: number) => i !== action.payload)
+    }
     return state
 }
 
