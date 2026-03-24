@@ -49,9 +49,10 @@ class RequestController extends Controller
                 },
             ])
             ->orderBy("created_at", 'desc')
-            ->whereHas("requests", function ($query) use ($request, $provider){
-                if ($provider) return $query->where("provider_id", $provider);
-                return null;
+            ->when($provider, function ($query) use ($provider) {
+                return $query->whereHas("requests", function ($q) use ($provider) {
+                    return $q->where("provider_id", $provider);
+                });
             })
             ->simplePaginate(10);
 
