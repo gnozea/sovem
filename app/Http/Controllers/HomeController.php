@@ -81,6 +81,7 @@ class HomeController extends Controller
         //print_r($this->request_by_dept($filter));
 
         return [
+            'status' => 'success',
             'totals' => $totals->toArray(),
             'periods' => $periods->toArray()
         ];

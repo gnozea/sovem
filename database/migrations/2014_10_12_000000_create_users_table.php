@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email_verification_token')->nullable();
             $table->unsignedBigInteger("provider_id")->nullable();
             $table->string('password');
-            $table->text('google2fa_secret');
+            $table->text('google2fa_secret')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
