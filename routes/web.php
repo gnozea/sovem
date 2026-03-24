@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Controllers\UserController;
@@ -125,6 +126,8 @@ Route::prefix("api")->group(function () {
 
     Route::get("services", [ServiceController::class, "services"]);
 
+    Route::post("request", [RequestController::class, "store"]);
+
     Route::get("city/search", [ServiceController::class, "search_city"]);
 
     Route::get("service/specialities", [ServiceController::class, "service_speciality"]);
@@ -186,6 +189,10 @@ Route::prefix("api")->group(function () {
         Route::get('reports', [\App\Http\Controllers\ReportController::class, "index"]);
 
         Route::post('change-password', [HomeController::class, "change_password"]);
+        Route::get("requests", [RequestController::class, "index"]);
+        Route::post("request/release", [RequestController::class, "release"]);
+        Route::get("request/{uuid}", [RequestController::class, "show"]);
+        Route::post("request/{uuid}", [RequestController::class, "accept"]);
         Route::get("charts", [HomeController::class, "chart"]);
         Route::get("state-charts", [HomeController::class, "stateStats"]);
         Route::get("charts-age", [HomeController::class, "statsAge"]);
