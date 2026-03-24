@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Env;
 
 class ProviderActivation extends Mailable implements ShouldQueue
 {
@@ -31,8 +30,7 @@ class ProviderActivation extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from(['address' => 'request@rapha.org', 'name' => Env::get("APP_NAME")])
-            ->subject($this->request['subject'])
+        return $this->subject($this->request['subject'])
             ->with(["request" => $this->request])
             ->view('layouts.mails.alert');
     }
