@@ -64,12 +64,20 @@ class UserController extends Controller
             "password" => Hash::make(Str::random(10))
         ];
 
-        //Check how many users has provider on file
-        if ($request->has("provider")){
-            $users = User::where("provider_id", $request->get("provider"))->get();
+        $currentProviderID = Auth::user()['provider_id'];
 
+        // Provider users can only add users to their own organization
+        if ($currentProviderID) {
+            $data["provider_id"] = $currentProviderID;
+            $users = User::where("provider_id", $currentProviderID)->get();
             if ($users->count() >= 3) return response(["status" => "error", "msg" => "Vous avez atteint le maximun de 3 utilisateurs par compte"], 422);
-            $data["provider_id"] = $request->get("provider");
+        } else {
+            // Admin: can assign to a provider or create another admin
+            if ($request->has("provider")) {
+                $users = User::where("provider_id", $request->get("provider"))->get();
+                if ($users->count() >= 3) return response(["status" => "error", "msg" => "Vous avez atteint le maximun de 3 utilisateurs par compte"], 422);
+                $data["provider_id"] = $request->get("provider");
+            }
         }
 
         User::create($data);
