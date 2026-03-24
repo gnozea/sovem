@@ -62,6 +62,9 @@ const Request: FC<IProps> = (props: IProps) => {
                 }
             })
             setBusy(false)
+        }).catch((err: any) => {
+            console.error('[Requests] API error:', err?.response?.status, err?.response?.data ?? err?.message)
+            setBusy(false)
         })
     }
 
