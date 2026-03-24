@@ -9,6 +9,7 @@ use App\Models\Provider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Auth;
@@ -91,7 +92,7 @@ class ProviderController extends Controller
         $spec["email_verification_token"] = $token->email_verification_token;
 
         try {
-            Mail::to($token->email)->queue(new ProviderCreation($spec));
+            if ($token->email) Mail::to($token->email)->queue(new ProviderCreation($spec));
         }catch (\Swift_TransportException $exception){}
         return [
             "status" => "success",
@@ -207,7 +208,7 @@ class ProviderController extends Controller
         ]);
 
         try {
-            Mail::to($request->get('email'))->queue(new ProviderCreation($spec));
+            if ($request->get('email')) Mail::to($request->get('email'))->queue(new ProviderCreation($spec));
         }catch (\Swift_TransportException $exception){}
 
         $save['status'] = "pending";
@@ -274,7 +275,7 @@ class ProviderController extends Controller
                     "button_text" => "Aller au tableau de bord",
                     "message" => "Un administrateur vient d'ajouter " . count($specialists) . " spécialité" . (count($specialists) > 1 ? "s" : "") . " à votre compte sur " . \env("APP_URL") . ". Desormais vous recevrez des demandes de service. "
                 ];
-                Mail::to($provider['email'])->queue(new ProviderActivation($spec));
+                if ($provider['email']) Mail::to($provider['email'])->queue(new ProviderActivation($spec));
             } catch (\Swift_TransportException $exception) {}
         }
 
@@ -348,7 +349,9 @@ class ProviderController extends Controller
 
         if (!$provider) return response(["status" => "error", "msg" => "Prestataire introuvable."], 404);
 
-        // Remove linked users, specialities and services before deleting the provider
+        // Remove all records referencing this provider before deleting
+        DB::table('request_claimed')->where('provider_id', $id)->delete();
+        DB::table('request_logs')->where('provider_id', $id)->delete();
         User::where("provider_id", $id)->delete();
         $provider->provider_specialities()->delete();
         $provider->services()->delete();
@@ -394,7 +397,7 @@ class ProviderController extends Controller
             "message" => "Un admin vient d'activer votre compte. Vous pouvez maintenant accéder au tableau de bord et commencer à accepter des demandes de services."
         ];
         try {
-            Mail::to($item['email'])->queue(new ProviderActivation($spec));
+            if ($item['email']) Mail::to($item['email'])->queue(new ProviderActivation($spec));
         }catch (\Swift_TransportException $exception){
 
         }

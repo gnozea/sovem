@@ -98,7 +98,7 @@ class RequestController extends Controller
 
         $spec["violence_type"] = $request->get('violenceType');
         $spec["uuid"] = $uuid;
-        $recipients = array_unique($recipients);
+        $recipients = array_unique(array_filter($recipients));
 
         $latestRequest = Demand::orderBy('created_at','DESC')->first();
 
