@@ -70,7 +70,6 @@ const Request: FC<IProps> = (props: IProps) => {
 
     useEffect(() => {
         getData()
-        setBusy(false)
     }, [url])
 
     if (busy && !state.length) return <Progress/>
