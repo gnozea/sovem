@@ -86,9 +86,9 @@ class ProviderController extends Controller
     public function resend_verification(Request $request)
     {
         $request->validate([
-            "user" => "required|exists:users,id"
+            "user" => "required|exists:providers,id"
         ]);
-        $token = User::find($request->get("user"));
+        $token = User::where("provider_id", $request->get("user"))->first();
         $spec["email_verification_token"] = $token->email_verification_token;
 
         try {
