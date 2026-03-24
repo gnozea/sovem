@@ -13,8 +13,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
-        "pragmarx/google2fa-laravel": "^2.2",
-        "webpatser/laravel-uuid": "^3.0"
+        "pragmarx/google2fa-laravel": "^2.2"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
