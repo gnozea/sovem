@@ -18,9 +18,9 @@ const NavTop: FC<IProps> = (props: IProps) => {
     return <div className="header pt-2 pb-2">
         <div className="container">
             <div className="d-flex">
-                <a className="header-brand" href="/dashboard">
+                <Link className="header-brand" to="/dashboard">
                     <img src="/images/logo.png" className="header-brand-img" alt="logo"/>
-                </a>
+                </Link>
                 <div className="d-flex order-lg-2 ml-auto">
                     <div className="dropdown d-none d-md-flex">
                         {/*<a className="nav-link icon" data-toggle="dropdown">*/}

@@ -41,7 +41,6 @@ const Users: FC<IProps> = (props: IProps) => {
     }
 
     useEffect(() => {
-        if(user.provider_id) return
         getData()
     }, [])
 
@@ -81,7 +80,7 @@ const Users: FC<IProps> = (props: IProps) => {
     }
 
     // if (user.provider_id) return <Restricted/>
-    if (!users.length) return <Progress/>
+    if (loading) return <Progress/>
 
     function handlePasswordReset(param: {id: any; email: any}) {
         setLoading(true)
