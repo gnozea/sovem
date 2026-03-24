@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Env;
 
-class ProviderActivation extends Mailable
+class ProviderActivation extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

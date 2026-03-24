@@ -132,7 +132,7 @@ class RequestController extends Controller
 
         foreach ($recipients as $recipient) {
             try {
-                Mail::to($recipient)->send(new \App\Mail\Request($spec));
+                Mail::to($recipient)->queue(new \App\Mail\Request($spec));
             }catch (\Exception $exception){
                //print_r($exception->getFile());
             }

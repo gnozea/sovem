@@ -46,18 +46,19 @@ const Request: FC<IProps> = (props: IProps) => {
 
     const getData = () => {
         axios.get(url).then((rep: any) => {
-            dispatch({type: "SET_REQUESTS", payload: rep.data[0].data})
+            const page = rep.data.data
+            dispatch({type: "SET_REQUESTS", payload: page.data})
             setPaginate((prevState: any) => {
                 return {
                     ...prevState,
-                    from: rep.data[0].from,
-                    to: rep.data[0].to,
-                    prev_page_url: rep.data[0].prev_page_url,
-                    next_page_url: rep.data[0].next_page_url,
-                    first_page_url: rep.data[0].first_page_url,
-                    current_page: rep.data[0].current_page,
-                    per_page: rep.data[0].per_page,
-                    path: rep.data[0].path,
+                    from: page.from,
+                    to: page.to,
+                    prev_page_url: page.prev_page_url,
+                    next_page_url: page.next_page_url,
+                    first_page_url: page.first_page_url,
+                    current_page: page.current_page,
+                    per_page: page.per_page,
+                    path: page.path,
                 }
             })
             setBusy(false)

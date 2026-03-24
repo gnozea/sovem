@@ -91,7 +91,7 @@ class ProviderController extends Controller
         $spec["email_verification_token"] = $token->email_verification_token;
 
         try {
-            Mail::to($token->email)->send(new ProviderCreation($spec));
+            Mail::to($token->email)->queue(new ProviderCreation($spec));
         }catch (\Swift_TransportException $exception){}
         return [
             "status" => "success",
@@ -207,7 +207,7 @@ class ProviderController extends Controller
         ]);
 
         try {
-            Mail::to($request->get('email'))->send(new ProviderCreation($spec));
+            Mail::to($request->get('email'))->queue(new ProviderCreation($spec));
         }catch (\Swift_TransportException $exception){}
 
         $save['status'] = "pending";
@@ -274,7 +274,7 @@ class ProviderController extends Controller
                     "button_text" => "Aller au tableau de bord",
                     "message" => "Un administrateur vient d'ajouter " . count($specialists) . " spécialité" . (count($specialists) > 1 ? "s" : "") . " à votre compte sur " . \env("APP_URL") . ". Desormais vous recevrez des demandes de service. "
                 ];
-                Mail::to($provider['email'])->send(new ProviderActivation($spec));
+                Mail::to($provider['email'])->queue(new ProviderActivation($spec));
             } catch (\Swift_TransportException $exception) {}
         }
 
@@ -394,7 +394,7 @@ class ProviderController extends Controller
             "message" => "Un admin vient d'activer votre compte. Vous pouvez maintenant accéder au tableau de bord et commencer à accepter des demandes de services."
         ];
         try {
-            Mail::to($item['email'])->send(new ProviderActivation($spec));
+            Mail::to($item['email'])->queue(new ProviderActivation($spec));
         }catch (\Swift_TransportException $exception){
 
         }
